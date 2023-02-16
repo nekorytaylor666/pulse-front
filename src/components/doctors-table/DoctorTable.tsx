@@ -29,7 +29,7 @@ import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
 import * as React from 'react';
 // Assets
-import { MdEdit, MdOutlinePerson } from 'react-icons/md';
+import { MdEdit, MdPersonAdd } from 'react-icons/md';
 
 type RowObj = {
   name: string[];
@@ -43,7 +43,7 @@ type RowObj = {
 const columnHelper = createColumnHelper<RowObj>();
 
 // const columns = columnsDataCheck;
-export default function LastOfferTable(props: { tableData: any }) {
+export default function DoctorsTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const textColor = useColorModeValue('navy.700', 'white');
@@ -195,8 +195,8 @@ export default function LastOfferTable(props: { tableData: any }) {
           <Menu
             options={[
               {
+                icon: MdPersonAdd,
                 label: 'Добавить Доктора',
-                icon: MdOutlinePerson,
                 onClick: () => {
                   alert('hi');
                 },

@@ -50,6 +50,11 @@ const routes: IRoute[] = [
         layout: '/admin',
         path: '/dashboard/doctors',
       },
+      {
+        name: 'Добавление Доктора',
+        layout: '/admin',
+        path: '/dashboard/new-doctor',
+      },
     ],
   },
   // // --- NFTs ---
