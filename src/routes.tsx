@@ -40,7 +40,25 @@ const routes: IRoute[] = [
   //   ],
   // },
   {
-    name: 'Dashboards',
+    name: 'Клиент',
+    path: '/client',
+    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+    collapse: true,
+    items: [
+      {
+        name: 'Профиль',
+        layout: '/admin',
+        path: '/client/profile',
+      },
+      {
+        name: 'Маркетплейс услуг',
+        layout: '/admin',
+        path: '/client/marketplace',
+      },
+    ],
+  },
+  {
+    name: 'Админ-панель',
     path: '/dashboard',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
     collapse: true,

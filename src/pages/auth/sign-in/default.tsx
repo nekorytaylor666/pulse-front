@@ -20,7 +20,7 @@
 
 */
 
-import React from 'react';
+import React, { useState } from 'react';
 // Chakra imports
 import {
   Box,
@@ -46,6 +46,8 @@ import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
 import NavLink from 'components/link/NavLink';
+import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
 
 function SignIn() {
   // Chakra color mode
@@ -66,6 +68,7 @@ function SignIn() {
   );
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
   return (
     <DefaultAuth
       illustrationBackground={illustration?.src}
@@ -86,7 +89,7 @@ function SignIn() {
       >
         <Box me="auto">
           <Heading color={textColor} fontSize="36px" mb="10px">
-            Sign In
+            Вход
           </Heading>
           <Text
             mb="36px"

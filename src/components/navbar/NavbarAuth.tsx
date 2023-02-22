@@ -62,7 +62,7 @@ export default function AuthNavbar(props: {
     let foundRoute = routes.filter(
       (route) => route.items && route.name === routeName
     );
-    return foundRoute[0].items;
+    return foundRoute?.[0]?.items;
   }
   function getLinksCollapse(routeName: string) {
     let foundRoute = routes.filter(
@@ -111,9 +111,7 @@ export default function AuthNavbar(props: {
         spacing="12px"
         alignItems="center"
         justify="center"
-      >
-        <HorizonLogo h="26px" w="175px" color={logoColor} />
-      </Stack>
+      ></Stack>
       <Text fontSize="sm" mt="3px">
         {logoText}
       </Text>
@@ -152,7 +150,7 @@ export default function AuthNavbar(props: {
     });
   };
   const createDashboardsLinks = (routes: IRoute[]) => {
-    return routes.map((link, key) => {
+    return routes?.map((link, key) => {
       return (
         <Link
           key={key}
@@ -471,22 +469,6 @@ export default function AuthNavbar(props: {
             <SidebarResponsive routes={routes} />
           </Box>
           {linksAuth}
-          <Link href="https://www.horizon-ui.com/pro">
-            <Button
-              bg={bgButton}
-              color={colorButton}
-              fontSize="xs"
-              variant="no-effects"
-              borderRadius="50px"
-              px="45px"
-              display={{
-                sm: 'none',
-                lg: 'flex',
-              }}
-            >
-              Buy Now
-            </Button>
-          </Link>
         </Flex>
       </Flex>
     </SidebarContext.Provider>
