@@ -20,7 +20,7 @@ import { Image } from 'components/image/Image';
 import LinkButton from 'components/link/LinkButton';
 import { format } from 'date-fns';
 
-export default function Booking(props: {
+export default function BookingCard(props: {
   serviceName: string;
   doctorName: string;
   doctorAvatar: string;

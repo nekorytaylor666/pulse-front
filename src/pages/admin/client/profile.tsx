@@ -55,7 +55,7 @@ import AdminLayout from 'layouts/admin/AdminLayout';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import ProfileBanner from 'components/profile/Banner';
-import Booking from 'components/profile/Booking';
+import Booking from 'components/profile/BookingCard';
 import { useQuery } from '@apollo/client';
 import { GET_BOOKINGS_BY_USER_ID } from 'graphql/operations/query/getBookingsByUserId';
 export default function Collection() {

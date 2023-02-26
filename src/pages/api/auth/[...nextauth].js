@@ -1,7 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { CopyIcon } from '@chakra-ui/icons';
 import { client, gql_client } from 'graphql/client';
-import { LoginMutationDocument } from 'graphql/codegen/graphql';
 import { LOGIN_MUTATION } from 'graphql/operations/mutations/login';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';

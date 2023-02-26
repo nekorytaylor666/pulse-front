@@ -13,8 +13,10 @@ import { ApolloProvider } from '@apollo/client';
 import { gql_client } from 'graphql/client';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+const queryClient = new QueryClient();
 
-// import Fonts from 'Fonts';
+import Fonts from 'Fonts';
 function MyApp({
   Component,
   pageProps: { session, ...pageProps },
@@ -27,11 +29,14 @@ function MyApp({
         <meta name="theme-color" content="#000000" />
       </Head>
       <SessionProvider session={session}>
-        <ApolloProvider client={gql_client}>
-          <React.StrictMode>
-            <Component {...pageProps} />
-          </React.StrictMode>
-        </ApolloProvider>
+        <QueryClientProvider client={queryClient}>
+          <ApolloProvider client={gql_client}>
+            <React.StrictMode>
+              <Fonts></Fonts>
+              <Component {...pageProps} />
+            </React.StrictMode>
+          </ApolloProvider>
+        </QueryClientProvider>
       </SessionProvider>
     </ChakraProvider>
   );

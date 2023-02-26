@@ -2,28 +2,23 @@
 import { default as React, useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
-
-const DEFAULT_INITIAL_DATA = () => {
-  return {
-    time: new Date().getTime(),
-    blocks: [
-      {
-        type: 'header',
-        data: {
-          text: 'This is my awesome editor!',
-          level: 1,
-        },
-      },
-    ],
-  };
-};
-
+import Delimiter from '@editorjs/delimiter';
+import NestedList from '@editorjs/nested-list';
+import Checklist from '@editorjs/checklist';
+import ImageTool from '@editorjs/image';
+import Table from '@editorjs/table';
+import AttachesTool from '@editorjs/attaches';
+import LinkAutocomplete from '@editorjs/link-autocomplete';
+import { useSession } from 'next-auth/react';
 const EDITTOR_HOLDER_ID = 'editorjs';
 
-const EditorComponent = (props) => {
+const EditorComponent = ({ onChange, initialData }) => {
   const ejInstance = useRef();
-  const [editorData, setEditorData] = React.useState(DEFAULT_INITIAL_DATA);
-
+  const [editorData, setEditorData] = React.useState(() => initialData);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const uploadApiUrl = `${apiUrl}/filemanager`;
+  const session = useSession();
+  const authorId = session?.data?.user?.user?.id;
   // This will run only once
   useEffect(() => {
     if (!ejInstance.current) {
@@ -40,20 +35,70 @@ const EditorComponent = (props) => {
       holder: EDITTOR_HOLDER_ID,
       logLevel: 'ERROR',
       data: editorData,
+      inlineToolbar: ['bold', 'italic', 'link'],
       onReady: () => {
         ejInstance.current = editor;
       },
-      onChange: async () => {
-        if (!this?.editorjs) {
-          return;
-        }
-        let content = await this.editorjs.saver.save();
-        // Put your logic here to save this data to your DB
+      onChange: async (api, event) => {
+        let content = await api.saver.save();
+        console.log('contenet', content);
+        onChange && onChange(content);
         setEditorData(content);
       },
       autofocus: true,
       tools: {
-        header: Header,
+        link: {
+          class: LinkAutocomplete,
+          config: {
+            endpoint: 'http://localhost:3000/',
+            queryParam: 'search',
+          },
+        },
+        image: {
+          class: ImageTool,
+          config: {
+            field: 'file',
+            endpoints: {
+              byFile: uploadApiUrl, // Your backend file uploader endpoint
+              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+            },
+            additionalRequestHeaders: {
+              authorId,
+              iseditor: true,
+            },
+          },
+        },
+        attaches: {
+          class: AttachesTool,
+          config: {
+            endpoint: uploadApiUrl,
+            additionalRequestHeaders: {
+              authorId,
+              iseditor: true,
+            },
+          },
+        },
+        table: Table,
+        delimiter: Delimiter,
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+        list: {
+          class: NestedList,
+          inlineToolbar: true,
+          config: {
+            defaultStyle: 'unordered',
+          },
+        },
+        header: {
+          class: Header,
+          config: {
+            placeholder: 'Enter a header',
+            levels: [2, 3, 4],
+            defaultLevel: 3,
+          },
+        },
       },
     });
   };

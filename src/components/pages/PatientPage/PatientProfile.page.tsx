@@ -58,12 +58,13 @@ import Nft2 from '/public/img/nfts/Nft2.png';
 import Nft4 from '/public/img/nfts/Nft4.png';
 import Nft5 from '/public/img/nfts/Nft5.png';
 import Nft6 from '/public/img/nfts/Nft6.png';
-import NftBanner3 from '/public/img/nfts/NftBanner3.png';
+import NftBanner2 from '/public/img/nfts/NftBanner2.png';
 import AvatarSimmmple from '/public/img/avatars/avatarSimmmple.png';
 import Avatar1 from '/public/img/avatars/avatar1.png';
 import Avatar2 from '/public/img/avatars/avatar2.png';
 import Avatar3 from '/public/img/avatars/avatar3.png';
 import Avatar4 from '/public/img/avatars/avatar4.png';
+import NftProfile from '/public/img/nfts/NftProfile.png';
 
 import {
   MdDashboard,
@@ -76,12 +77,71 @@ import {
 import { IoMdHeartEmpty } from 'react-icons/io';
 import AdminLayout from 'layouts/admin/AdminLayout';
 import Editor from 'components/editor';
+import BookingListContainter from './BookingsList/BookingsList.container';
+import ConsultationListContainer from './ConsultationLists/ConsultationList.container';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import ProfileBanner from 'components/profile/Banner';
+
+const tabs = [
+  {
+    name: 'Бронирования',
+    icon: MdOutlineCollections,
+  },
+  {
+    name: 'Консультации',
+    icon: MdFormatPaint,
+  },
+  {
+    name: 'Календарь',
+    icon: MdAccessTime,
+  },
+  {
+    name: 'Направления',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Документы',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'О Семье',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'История вызововов СМП',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Рекомендации врача',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Рецепты',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Календарь беременности',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Диспансерный учет',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Напвравления на исследования',
+    icon: MdOutlineLocalOffer,
+  },
+  {
+    name: 'Стационар',
+    icon: MdOutlineLocalOffer,
+  },
+];
 export default function PatientProfilePageComponent() {
   let [tabState, setTabState] = useState('collected');
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const buttonBg = useColorModeValue('transparent', 'navy.800');
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const hoverButton = useColorModeValue(
     { bg: 'gray.100' },
@@ -92,275 +152,87 @@ export default function PatientProfilePageComponent() {
     { bg: 'whiteAlpha.200' }
   );
   const paleGray = useColorModeValue('secondaryGray.400', 'whiteAlpha.100');
+  const session = useSession();
+  if (session.status !== 'loading' && !session.data)
+    return (
+      <AdminLayout>
+        <Box>
+          <Text>Ошибка входа</Text>
+          <Link href={'/auth/sign-in'}>Вход</Link>
+        </Box>
+      </AdminLayout>
+    );
 
+  if (session.status === 'loading') return <p>Loading...</p>;
+  const user = session?.data?.user?.user;
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Editor></Editor>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
       <AdminLayout>
         <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
           {/* Main Fields */}
           <Box mb="20px" display={{ base: 'block', lg: 'grid' }}>
             <Flex flexDirection="column">
-              <Banner
-                image={NftBanner3}
-                profile={AvatarSimmmple}
-                wallet="7MVqsRijvkNBhXSCLSKP2Gpc8HsGVqR7iWnLpZynz8DK"
-                address="simmmple.web"
-                name="Simmmple"
-                date="Joined 17 Nov 2019"
+              <ProfileBanner
+                image={NftBanner2}
+                profile={NftProfile}
+                phoneNumber={user.phoneNumber}
+                name={user.fullName}
+                floor={0.56}
+                volume={33.8}
+                owners={4.6}
+                items={28}
               />
             </Flex>
           </Box>
           <Tabs variant="soft-rounded" colorScheme="brandTabs">
             <TabList
-              mx={{ base: '10px', lg: '30px' }}
+              mx={{ base: '10px', lg: '20px' }}
               overflowX={{ sm: 'scroll', lg: 'unset' }}
             >
               <Flex justify={{ base: 'start', md: 'center' }} w="100%">
-                <Tab
-                  pb="0px"
-                  flexDirection="column"
-                  onClick={function () {
-                    setTabState('collected');
-                  }}
-                  me="50px"
-                  bg="unset"
-                  _selected={{
-                    bg: 'none',
-                  }}
-                  _focus={{ border: 'none' }}
-                  minW="max-content"
-                >
-                  <Flex align="center">
-                    <Icon
-                      color={textColor}
-                      as={MdOutlineCollections}
-                      w="20px"
-                      h="20px"
-                      me="8px"
+                {tabs.map((tab, index) => (
+                  <Tab
+                    key={index}
+                    pb="0px"
+                    flexDirection="column"
+                    onClick={function () {
+                      setTabState(tab.name);
+                    }}
+                    me="24px"
+                    bg="unset"
+                    _selected={{
+                      bg: 'none',
+                    }}
+                    _focus={{ border: 'none' }}
+                    minW="max-content"
+                  >
+                    <Flex align="center">
+                      <Icon
+                        color={textColor}
+                        as={tab.icon}
+                        w="20px"
+                        h="20px"
+                        me="8px"
+                      />
+                      <Text
+                        color={textColor}
+                        fontSize="md"
+                        fontWeight="500"
+                        me="12px"
+                      >
+                        {tab.name}
+                      </Text>
+                    </Flex>
+                    <Box
+                      height="4px"
+                      w="100%"
+                      transition="0.1s linear"
+                      bg={tabState === tab.name ? 'brand.500' : 'transparent'}
+                      mt="15px"
+                      borderRadius="30px"
                     />
-                    <Text
-                      color={textColor}
-                      fontSize="lg"
-                      fontWeight="500"
-                      me="12px"
-                    >
-                      Collected
-                    </Text>
-                    <Text
-                      color="secondaryGray.600"
-                      fontSize="md"
-                      fontWeight="400"
-                    >
-                      0
-                    </Text>
-                  </Flex>
-                  <Box
-                    height="4px"
-                    w="100%"
-                    transition="0.1s linear"
-                    bg={tabState === 'collected' ? 'brand.500' : 'transparent'}
-                    mt="15px"
-                    borderRadius="30px"
-                  />
-                </Tab>
-                <Tab
-                  onClick={function () {
-                    setTabState('created');
-                  }}
-                  pb="0px"
-                  me="50px"
-                  bg="unset"
-                  _selected={{
-                    bg: 'none',
-                  }}
-                  _focus={{ border: 'none' }}
-                  minW="max-content"
-                  flexDirection="column"
-                >
-                  <Flex align="center">
-                    <Icon
-                      color={textColor}
-                      as={MdFormatPaint}
-                      w="20px"
-                      h="20px"
-                      me="8px"
-                    />
-                    <Text
-                      color={textColor}
-                      fontSize="lg"
-                      fontWeight="500"
-                      me="12px"
-                    >
-                      Created
-                    </Text>
-                    <Text
-                      color="secondaryGray.600"
-                      fontSize="md"
-                      fontWeight="400"
-                    >
-                      4
-                    </Text>
-                  </Flex>
-                  <Box
-                    height="4px"
-                    w="100%"
-                    transition="0.1s linear"
-                    bg={tabState === 'created' ? 'brand.500' : 'transparent'}
-                    mt="15px"
-                    borderRadius="30px"
-                  />
-                </Tab>
-                <Tab
-                  pb="0px"
-                  flexDirection="column"
-                  onClick={function () {
-                    setTabState('favorited');
-                  }}
-                  me="50px"
-                  bg="unset"
-                  _selected={{
-                    bg: 'none',
-                  }}
-                  _focus={{ border: 'none' }}
-                  minW="max-content"
-                >
-                  <Flex align="center">
-                    <Icon
-                      color={textColor}
-                      as={IoMdHeartEmpty}
-                      w="20px"
-                      h="20px"
-                      me="8px"
-                    />
-                    <Text
-                      color={textColor}
-                      fontSize="lg"
-                      fontWeight="500"
-                      me="12px"
-                    >
-                      Favorited
-                    </Text>
-                    <Text
-                      color="secondaryGray.600"
-                      fontSize="md"
-                      fontWeight="400"
-                    >
-                      12
-                    </Text>
-                  </Flex>
-                  <Box
-                    height="4px"
-                    w="100%"
-                    transition="0.1s linear"
-                    bg={tabState === 'favorited' ? 'brand.500' : 'transparent'}
-                    mt="15px"
-                    borderRadius="30px"
-                  />
-                </Tab>
-                <Tab
-                  pb="0px"
-                  flexDirection="column"
-                  onClick={function () {
-                    setTabState('activity');
-                  }}
-                  me="50px"
-                  bg="unset"
-                  _selected={{
-                    bg: 'none',
-                  }}
-                  _focus={{ border: 'none' }}
-                  minW="max-content"
-                >
-                  <Flex align="center">
-                    <Icon
-                      color={textColor}
-                      as={MdAccessTime}
-                      w="20px"
-                      h="20px"
-                      me="8px"
-                    />
-                    <Text
-                      color={textColor}
-                      fontSize="lg"
-                      fontWeight="500"
-                      me="12px"
-                    >
-                      Activity
-                    </Text>
-                  </Flex>
-                  <Box
-                    height="4px"
-                    w="100%"
-                    transition="0.1s linear"
-                    bg={tabState === 'activity' ? 'brand.500' : 'transparent'}
-                    mt="15px"
-                    borderRadius="30px"
-                  />
-                </Tab>
-                <Tab
-                  pb="0px"
-                  flexDirection="column"
-                  onClick={function () {
-                    setTabState('offers');
-                  }}
-                  me="50px"
-                  bg="unset"
-                  _selected={{
-                    bg: 'none',
-                  }}
-                  _focus={{ border: 'none' }}
-                  minW="max-content"
-                >
-                  <Flex align="center">
-                    <Icon
-                      color={textColor}
-                      as={MdOutlineLocalOffer}
-                      w="20px"
-                      h="20px"
-                      me="8px"
-                    />
-                    <Text
-                      color={textColor}
-                      fontSize="lg"
-                      fontWeight="500"
-                      me="12px"
-                    >
-                      Offers
-                    </Text>
-                    <Text
-                      color="secondaryGray.600"
-                      fontSize="md"
-                      fontWeight="400"
-                    >
-                      7
-                    </Text>
-                  </Flex>
-                  <Box
-                    height="4px"
-                    w="100%"
-                    transition="0.1s linear"
-                    bg={tabState === 'offers' ? 'brand.500' : 'transparent'}
-                    mt="15px"
-                    borderRadius="30px"
-                  />
-                </Tab>
+                  </Tab>
+                ))}
               </Flex>
             </TabList>
             <HSeparator mb="30px" bg={paleGray} mt="0px" />
@@ -423,19 +295,23 @@ export default function PatientProfilePageComponent() {
                 <Icon color={textColor} as={MdApps} />
               </Button>
             </Flex>
-            <Text
-              mt="25px"
-              mb="36px"
-              color={textColor}
-              fontSize="2xl"
-              ms="24px"
-              fontWeight="700"
-            >
-              4 Results
-            </Text>
-            <Button onClick={onOpen}>Open Modal</Button>
 
             <TabPanels>
+              <TabPanel px="0px">
+                <BookingListContainter></BookingListContainter>
+              </TabPanel>
+              <TabPanel px="0px">
+                <ConsultationListContainer></ConsultationListContainer>
+              </TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">test</TabPanel>
               <TabPanel px="0px">test</TabPanel>
               <TabPanel px="0px">test</TabPanel>
               <TabPanel px="0px">test</TabPanel>

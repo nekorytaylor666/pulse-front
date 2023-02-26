@@ -7,3 +7,39 @@ body {
 option {
   color: black;
 }
+
+.sc_attr {
+  color: rgb(148, 162, 192);
+}
+.sc_key {
+  color: rgb(190, 213, 255);
+}
+.sc_toolname {
+  color: rgb(15, 205, 251);
+}
+.sc_tag {
+  color: rgb(4, 131, 216);
+}
+.sc_bool {
+  color: rgb(247, 60, 173);
+}
+
+.ce-header {
+  font-weight: bold;
+}
+
+.ce-block:first-of-type h2.ce-header {
+  font-size: 50px;
+}
+
+h2.ce-header {
+  font-size: 30px;
+}
+
+h3.ce-header {
+  font-size: 24px;
+}
+
+h4.ce-header {
+  font-size: 18px;
+}
