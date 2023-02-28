@@ -116,107 +116,6 @@ export type App_RoutingForms_FormResponse = {
   response: Scalars['JSON'];
 };
 
-export type Appointment = {
-  __typename?: 'Appointment';
-  author: PulseUserId;
-  authorId: Scalars['String'];
-  content?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  date: Scalars['DateTime'];
-  id: Scalars['ID'];
-  patient: PulseUserId;
-  patientId: Scalars['String'];
-  title: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
-};
-
-export type AppointmentCreateInput = {
-  author: UserCreateNestedOneWithoutAppointmentsAsAuthorInput;
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
-  id?: InputMaybe<Scalars['String']>;
-  patient: UserCreateNestedOneWithoutAppointmentsAsPatientInput;
-  title: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type AppointmentCreateManyAuthorInput = {
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
-  id?: InputMaybe<Scalars['String']>;
-  patientId: Scalars['String'];
-  title: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type AppointmentCreateManyAuthorInputEnvelope = {
-  data: Array<AppointmentCreateManyAuthorInput>;
-};
-
-export type AppointmentCreateManyPatientInput = {
-  authorId: Scalars['String'];
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
-  id?: InputMaybe<Scalars['String']>;
-  title: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type AppointmentCreateManyPatientInputEnvelope = {
-  data: Array<AppointmentCreateManyPatientInput>;
-};
-
-export type AppointmentCreateNestedManyWithoutAuthorInput = {
-  connect?: InputMaybe<Array<AppointmentWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<AppointmentCreateOrConnectWithoutAuthorInput>>;
-  create?: InputMaybe<Array<AppointmentCreateWithoutAuthorInput>>;
-  createMany?: InputMaybe<AppointmentCreateManyAuthorInputEnvelope>;
-};
-
-export type AppointmentCreateNestedManyWithoutPatientInput = {
-  connect?: InputMaybe<Array<AppointmentWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<AppointmentCreateOrConnectWithoutPatientInput>>;
-  create?: InputMaybe<Array<AppointmentCreateWithoutPatientInput>>;
-  createMany?: InputMaybe<AppointmentCreateManyPatientInputEnvelope>;
-};
-
-export type AppointmentCreateOrConnectWithoutAuthorInput = {
-  create: AppointmentCreateWithoutAuthorInput;
-  where: AppointmentWhereUniqueInput;
-};
-
-export type AppointmentCreateOrConnectWithoutPatientInput = {
-  create: AppointmentCreateWithoutPatientInput;
-  where: AppointmentWhereUniqueInput;
-};
-
-export type AppointmentCreateWithoutAuthorInput = {
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
-  id?: InputMaybe<Scalars['String']>;
-  patient: UserCreateNestedOneWithoutAppointmentsAsPatientInput;
-  title: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type AppointmentCreateWithoutPatientInput = {
-  author: UserCreateNestedOneWithoutAppointmentsAsAuthorInput;
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
-  id?: InputMaybe<Scalars['String']>;
-  title: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type AppointmentWhereUniqueInput = {
-  id?: InputMaybe<Scalars['String']>;
-};
-
 export type Attendee = {
   __typename?: 'Attendee';
   booking?: Maybe<Booking>;
@@ -225,7 +124,6 @@ export type Attendee = {
   id: Scalars['ID'];
   locale?: Maybe<Scalars['String']>;
   name: Scalars['String'];
-  pulseUserId?: Maybe<Scalars['String']>;
   timeZone: Scalars['String'];
 };
 
@@ -235,7 +133,7 @@ export type Auth = {
   accessToken: Scalars['JWT'];
   /** JWT refresh token */
   refreshToken: Scalars['JWT'];
-  user: PulseUserId;
+  user: PulseUser;
 };
 
 export type Availability = {
@@ -325,6 +223,95 @@ export type ChangePasswordInput = {
   oldPassword: Scalars['String'];
 };
 
+export type ConsulationList = {
+  __typename?: 'ConsulationList';
+  author: PulseUser;
+  authorId: Scalars['String'];
+  content?: Maybe<Scalars['JSON']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  patient: PulseUser;
+  patientId: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ConsulationListCreateInput = {
+  author: PulseUserCreateNestedOneWithoutAppointmentsAsAuthorInput;
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  patient: PulseUserCreateNestedOneWithoutAppointmentsAsPatientInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ConsulationListCreateManyAuthorInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  patientId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ConsulationListCreateManyAuthorInputEnvelope = {
+  data: Array<ConsulationListCreateManyAuthorInput>;
+};
+
+export type ConsulationListCreateManyPatientInput = {
+  authorId: Scalars['String'];
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ConsulationListCreateManyPatientInputEnvelope = {
+  data: Array<ConsulationListCreateManyPatientInput>;
+};
+
+export type ConsulationListCreateNestedManyWithoutAuthorInput = {
+  connect?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ConsulationListCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<ConsulationListCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<ConsulationListCreateManyAuthorInputEnvelope>;
+};
+
+export type ConsulationListCreateNestedManyWithoutPatientInput = {
+  connect?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ConsulationListCreateOrConnectWithoutPatientInput>>;
+  create?: InputMaybe<Array<ConsulationListCreateWithoutPatientInput>>;
+  createMany?: InputMaybe<ConsulationListCreateManyPatientInputEnvelope>;
+};
+
+export type ConsulationListCreateOrConnectWithoutAuthorInput = {
+  create: ConsulationListCreateWithoutAuthorInput;
+  where: ConsulationListWhereUniqueInput;
+};
+
+export type ConsulationListCreateOrConnectWithoutPatientInput = {
+  create: ConsulationListCreateWithoutPatientInput;
+  where: ConsulationListWhereUniqueInput;
+};
+
+export type ConsulationListCreateWithoutAuthorInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  patient: PulseUserCreateNestedOneWithoutAppointmentsAsPatientInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ConsulationListCreateWithoutPatientInput = {
+  author: PulseUserCreateNestedOneWithoutAppointmentsAsAuthorInput;
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ConsulationListWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']>;
+};
+
 export type Credential = {
   __typename?: 'Credential';
   _count: CredentialCount;
@@ -374,7 +361,7 @@ export type Doctor = {
   specializations?: Maybe<Array<Specialization>>;
   specializationsIds?: Maybe<Array<Scalars['String']>>;
   updatedAt: Scalars['DateTime'];
-  user: PulseUserId;
+  user: PulseUser;
   userId: Scalars['String'];
 };
 
@@ -391,7 +378,7 @@ export type DoctorCreateInput = {
   specializations?: InputMaybe<SpecializationCreateNestedManyWithoutDoctorInput>;
   specializationsIds?: InputMaybe<DoctorCreatespecializationsIdsInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
-  user: UserCreateNestedOneWithoutDoctorInput;
+  user: PulseUserCreateNestedOneWithoutDoctorInput;
 };
 
 export type DoctorCreateNestedManyWithoutSpecializationsInput = {
@@ -423,7 +410,7 @@ export type DoctorCreateWithoutSpecializationsInput = {
   id?: InputMaybe<Scalars['String']>;
   specializationsIds?: InputMaybe<DoctorCreatespecializationsIdsInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
-  user: UserCreateNestedOneWithoutDoctorInput;
+  user: PulseUserCreateNestedOneWithoutDoctorInput;
 };
 
 export type DoctorCreateWithoutUserInput = {
@@ -538,6 +525,66 @@ export type Feedback = {
   userId: Scalars['Int'];
 };
 
+export type FileEntity = {
+  __typename?: 'FileEntity';
+  author: PulseUser;
+  authorId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  fileName: Scalars['String'];
+  fileUrl: Scalars['String'];
+  id: Scalars['ID'];
+  key: Scalars['String'];
+  metadata: Scalars['JSON'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type FileEntityCreateManyAuthorInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  fileName: Scalars['String'];
+  fileUrl: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  key: Scalars['String'];
+  metadata?: InputMaybe<Scalars['JSON']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FileEntityCreateManyAuthorInputEnvelope = {
+  data: Array<FileEntityCreateManyAuthorInput>;
+};
+
+export type FileEntityCreateNestedManyWithoutAuthorInput = {
+  connect?: InputMaybe<Array<FileEntityWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<FileEntityCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<FileEntityCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<FileEntityCreateManyAuthorInputEnvelope>;
+};
+
+export type FileEntityCreateOrConnectWithoutAuthorInput = {
+  create: FileEntityCreateWithoutAuthorInput;
+  where: FileEntityWhereUniqueInput;
+};
+
+export type FileEntityCreateWithoutAuthorInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  fileName: Scalars['String'];
+  fileUrl: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  key: Scalars['String'];
+  metadata?: InputMaybe<Scalars['JSON']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FileEntityWhereUniqueInput = {
+  authorId?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+};
+
+export type GetBookingType = {
+  __typename?: 'GetBookingType';
+  bookings: Array<Booking>;
+  doctors: Array<Doctor>;
+};
+
 export type HashedLink = {
   __typename?: 'HashedLink';
   eventType: EventType;
@@ -596,18 +643,18 @@ export enum MembershipRole {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  changePassword: PulseUserId;
+  changePassword: PulseUser;
   creaeteSpec: Specialization;
-  createAppointment: Appointment;
   createBooking: Booking;
   createBookingByUserId: Booking;
+  createConsultationList: ConsulationList;
   createDoctor: Doctor;
   login: Auth;
   loginBySms: Scalars['Boolean'];
   loginVerify: Auth;
   refreshToken: Token;
   signup: Scalars['Boolean'];
-  updateUser: PulseUserId;
+  updateUser: PulseUser;
   verifyCode: Auth;
 };
 
@@ -619,11 +666,6 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreaeteSpecArgs = {
   data: SpecializationCreateInput;
-};
-
-
-export type MutationCreateAppointmentArgs = {
-  create: AppointmentCreateInput;
 };
 
 
@@ -639,6 +681,11 @@ export type MutationCreateBookingByUserIdArgs = {
   eventTypeId: Scalars['Float'];
   startTime: Scalars['DateTime'];
   userId: Scalars['String'];
+};
+
+
+export type MutationCreateConsultationListArgs = {
+  create: ConsulationListCreateInput;
 };
 
 
@@ -717,20 +764,141 @@ export type PhoneLoginInput = {
   phoneNumber: Scalars['String'];
 };
 
+export type PulseUser = {
+  __typename?: 'PulseUser';
+  _count: PulseUserCount;
+  address: Scalars['String'];
+  appointmentsAsAuthor?: Maybe<Array<ConsulationList>>;
+  appointmentsAsPatient?: Maybe<Array<ConsulationList>>;
+  authoredFiles?: Maybe<Array<FileEntity>>;
+  createdAt: Scalars['DateTime'];
+  doctor?: Maybe<Doctor>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  id: Scalars['ID'];
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  role: Role;
+  uniqueName: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type PulseUserCount = {
+  __typename?: 'PulseUserCount';
+  appointmentsAsAuthor: Scalars['Int'];
+  appointmentsAsPatient: Scalars['Int'];
+  authoredFiles: Scalars['Int'];
+};
+
+export type PulseUserCreateNestedOneWithoutAppointmentsAsAuthorInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutAppointmentsAsAuthorInput>;
+  create?: InputMaybe<PulseUserCreateWithoutAppointmentsAsAuthorInput>;
+};
+
+export type PulseUserCreateNestedOneWithoutAppointmentsAsPatientInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutAppointmentsAsPatientInput>;
+  create?: InputMaybe<PulseUserCreateWithoutAppointmentsAsPatientInput>;
+};
+
+export type PulseUserCreateNestedOneWithoutDoctorInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutDoctorInput>;
+  create?: InputMaybe<PulseUserCreateWithoutDoctorInput>;
+};
+
+export type PulseUserCreateOrConnectWithoutAppointmentsAsAuthorInput = {
+  create: PulseUserCreateWithoutAppointmentsAsAuthorInput;
+  where: PulseUserWhereUniqueInput;
+};
+
+export type PulseUserCreateOrConnectWithoutAppointmentsAsPatientInput = {
+  create: PulseUserCreateWithoutAppointmentsAsPatientInput;
+  where: PulseUserWhereUniqueInput;
+};
+
+export type PulseUserCreateOrConnectWithoutDoctorInput = {
+  create: PulseUserCreateWithoutDoctorInput;
+  where: PulseUserWhereUniqueInput;
+};
+
+export type PulseUserCreateWithoutAppointmentsAsAuthorInput = {
+  address: Scalars['String'];
+  appointmentsAsPatient?: InputMaybe<ConsulationListCreateNestedManyWithoutPatientInput>;
+  authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  role?: InputMaybe<Role>;
+  uniqueName: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PulseUserCreateWithoutAppointmentsAsPatientInput = {
+  address: Scalars['String'];
+  appointmentsAsAuthor?: InputMaybe<ConsulationListCreateNestedManyWithoutAuthorInput>;
+  authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  role?: InputMaybe<Role>;
+  uniqueName: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PulseUserCreateWithoutDoctorInput = {
+  address: Scalars['String'];
+  appointmentsAsAuthor?: InputMaybe<ConsulationListCreateNestedManyWithoutAuthorInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListCreateNestedManyWithoutPatientInput>;
+  authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  role?: InputMaybe<Role>;
+  uniqueName: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PulseUserWhereUniqueInput = {
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  phoneNumber?: InputMaybe<Scalars['String']>;
+  uniqueName?: InputMaybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
-  appointments: Array<Appointment>;
   bookingsByUser: Array<Booking>;
+  getAllUsers: Array<PulseUser>;
+  getConsultationListById: ConsulationList;
   getDoctors: Array<Doctor>;
   getEventTypeFull: Array<EventType>;
+  getMyBookings: GetBookingType;
   getSchedule: Array<Schedule>;
-  getUser: PulseUserId;
-  me: PulseUserId;
+  getUserById: PulseUser;
+  me: PulseUser;
 };
 
 
 export type QueryBookingsByUserArgs = {
   userId: Scalars['String'];
+};
+
+
+export type QueryGetConsultationListByIdArgs = {
+  consultationListId: Scalars['String'];
 };
 
 
@@ -741,6 +909,11 @@ export type QueryGetEventTypeFullArgs = {
 
 export type QueryGetScheduleArgs = {
   calUserId: Scalars['Float'];
+};
+
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['String'];
 };
 
 export enum Role {
@@ -893,7 +1066,7 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: 'User';
   Feedback?: Maybe<Array<Feedback>>;
-  _count: CalUserCount;
+  _count: UserCount;
   accounts?: Maybe<Array<Account>>;
   allowDynamicBooking?: Maybe<Scalars['Boolean']>;
   apiKeys?: Maybe<Array<ApiKey>>;
@@ -951,99 +1124,31 @@ export type User = {
 
 export type UserCount = {
   __typename?: 'UserCount';
-  appointmentsAsAuthor: Scalars['Int'];
-  appointmentsAsPatient: Scalars['Int'];
-};
-
-export type UserCreateNestedOneWithoutAppointmentsAsAuthorInput = {
-  connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutAppointmentsAsAuthorInput>;
-  create?: InputMaybe<UserCreateWithoutAppointmentsAsAuthorInput>;
-};
-
-export type UserCreateNestedOneWithoutAppointmentsAsPatientInput = {
-  connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutAppointmentsAsPatientInput>;
-  create?: InputMaybe<UserCreateWithoutAppointmentsAsPatientInput>;
-};
-
-export type UserCreateNestedOneWithoutDoctorInput = {
-  connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutDoctorInput>;
-  create?: InputMaybe<UserCreateWithoutDoctorInput>;
-};
-
-export type UserCreateOrConnectWithoutAppointmentsAsAuthorInput = {
-  create: UserCreateWithoutAppointmentsAsAuthorInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutAppointmentsAsPatientInput = {
-  create: UserCreateWithoutAppointmentsAsPatientInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutDoctorInput = {
-  create: UserCreateWithoutDoctorInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateWithoutAppointmentsAsAuthorInput = {
-  address: Scalars['String'];
-  appointmentsAsPatient?: InputMaybe<AppointmentCreateNestedManyWithoutPatientInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
-  email: Scalars['String'];
-  fullName: Scalars['String'];
-  id?: InputMaybe<Scalars['String']>;
-  password: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  role?: InputMaybe<Role>;
-  uniqueName: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type UserCreateWithoutAppointmentsAsPatientInput = {
-  address: Scalars['String'];
-  appointmentsAsAuthor?: InputMaybe<AppointmentCreateNestedManyWithoutAuthorInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
-  email: Scalars['String'];
-  fullName: Scalars['String'];
-  id?: InputMaybe<Scalars['String']>;
-  password: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  role?: InputMaybe<Role>;
-  uniqueName: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type UserCreateWithoutDoctorInput = {
-  address: Scalars['String'];
-  appointmentsAsAuthor?: InputMaybe<AppointmentCreateNestedManyWithoutAuthorInput>;
-  appointmentsAsPatient?: InputMaybe<AppointmentCreateNestedManyWithoutPatientInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  email: Scalars['String'];
-  fullName: Scalars['String'];
-  id?: InputMaybe<Scalars['String']>;
-  password: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  role?: InputMaybe<Role>;
-  uniqueName: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  Feedback: Scalars['Int'];
+  accounts: Scalars['Int'];
+  apiKeys: Scalars['Int'];
+  availability: Scalars['Int'];
+  bookings: Scalars['Int'];
+  credentials: Scalars['Int'];
+  eventTypes: Scalars['Int'];
+  hosts: Scalars['Int'];
+  impersonatedBy: Scalars['Int'];
+  impersonatedUsers: Scalars['Int'];
+  ownedEventTypes: Scalars['Int'];
+  routingForms: Scalars['Int'];
+  schedules: Scalars['Int'];
+  selectedCalendars: Scalars['Int'];
+  sessions: Scalars['Int'];
+  teams: Scalars['Int'];
+  verifiedNumbers: Scalars['Int'];
+  webhooks: Scalars['Int'];
+  workflows: Scalars['Int'];
 };
 
 export enum UserPermissionRole {
   Admin = 'ADMIN',
   User = 'USER'
 }
-
-export type UserWhereUniqueInput = {
-  email?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['String']>;
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  uniqueName?: InputMaybe<Scalars['String']>;
-};
 
 export type VerifiedNumber = {
   __typename?: 'VerifiedNumber';
@@ -1169,46 +1274,12 @@ export type WorkflowsOnEventTypes = {
   workflowId: Scalars['Int'];
 };
 
-export type CalUserCount = {
-  __typename?: 'calUserCount';
-  Feedback: Scalars['Int'];
-  accounts: Scalars['Int'];
-  apiKeys: Scalars['Int'];
-  availability: Scalars['Int'];
-  bookings: Scalars['Int'];
-  credentials: Scalars['Int'];
-  eventTypes: Scalars['Int'];
-  hosts: Scalars['Int'];
-  impersonatedBy: Scalars['Int'];
-  impersonatedUsers: Scalars['Int'];
-  ownedEventTypes: Scalars['Int'];
-  routingForms: Scalars['Int'];
-  schedules: Scalars['Int'];
-  selectedCalendars: Scalars['Int'];
-  sessions: Scalars['Int'];
-  teams: Scalars['Int'];
-  verifiedNumbers: Scalars['Int'];
-  webhooks: Scalars['Int'];
-  workflows: Scalars['Int'];
-};
+export type GetConsultationListByIdQueryVariables = Exact<{
+  consultationListId: Scalars['String'];
+}>;
 
-export type PulseUserId = {
-  __typename?: 'pulseUserId';
-  _count: UserCount;
-  address: Scalars['String'];
-  appointmentsAsAuthor?: Maybe<Array<Appointment>>;
-  appointmentsAsPatient?: Maybe<Array<Appointment>>;
-  createdAt: Scalars['DateTime'];
-  doctor?: Maybe<Doctor>;
-  email: Scalars['String'];
-  fullName: Scalars['String'];
-  id: Scalars['ID'];
-  password: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  role: Role;
-  uniqueName: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
-};
+
+export type GetConsultationListByIdQuery = { __typename?: 'Query', getConsultationListById: { __typename?: 'ConsulationList', id: string, content?: any | null, createdAt: any, updatedAt: any, patient: { __typename?: 'PulseUser', id: string, fullName: string, email: string, phoneNumber: string, address: string }, author: { __typename?: 'PulseUser', fullName: string, phoneNumber: string, email: string, address: string, id: string } } };
 
 export type Get_Bookings_By_User_IdQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -1217,5 +1288,28 @@ export type Get_Bookings_By_User_IdQueryVariables = Exact<{
 
 export type Get_Bookings_By_User_IdQuery = { __typename?: 'Query', bookingsByUser: Array<{ __typename?: 'Booking', id: string, uid: string, description?: string | null, title: string, startTime: any, endTime: any, user?: { __typename?: 'User', name?: string | null, bio?: string | null, email: string } | null }> };
 
+export type CreataeConsultationListMutationVariables = Exact<{
+  createConsultationListCreate: ConsulationListCreateInput;
+}>;
 
+
+export type CreataeConsultationListMutation = { __typename?: 'Mutation', createConsultationList: { __typename?: 'ConsulationList', authorId: string, content?: any | null, id: string, patientId: string } };
+
+export type GetUserByIdQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserByIdQuery = { __typename?: 'Query', getUserById: { __typename?: 'PulseUser', fullName: string, id: string, email: string, createdAt: any, phoneNumber: string, updatedAt: any, uniqueName: string, address: string, appointmentsAsPatient?: Array<{ __typename?: 'ConsulationList', content?: any | null, createdAt: any, id: string, updatedAt: any, author: { __typename?: 'PulseUser', email: string, fullName: string, id: string, phoneNumber: string, uniqueName: string } }> | null }, bookingsByUser: Array<{ __typename?: 'Booking', id: string, uid: string, description?: string | null, title: string, startTime: any, endTime: any, user?: { __typename?: 'User', name?: string | null, bio?: string | null, email: string } | null }> };
+
+export type GetPatientsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPatientsQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'PulseUser', id: string, fullName: string, email: string, createdAt: any, phoneNumber: string, updatedAt: any }> };
+
+
+export const GetConsultationListByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetConsultationListById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"consultationListId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getConsultationListById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"consultationListId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"consultationListId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetConsultationListByIdQuery, GetConsultationListByIdQueryVariables>;
 export const Get_Bookings_By_User_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_BOOKINGS_BY_USER_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bookingsByUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"startTime"}},{"kind":"Field","name":{"kind":"Name","value":"endTime"}}]}}]}}]} as unknown as DocumentNode<Get_Bookings_By_User_IdQuery, Get_Bookings_By_User_IdQueryVariables>;
+export const CreataeConsultationListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreataeConsultationList"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"createConsultationListCreate"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ConsulationListCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createConsultationList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"create"},"value":{"kind":"Variable","name":{"kind":"Name","value":"createConsultationListCreate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authorId"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"patientId"}}]}}]}}]} as unknown as DocumentNode<CreataeConsultationListMutation, CreataeConsultationListMutationVariables>;
+export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUserById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"appointmentsAsPatient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bookingsByUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"startTime"}},{"kind":"Field","name":{"kind":"Name","value":"endTime"}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const GetPatientsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPatients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetPatientsQuery, GetPatientsQueryVariables>;

@@ -20,6 +20,7 @@ import { EthereumLogoOutline } from 'components/icons/Icons';
 import React, { useState } from 'react';
 import { IoLogoInstagram } from 'react-icons/io5';
 import { MdOutlineUpgrade } from 'react-icons/md';
+import { ConsultationLists } from './ConsultationList.container';
 import ConsultationListCard from './ConsultationListsItem';
 
 const DEFAULT_INITIAL_DATA = {
@@ -35,9 +36,14 @@ const DEFAULT_INITIAL_DATA = {
   ],
 };
 
-const ConsultationListComponent = () => {
+interface Props {
+  consultationArray: ConsultationLists;
+  onCreateConsultationList: (data: OutputData) => void;
+}
+
+const ConsultationListComponent: React.FC<Props> = (props) => {
+  const { consultationArray } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [listsData, setListsData] = useState<OutputData[]>([]);
 
   return (
     <>
@@ -45,7 +51,7 @@ const ConsultationListComponent = () => {
         isOpen={isOpen}
         onClose={onClose}
         onSave={(data) => {
-          setListsData((prev) => [...prev, data]);
+          props.onCreateConsultationList(data);
         }}
       ></NewConsultationListModal>
       <Flex my={'8'} align="center" justify={'space-between'}>
@@ -55,22 +61,22 @@ const ConsultationListComponent = () => {
         </Button>
       </Flex>
       <SimpleGrid columns={3} gap="20px">
-        {listsData.map((data, index) => (
+        {consultationArray.map((data, index) => (
           <>
             <ConsultationListCard
-              content={data}
+              content={data.content}
               onSave={(data) => {
-                setListsData((prev) =>
-                  prev.map((item, i) => (i === index ? data : item))
-                );
+                // setListsData((prev) =>
+                //   prev.map((item, i) => (i === index ? data : item))
+                // );
               }}
               key={index}
               bgBox="linear-gradient(115.07deg, #29E9F5 -9.41%, #7A64FF 28.04%, #FF508B 71.85%, #FD6D53 112.49%, #FD6D53 112.49%)"
               icon={
                 <Icon as={IoLogoInstagram} color="white" w="100px" h="100px" />
               }
-              title={data.blocks[0].data.text ?? 'Без названия'}
-              desc={data.blocks[1].data.text ?? 'Без описания'}
+              title={data.content.blocks[0]?.data.text ?? 'Без названия'}
+              desc={data.content.blocks[1]?.data.text ?? 'Без описания'}
               day="Mon"
               date="January 05"
               topics={['Терапевт', 'Педиатр']}

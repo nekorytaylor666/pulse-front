@@ -45,6 +45,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
+  Portal,
 } from '@chakra-ui/react';
 
 // Custom components
@@ -82,6 +91,8 @@ import ConsultationListContainer from './ConsultationLists/ConsultationList.cont
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import ProfileBanner from 'components/profile/Banner';
+import { useGetUserById } from './graphql/getPatientById';
+import BookingListComponent from './BookingsList/BookingList.component';
 
 const tabs = [
   {
@@ -104,6 +115,9 @@ const tabs = [
     name: 'Документы',
     icon: MdOutlineLocalOffer,
   },
+];
+
+const otherTabs = [
   {
     name: 'О Семье',
     icon: MdOutlineLocalOffer,
@@ -137,7 +151,18 @@ const tabs = [
     icon: MdOutlineLocalOffer,
   },
 ];
-export default function PatientProfilePageComponent() {
+
+export type User = ReturnType<typeof useGetUserById>['data']['getUserById'];
+export type Bookings = ReturnType<
+  typeof useGetUserById
+>['data']['bookingsByUser'];
+interface Props {
+  user: User;
+  bookings: Bookings;
+}
+
+export default function PatientProfilePageComponent(props: Props) {
+  const { user, bookings } = props;
   let [tabState, setTabState] = useState('collected');
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -153,18 +178,7 @@ export default function PatientProfilePageComponent() {
   );
   const paleGray = useColorModeValue('secondaryGray.400', 'whiteAlpha.100');
   const session = useSession();
-  if (session.status !== 'loading' && !session.data)
-    return (
-      <AdminLayout>
-        <Box>
-          <Text>Ошибка входа</Text>
-          <Link href={'/auth/sign-in'}>Вход</Link>
-        </Box>
-      </AdminLayout>
-    );
 
-  if (session.status === 'loading') return <p>Loading...</p>;
-  const user = session?.data?.user?.user;
   return (
     <>
       <AdminLayout>
@@ -233,6 +247,58 @@ export default function PatientProfilePageComponent() {
                     />
                   </Tab>
                 ))}
+                <Popover>
+                  <PopoverTrigger>
+                    <Button>Другое</Button>
+                  </PopoverTrigger>
+                  <Portal>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverHeader>Другое</PopoverHeader>
+                      <PopoverCloseButton />
+                      <PopoverBody>
+                        <Flex direction={'column'}>
+                          {otherTabs.map((tab, index) => (
+                            <Tab
+                              key={index}
+                              pb="16px"
+                              borderBottom={`1px solid ${paleGray}`}
+                              flexDirection="column"
+                              onClick={function () {
+                                setTabState(tab.name);
+                              }}
+                              me="24px"
+                              bg="unset"
+                              _selected={{
+                                bg: 'none',
+                              }}
+                              _focus={{ border: 'none' }}
+                              minW="max-content"
+                            >
+                              <Flex width={'full'} align="flex-start">
+                                <Icon
+                                  color={textColor}
+                                  as={tab.icon}
+                                  w="20px"
+                                  h="20px"
+                                  me="8px"
+                                />
+                                <Text
+                                  color={textColor}
+                                  fontSize="md"
+                                  fontWeight="500"
+                                  me="12px"
+                                >
+                                  {tab.name}
+                                </Text>
+                              </Flex>
+                            </Tab>
+                          ))}
+                        </Flex>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Portal>
+                </Popover>
               </Flex>
             </TabList>
             <HSeparator mb="30px" bg={paleGray} mt="0px" />
@@ -298,10 +364,12 @@ export default function PatientProfilePageComponent() {
 
             <TabPanels>
               <TabPanel px="0px">
-                <BookingListContainter></BookingListContainter>
+                <BookingListComponent bookings={bookings} />
               </TabPanel>
               <TabPanel px="0px">
-                <ConsultationListContainer></ConsultationListContainer>
+                <ConsultationListContainer
+                  consultationLists={user.appointmentsAsPatient}
+                ></ConsultationListContainer>
               </TabPanel>
               <TabPanel px="0px">test</TabPanel>
               <TabPanel px="0px">test</TabPanel>

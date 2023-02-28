@@ -4,26 +4,17 @@ import { graphQLClient } from 'graphql/client';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { Booking } from '../PatientProfile.page';
 import BookingListComponent from './BookingList.component';
 import { GET_USER_BOOKINGS } from './graphql/getBooking';
 
-const BookingListContainter = () => {
-  const session = useSession();
-  const userId = session?.data?.user?.user?.id;
+interface Props {
+  bookings: Booking[];
+}
 
-  const { data } = useQuery(['bookings'], () =>
-    graphQLClient.request(GET_USER_BOOKINGS, { userId })
-  );
-  if (session.status !== 'loading' && !session.data)
-    return (
-      <Box>
-        <Text>Ошибка входа</Text>
-        <Link href={'/auth/sign-in'}>Вход</Link>
-      </Box>
-    );
+const BookingListContainter: React.FC<Props> = (props) => {
+  const { bookings } = props;
 
-  if (session.status === 'loading') return <div>'Loading...'</div>;
-  const bookings = data?.bookingsByUser;
   return <BookingListComponent bookings={bookings}></BookingListComponent>;
 };
 
