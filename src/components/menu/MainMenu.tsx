@@ -21,7 +21,7 @@ import {
 
 export default function Banner(props: {
   [x: string]: any;
-  options: [
+  options?: [
     {
       label: string;
       icon: any;

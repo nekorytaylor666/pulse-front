@@ -4,10 +4,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { graphql } from 'graphql/gql';
 import Editor from 'components/editor';
-import {
-  GET_CONSULTATION_LIST_BY_ID,
-  useGetConsultationListById,
-} from './graphql/getConsultationById';
+import { GET_CONSULTATION_LIST_BY_ID } from './graphql/getConsultationById';
 
 const ConsultationListView = () => {
   const router = useRouter();

@@ -248,6 +248,7 @@ export default function PatientProfilePageComponent(props: Props) {
                   </Tab>
                 ))}
                 <Popover>
+                  {/*@ts-ignore  */}
                   <PopoverTrigger>
                     <Button>Другое</Button>
                   </PopoverTrigger>

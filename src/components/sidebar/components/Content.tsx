@@ -39,6 +39,8 @@ function SidebarContent(props: SidebarContent) {
 
   if (session.status === 'loading') return 'Loading...';
   console.log(session);
+  // !!TODO fix this
+  // @ts-ignore
   const user = session?.data?.user?.user;
   // SIDEBAR
   return (
