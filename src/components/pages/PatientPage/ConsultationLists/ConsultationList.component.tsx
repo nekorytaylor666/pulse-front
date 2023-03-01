@@ -39,10 +39,15 @@ const DEFAULT_INITIAL_DATA = {
 interface Props {
   consultationArray: ConsultationLists;
   onCreateConsultationList: (data: OutputData) => void;
+  onEditConsultationList: (id: string, data: OutputData) => void;
 }
 
 const ConsultationListComponent: React.FC<Props> = (props) => {
-  const { consultationArray } = props;
+  const {
+    consultationArray,
+    onEditConsultationList,
+    onCreateConsultationList,
+  } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -51,7 +56,7 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
         isOpen={isOpen}
         onClose={onClose}
         onSave={(data) => {
-          props.onCreateConsultationList(data);
+          onCreateConsultationList(data);
         }}
       ></NewConsultationListModal>
       <Flex my={'8'} align="center" justify={'space-between'}>
@@ -65,10 +70,8 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
           <>
             <ConsultationListCard
               content={data.content}
-              onSave={(data) => {
-                // setListsData((prev) =>
-                //   prev.map((item, i) => (i === index ? data : item))
-                // );
+              onSave={(content) => {
+                onEditConsultationList(data.id, content);
               }}
               key={index}
               bgBox="linear-gradient(115.07deg, #29E9F5 -9.41%, #7A64FF 28.04%, #FF508B 71.85%, #FD6D53 112.49%, #FD6D53 112.49%)"

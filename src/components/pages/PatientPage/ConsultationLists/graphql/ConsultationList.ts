@@ -18,3 +18,22 @@ export const CREATE_CONSULTATION_LIST = graphql(
     }
   `
 );
+
+export const EDIT_CONSULTATION_LIST = graphql(
+  `
+    mutation EditConsultationList(
+      $consultationListId: String!
+      $edit: ConsulationListCreateInput!
+    ) {
+      editConsultationList(
+        consultationListId: $consultationListId
+        edit: $edit
+      ) {
+        authorId
+        content
+        id
+        patientId
+      }
+    }
+  `
+);

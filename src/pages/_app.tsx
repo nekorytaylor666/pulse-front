@@ -14,9 +14,9 @@ import { gql_client } from 'graphql/client';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-const queryClient = new QueryClient();
 
 import Fonts from 'Fonts';
+import { queryClient } from 'lib/queryclient';
 function MyApp({
   Component,
   pageProps: { session, ...pageProps },

@@ -48,7 +48,7 @@ export default function ConsultationListItem(props: {
       <EditConsultationListModal
         isOpen={isOpen}
         onClose={onClose}
-        onSave={() => onSave(content)}
+        onSave={(newContent) => onSave(newContent)}
         initialData={content}
       ></EditConsultationListModal>
       <Card
