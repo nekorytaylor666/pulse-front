@@ -128,6 +128,10 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
       onCreateConsultationList={onCreateConsultationList}
       onEditConsultationList={onEditConsultationList}
       consultationArray={consultationLists}
+      fileMetadata={{
+        patientId,
+        authorId: '63ef2ba5a8ee6bfeba0616b2',
+      }}
     ></ConsultationListComponent>
   );
 };

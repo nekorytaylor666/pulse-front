@@ -40,6 +40,10 @@ interface Props {
   consultationArray: ConsultationLists;
   onCreateConsultationList: (data: OutputData) => void;
   onEditConsultationList: (id: string, data: OutputData) => void;
+  fileMetadata: {
+    patientId: string;
+    authorId: string;
+  };
 }
 
 const ConsultationListComponent: React.FC<Props> = (props) => {
@@ -47,6 +51,7 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
     consultationArray,
     onEditConsultationList,
     onCreateConsultationList,
+    fileMetadata,
   } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -110,6 +115,7 @@ const NewConsultationListModal = ({
         <ModalCloseButton />
         <ModalBody>
           <Editor
+            additionalFileUploadRequestHeaders={fileMetadata}
             onChange={setContent}
             initialData={DEFAULT_INITIAL_DATA}
           ></Editor>

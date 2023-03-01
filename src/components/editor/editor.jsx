@@ -12,7 +12,11 @@ import LinkAutocomplete from '@editorjs/link-autocomplete';
 import { useSession } from 'next-auth/react';
 const EDITTOR_HOLDER_ID = 'editorjs';
 
-const EditorComponent = ({ onChange, initialData }) => {
+const EditorComponent = ({
+  onChange,
+  initialData,
+  additionalFileUploadRequestHeaders,
+}) => {
   const ejInstance = useRef();
   const [editorData, setEditorData] = React.useState(() => initialData);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -65,6 +69,7 @@ const EditorComponent = ({ onChange, initialData }) => {
             additionalRequestHeaders: {
               authorId,
               iseditor: true,
+              ...additionalFileUploadRequestHeaders,
             },
           },
         },
@@ -75,6 +80,7 @@ const EditorComponent = ({ onChange, initialData }) => {
             additionalRequestHeaders: {
               authorId,
               iseditor: true,
+              ...additionalFileUploadRequestHeaders,
             },
           },
         },
