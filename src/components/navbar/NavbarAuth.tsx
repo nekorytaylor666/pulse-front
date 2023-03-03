@@ -70,7 +70,7 @@ export default function AuthNavbar(props: {
     );
     // let foundLinks: { name: string; layout?: string; path: string; component?: () => JSX.Element }[];
     let foundLinks: IRoute[] = [];
-    if (foundRoute[0].items) {
+    if (foundRoute[0]?.items) {
       for (let link = 0; link < foundRoute[0].items.length; link++) {
         foundLinks.push(foundRoute[0].items[link]);
       }
@@ -135,7 +135,7 @@ export default function AuthNavbar(props: {
     );
   }
   const createNftsLinks = (routes: IRoute[]): any => {
-    return routes.map((link, key) => {
+    return routes?.map((link, key) => {
       return (
         <Link
           key={key}

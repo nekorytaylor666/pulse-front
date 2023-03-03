@@ -20,11 +20,13 @@ import { ItemContent } from 'components/menu/ItemContent';
 import { SearchBar } from 'components/navbar/searchBar/SearchBar';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 // Assets
-import navImage from '/public/img/layout/Navbar.png'; 
+import navImage from '/public/img/layout/Navbar.png';
 import { FaEthereum } from 'react-icons/fa';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { MdInfoOutline, MdNotificationsNone } from 'react-icons/md';
 import routes from 'routes';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 export default function HeaderLinks(props: { secondary: boolean }) {
   const { secondary } = props;
   const { colorMode, toggleColorMode } = useColorMode();
@@ -42,6 +44,19 @@ export default function HeaderLinks(props: { secondary: boolean }) {
     '14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
   );
   const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+
+  const router = useRouter();
+  const session = useSession();
+  const user = session?.data?.user;
+
+  const handleLogout = () => {
+    signOut({ redirect: false, callbackUrl: '/auth/sign-in' });
+    router.push('/auth/sign-in');
+  };
+
+  const handleProfile = () => {
+    router.push('/admin/client/profile');
+  };
   return (
     <Flex
       w={{ sm: '100%', md: 'auto' }}
@@ -273,17 +288,18 @@ export default function HeaderLinks(props: { secondary: boolean }) {
               fontWeight="700"
               color={textColor}
             >
-              👋&nbsp; Hey, Adela
+              👋&nbsp; Привет, {user?.fullName}
             </Text>
           </Flex>
           <Flex flexDirection="column" p="10px">
             <MenuItem
+              onClick={handleProfile}
               _hover={{ bg: 'none' }}
               _focus={{ bg: 'none' }}
               borderRadius="8px"
               px="14px"
             >
-              <Text fontSize="sm">Profile Settings</Text>
+              <Text fontSize="sm">Профиль</Text>
             </MenuItem>
             <MenuItem
               _hover={{ bg: 'none' }}
@@ -291,16 +307,18 @@ export default function HeaderLinks(props: { secondary: boolean }) {
               borderRadius="8px"
               px="14px"
             >
-              <Text fontSize="sm">Newsletter Settings</Text>
+              <Text fontSize="sm">Настройки</Text>
             </MenuItem>
+
             <MenuItem
+              onClick={handleLogout}
               _hover={{ bg: 'none' }}
               _focus={{ bg: 'none' }}
               color="red.400"
               borderRadius="8px"
               px="14px"
             >
-              <Text fontSize="sm">Log out</Text>
+              <Text fontSize="sm">Выйти</Text>
             </MenuItem>
           </Flex>
         </MenuList>

@@ -38,7 +38,7 @@ export default NextAuth({
             return null;
           }
           const res = await data.login;
-          console.log(data);
+          console.log('hello world', data);
           const user = await res.user;
           const token = {
             accessToken: res.accessToken,
@@ -58,8 +58,9 @@ export default NextAuth({
     async jwt({ token, user }) {
       console.log(user, token);
       if (user) {
-        token = { ...user.token, user };
+        token = { ...user };
       }
+      console.log('after token:', token);
       return token;
     },
     async session({ session, token, user }) {

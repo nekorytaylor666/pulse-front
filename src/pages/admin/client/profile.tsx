@@ -91,7 +91,7 @@ export default function Collection() {
 
   if (session.status === 'loading') return 'Loading...';
   console.log(session);
-  const user = session?.data?.user?.user;
+  const user = session?.data?.user;
   const bookings = data?.bookingsByUser;
   // Chakra Color Mode
   console.log(data);

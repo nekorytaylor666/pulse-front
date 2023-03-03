@@ -40,8 +40,7 @@ function SidebarContent(props: SidebarContent) {
   if (session.status === 'loading') return 'Loading...';
   console.log(session);
   // !!TODO fix this
-  // @ts-ignore
-  const user = session?.data?.user?.user;
+  const user = session?.data?.user;
   // SIDEBAR
   return (
     <Flex direction="column" height="100%" pt="25px" borderRadius="30px">
