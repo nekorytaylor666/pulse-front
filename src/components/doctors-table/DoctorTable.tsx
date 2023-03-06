@@ -15,6 +15,7 @@ import {
   Tr,
   useColorModeValue,
   Icon,
+  IconButton,
 } from '@chakra-ui/react';
 import {
   createColumnHelper,
@@ -27,20 +28,13 @@ import {
 // Custom components
 import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
+import { Doctors } from 'components/pages/admin/doctors/graphql/doctors';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 // Assets
 import { MdEdit, MdPersonAdd } from 'react-icons/md';
 
-type RowObj = {
-  name: string[];
-  date: string;
-  permissions: string;
-  status: string;
-  edit?: any;
-  price: string | number;
-};
-
-const columnHelper = createColumnHelper<RowObj>();
+const columnHelper = createColumnHelper<Doctors[0]>();
 
 // const columns = columnsDataCheck;
 export default function DoctorsTable(props: { tableData: any }) {
@@ -49,9 +43,10 @@ export default function DoctorsTable(props: { tableData: any }) {
   const textColor = useColorModeValue('navy.700', 'white');
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   let defaultData = tableData;
+  const router = useRouter();
   const columns = [
-    columnHelper.accessor('name', {
-      id: 'name',
+    columnHelper.accessor('user.fullName', {
+      id: 'fullName',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -64,26 +59,48 @@ export default function DoctorsTable(props: { tableData: any }) {
       ),
       cell: (info: any) => (
         <Flex align="center">
-          <Avatar
+          {/* <Avatar
             src={info.getValue()[2]}
             w="36px"
             h="36px"
             me="8px"
             borderRadius="14px"
-          />
+          /> */}
           <Flex direction="column">
             <Text color={textColor} fontSize="sm" fontWeight="700">
-              {info.getValue()[0]}
+              {info.getValue()}
             </Text>
-            <Text color="secondaryGray.500" fontSize="sm" fontWeight="600">
+            {/* <Text color="secondaryGray.500" fontSize="sm" fontWeight="600">
               {info.getValue()[1]}
+            </Text> */}
+          </Flex>
+        </Flex>
+      ),
+    }),
+    columnHelper.accessor('user.email', {
+      id: 'email',
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: '10px', lg: '12px' }}
+          color="gray.400"
+        >
+          Почта
+        </Text>
+      ),
+      cell: (info: any) => (
+        <Flex align="center">
+          <Flex direction="column">
+            <Text color={textColor} fontSize="sm" fontWeight="700">
+              {info.getValue()}
             </Text>
           </Flex>
         </Flex>
       ),
     }),
-    columnHelper.accessor('date', {
-      id: 'date',
+    columnHelper.accessor('user.phoneNumber', {
+      id: 'phoneNumber',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -91,57 +108,43 @@ export default function DoctorsTable(props: { tableData: any }) {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          Дата Создания
+          Номер
         </Text>
       ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="600">
-          {info.getValue()}
-        </Text>
+      cell: (info: any) => (
+        <Flex align="center">
+          <Flex direction="column">
+            <Text color={textColor} fontSize="sm" fontWeight="700">
+              {info.getValue()}
+            </Text>
+          </Flex>
+        </Flex>
       ),
     }),
-    columnHelper.accessor('permissions', {
-      id: 'permissions',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          Страница записи
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="600">
-          {info.getValue()}
-        </Text>
-      ),
-    }),
-    columnHelper.accessor('status', {
-      id: 'status',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          Специализации
-        </Text>
-      ),
-      cell: (info) => (
-        <Badge
-          colorScheme={info.getValue() === 'REJECTED' ? 'red' : 'green'}
-          color={info.getValue() === 'REJECTED' ? 'red.500' : 'green.500'}
-          fontSize="sm"
-          fontWeight="600"
-        >
-          {info.getValue().toLowerCase()}
-        </Badge>
-      ),
-    }),
-    columnHelper.accessor('edit', {
+    // columnHelper.accessor('status', {
+    //   id: 'status',
+    //   header: () => (
+    //     <Text
+    //       justifyContent="space-between"
+    //       align="center"
+    //       fontSize={{ sm: '10px', lg: '12px' }}
+    //       color="gray.400"
+    //     >
+    //       Специализации
+    //     </Text>
+    //   ),
+    //   cell: (info) => (
+    //     <Badge
+    //       colorScheme={info.getValue() === 'REJECTED' ? 'red' : 'green'}
+    //       color={info.getValue() === 'REJECTED' ? 'red.500' : 'green.500'}
+    //       fontSize="sm"
+    //       fontWeight="600"
+    //     >
+    //       {info.getValue().toLowerCase()}
+    //     </Badge>
+    //   ),
+    // }),
+    columnHelper.display({
       id: 'edit',
       header: () => (
         <Text
@@ -152,9 +155,17 @@ export default function DoctorsTable(props: { tableData: any }) {
         ></Text>
       ),
       cell: (info) => (
-        <Flex cursor="pointer" h="max-content" w="max-content">
-          <Icon color="secondaryGray.500" as={MdEdit} w="20px" h="20px" />
-        </Flex>
+        <IconButton
+          aria-label="Edit"
+          onClick={() => {
+            const doctor = info.row.original;
+            router.push('/admin/dashboard/doctors/' + doctor.id);
+          }}
+          color="secondaryGray.500"
+          as={MdEdit}
+          w="20px"
+          h="20px"
+        />
       ),
     }),
   ];
@@ -241,30 +252,27 @@ export default function DoctorsTable(props: { tableData: any }) {
               ))}
             </Thead>
             <Tbody>
-              {table
-                .getRowModel()
-                .rows.slice(0, 11)
-                .map((row) => {
-                  return (
-                    <Tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => {
-                        return (
-                          <Td
-                            key={cell.id}
-                            fontSize={{ sm: '14px' }}
-                            minW={{ sm: '150px', md: '200px', lg: 'auto' }}
-                            borderColor="transparent"
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </Td>
-                        );
-                      })}
-                    </Tr>
-                  );
-                })}
+              {table.getRowModel().rows.map((row) => {
+                return (
+                  <Tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <Td
+                          key={cell.id}
+                          fontSize={{ sm: '14px' }}
+                          minW={{ sm: '150px', md: '200px', lg: 'auto' }}
+                          borderColor="transparent"
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </Td>
+                      );
+                    })}
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </Box>

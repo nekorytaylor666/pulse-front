@@ -42,18 +42,8 @@ import FakeBarChart from '/public/img/account/FakeBarChart.png';
 import AdminLayout from 'layouts/admin/AdminLayout';
 import tableDataManagement from 'variables/account/application/tableDataManagement';
 import DoctorsTable from 'components/doctors-table/DoctorTable';
+import DoctorContainer from 'components/pages/admin/doctors/DoctorContainer';
 
-export default function Application() {
-  // Chakra Color Mode
-  const iconBg = useColorModeValue('secondaryGray.300', 'navy.700');
-  const iconColor = useColorModeValue('brand.500', 'white');
-  return (
-    <AdminLayout>
-      <Flex pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <Flex direction="column" width="stretch">
-          <DoctorsTable tableData={tableDataManagement} />
-        </Flex>
-      </Flex>
-    </AdminLayout>
-  );
+export default function Doctors() {
+  return <DoctorContainer></DoctorContainer>;
 }

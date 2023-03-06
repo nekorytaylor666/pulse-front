@@ -5,6 +5,8 @@ import Footer from 'components/footer/FooterAdmin';
 import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'contexts/SidebarContext';
+import { Role } from 'graphql/graphql';
+import AdminLayout from 'layouts/admin/AdminLayout';
 import { useSession } from 'next-auth/react';
 import { PropsWithChildren, useState } from 'react';
 import routes from 'routes';
@@ -16,23 +18,23 @@ import {
 
 // Custom Chakra theme
 interface DashboardProps extends PropsWithChildren {}
-export default function AdminLayout({ children, ...rest }: DashboardProps) {
+export default function DoctorLayout({ children, ...rest }: DashboardProps) {
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
   if (isWindowAvailable()) document.documentElement.dir = 'ltr';
   const { onOpen } = useDisclosure();
-
   const session = useSession();
-
-  // if role not admin redirect to login
-  if (
-    session.status === 'authenticated' &&
-    session.data.user.role !== 'ADMIN'
-  ) {
-    window.location.href = '/auth/sign-in';
-  }
+  const user = session?.data?.user;
+  const role = user?.role;
+  if (session.status === 'authenticated' && role !== 'DOCTOR')
+    return (
+      <AdminLayout>
+        {' '}
+        <Box>Ошибка доступа</Box>
+      </AdminLayout>
+    );
   return (
     <Box>
       <SidebarContext.Provider
@@ -61,7 +63,7 @@ export default function AdminLayout({ children, ...rest }: DashboardProps) {
             <Box>
               <Navbar
                 onOpen={onOpen}
-                logoText={'Horizon UI Dashboard PRO'}
+                logoText={'Pulse'}
                 brandText={getActiveRoute(routes)}
                 secondary={getActiveNavbar(routes)}
                 fixed={fixed}

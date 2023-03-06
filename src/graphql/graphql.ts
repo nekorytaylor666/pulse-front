@@ -308,6 +308,98 @@ export type ConsulationListCreateWithoutPatientInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type ConsulationListScalarWhereInput = {
+  AND?: InputMaybe<Array<ConsulationListScalarWhereInput>>;
+  NOT?: InputMaybe<Array<ConsulationListScalarWhereInput>>;
+  OR?: InputMaybe<Array<ConsulationListScalarWhereInput>>;
+  authorId?: InputMaybe<StringFilter>;
+  content?: InputMaybe<JsonNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  patientId?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type ConsulationListUpdateManyMutationInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ConsulationListUpdateManyWithWhereWithoutAuthorInput = {
+  data: ConsulationListUpdateManyMutationInput;
+  where: ConsulationListScalarWhereInput;
+};
+
+export type ConsulationListUpdateManyWithWhereWithoutPatientInput = {
+  data: ConsulationListUpdateManyMutationInput;
+  where: ConsulationListScalarWhereInput;
+};
+
+export type ConsulationListUpdateManyWithoutAuthorNestedInput = {
+  connect?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ConsulationListCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<ConsulationListCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<ConsulationListCreateManyAuthorInputEnvelope>;
+  delete?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<ConsulationListScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  set?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  update?: InputMaybe<Array<ConsulationListUpdateWithWhereUniqueWithoutAuthorInput>>;
+  updateMany?: InputMaybe<Array<ConsulationListUpdateManyWithWhereWithoutAuthorInput>>;
+  upsert?: InputMaybe<Array<ConsulationListUpsertWithWhereUniqueWithoutAuthorInput>>;
+};
+
+export type ConsulationListUpdateManyWithoutPatientNestedInput = {
+  connect?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ConsulationListCreateOrConnectWithoutPatientInput>>;
+  create?: InputMaybe<Array<ConsulationListCreateWithoutPatientInput>>;
+  createMany?: InputMaybe<ConsulationListCreateManyPatientInputEnvelope>;
+  delete?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<ConsulationListScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  set?: InputMaybe<Array<ConsulationListWhereUniqueInput>>;
+  update?: InputMaybe<Array<ConsulationListUpdateWithWhereUniqueWithoutPatientInput>>;
+  updateMany?: InputMaybe<Array<ConsulationListUpdateManyWithWhereWithoutPatientInput>>;
+  upsert?: InputMaybe<Array<ConsulationListUpsertWithWhereUniqueWithoutPatientInput>>;
+};
+
+export type ConsulationListUpdateWithWhereUniqueWithoutAuthorInput = {
+  data: ConsulationListUpdateWithoutAuthorInput;
+  where: ConsulationListWhereUniqueInput;
+};
+
+export type ConsulationListUpdateWithWhereUniqueWithoutPatientInput = {
+  data: ConsulationListUpdateWithoutPatientInput;
+  where: ConsulationListWhereUniqueInput;
+};
+
+export type ConsulationListUpdateWithoutAuthorInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  patient?: InputMaybe<PulseUserUpdateOneRequiredWithoutAppointmentsAsPatientNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ConsulationListUpdateWithoutPatientInput = {
+  author?: InputMaybe<PulseUserUpdateOneRequiredWithoutAppointmentsAsAuthorNestedInput>;
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ConsulationListUpsertWithWhereUniqueWithoutAuthorInput = {
+  create: ConsulationListCreateWithoutAuthorInput;
+  update: ConsulationListUpdateWithoutAuthorInput;
+  where: ConsulationListWhereUniqueInput;
+};
+
+export type ConsulationListUpsertWithWhereUniqueWithoutPatientInput = {
+  create: ConsulationListCreateWithoutPatientInput;
+  update: ConsulationListUpdateWithoutPatientInput;
+  where: ConsulationListWhereUniqueInput;
+};
+
 export type ConsulationListWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
 };
@@ -329,6 +421,21 @@ export type Credential = {
 export type CredentialCount = {
   __typename?: 'CredentialCount';
   destinationCalendars: Scalars['Int'];
+};
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type DateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
 export type DestinationCalendar = {
@@ -427,9 +534,52 @@ export type DoctorCreatespecializationsIdsInput = {
   set: Array<Scalars['String']>;
 };
 
+export type DoctorUpdateInput = {
+  calLink?: InputMaybe<StringFieldUpdateOperationsInput>;
+  calUserId?: InputMaybe<IntFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  specializations?: InputMaybe<SpecializationUpdateManyWithoutDoctorNestedInput>;
+  specializationsIds?: InputMaybe<DoctorUpdatespecializationsIdsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  user?: InputMaybe<PulseUserUpdateOneRequiredWithoutDoctorNestedInput>;
+};
+
+export type DoctorUpdateOneWithoutUserNestedInput = {
+  connect?: InputMaybe<DoctorWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<DoctorCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<DoctorCreateWithoutUserInput>;
+  delete?: InputMaybe<Scalars['Boolean']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  update?: InputMaybe<DoctorUpdateWithoutUserInput>;
+  upsert?: InputMaybe<DoctorUpsertWithoutUserInput>;
+};
+
+export type DoctorUpdateWithoutUserInput = {
+  calLink?: InputMaybe<StringFieldUpdateOperationsInput>;
+  calUserId?: InputMaybe<IntFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  specializations?: InputMaybe<SpecializationUpdateManyWithoutDoctorNestedInput>;
+  specializationsIds?: InputMaybe<DoctorUpdatespecializationsIdsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type DoctorUpdatespecializationsIdsInput = {
+  push?: InputMaybe<Array<Scalars['String']>>;
+  set?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export type DoctorUpsertWithoutUserInput = {
+  create: DoctorCreateWithoutUserInput;
+  update: DoctorUpdateWithoutUserInput;
+};
+
 export type DoctorWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
   userId?: InputMaybe<Scalars['String']>;
+};
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: InputMaybe<Role>;
 };
 
 export type EventType = {
@@ -527,8 +677,8 @@ export type Feedback = {
 
 export type FileEntity = {
   __typename?: 'FileEntity';
-  author: PulseUser;
-  authorId: Scalars['String'];
+  author?: Maybe<PulseUser>;
+  authorId?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   fileName: Scalars['String'];
   fileUrl: Scalars['String'];
@@ -572,6 +722,68 @@ export type FileEntityCreateWithoutAuthorInput = {
   key: Scalars['String'];
   metadata?: InputMaybe<Scalars['JSON']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FileEntityScalarWhereInput = {
+  AND?: InputMaybe<Array<FileEntityScalarWhereInput>>;
+  NOT?: InputMaybe<Array<FileEntityScalarWhereInput>>;
+  OR?: InputMaybe<Array<FileEntityScalarWhereInput>>;
+  authorId?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  fileName?: InputMaybe<StringFilter>;
+  fileUrl?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  key?: InputMaybe<StringFilter>;
+  metadata?: InputMaybe<JsonFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type FileEntityUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  fileName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fileUrl?: InputMaybe<StringFieldUpdateOperationsInput>;
+  key?: InputMaybe<StringFieldUpdateOperationsInput>;
+  metadata?: InputMaybe<Scalars['JSON']>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type FileEntityUpdateManyWithWhereWithoutAuthorInput = {
+  data: FileEntityUpdateManyMutationInput;
+  where: FileEntityScalarWhereInput;
+};
+
+export type FileEntityUpdateManyWithoutAuthorNestedInput = {
+  connect?: InputMaybe<Array<FileEntityWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<FileEntityCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<FileEntityCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<FileEntityCreateManyAuthorInputEnvelope>;
+  delete?: InputMaybe<Array<FileEntityWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<FileEntityScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<FileEntityWhereUniqueInput>>;
+  set?: InputMaybe<Array<FileEntityWhereUniqueInput>>;
+  update?: InputMaybe<Array<FileEntityUpdateWithWhereUniqueWithoutAuthorInput>>;
+  updateMany?: InputMaybe<Array<FileEntityUpdateManyWithWhereWithoutAuthorInput>>;
+  upsert?: InputMaybe<Array<FileEntityUpsertWithWhereUniqueWithoutAuthorInput>>;
+};
+
+export type FileEntityUpdateWithWhereUniqueWithoutAuthorInput = {
+  data: FileEntityUpdateWithoutAuthorInput;
+  where: FileEntityWhereUniqueInput;
+};
+
+export type FileEntityUpdateWithoutAuthorInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  fileName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fileUrl?: InputMaybe<StringFieldUpdateOperationsInput>;
+  key?: InputMaybe<StringFieldUpdateOperationsInput>;
+  metadata?: InputMaybe<Scalars['JSON']>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type FileEntityUpsertWithWhereUniqueWithoutAuthorInput = {
+  create: FileEntityCreateWithoutAuthorInput;
+  update: FileEntityUpdateWithoutAuthorInput;
+  where: FileEntityWhereUniqueInput;
 };
 
 export type FileEntityWhereUniqueInput = {
@@ -619,6 +831,25 @@ export type Impersonations = {
   impersonatedUserId: Scalars['Int'];
 };
 
+export type IntFieldUpdateOperationsInput = {
+  decrement?: InputMaybe<Scalars['Int']>;
+  divide?: InputMaybe<Scalars['Int']>;
+  increment?: InputMaybe<Scalars['Int']>;
+  multiply?: InputMaybe<Scalars['Int']>;
+  set?: InputMaybe<Scalars['Int']>;
+};
+
+export type JsonFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
+export type JsonNullableFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  isSet?: InputMaybe<Scalars['Boolean']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
 export type LoginInput = {
   password: Scalars['String'];
   uniqueName: Scalars['String'];
@@ -649,12 +880,14 @@ export type Mutation = {
   createBookingByUserId: Booking;
   createConsultationList: ConsulationList;
   createDoctor: Doctor;
+  deleteDoctor: Doctor;
   editConsultationList: ConsulationList;
   login: Auth;
   loginBySms: Scalars['Boolean'];
   loginVerify: Auth;
   refreshToken: Token;
   signup: Scalars['Boolean'];
+  updateDoctor: Doctor;
   updateUser: PulseUser;
   verifyCode: Auth;
 };
@@ -695,6 +928,11 @@ export type MutationCreateDoctorArgs = {
 };
 
 
+export type MutationDeleteDoctorArgs = {
+  doctorId: Scalars['String'];
+};
+
+
 export type MutationEditConsultationListArgs = {
   consultationListId: Scalars['String'];
   edit: ConsulationListCreateInput;
@@ -726,6 +964,12 @@ export type MutationSignupArgs = {
 };
 
 
+export type MutationUpdateDoctorArgs = {
+  doctorId: Scalars['String'];
+  newDoctor: DoctorUpdateInput;
+};
+
+
 export type MutationUpdateUserArgs = {
   data: UpdateUserInput;
 };
@@ -734,6 +978,51 @@ export type MutationUpdateUserArgs = {
 export type MutationVerifyCodeArgs = {
   code: Scalars['String'];
   data: SignupInput;
+};
+
+export type NestedDateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type NestedStringFilter = {
+  contains?: InputMaybe<Scalars['String']>;
+  endsWith?: InputMaybe<Scalars['String']>;
+  equals?: InputMaybe<Scalars['String']>;
+  gt?: InputMaybe<Scalars['String']>;
+  gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
+  lt?: InputMaybe<Scalars['String']>;
+  lte?: InputMaybe<Scalars['String']>;
+  not?: InputMaybe<NestedStringFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']>>;
+  startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type NestedStringNullableFilter = {
+  contains?: InputMaybe<Scalars['String']>;
+  endsWith?: InputMaybe<Scalars['String']>;
+  equals?: InputMaybe<Scalars['String']>;
+  gt?: InputMaybe<Scalars['String']>;
+  gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
+  isSet?: InputMaybe<Scalars['Boolean']>;
+  lt?: InputMaybe<Scalars['String']>;
+  lte?: InputMaybe<Scalars['String']>;
+  not?: InputMaybe<NestedStringNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']>>;
+  startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: InputMaybe<Scalars['String']>;
+  unset?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Payment = {
@@ -778,6 +1067,7 @@ export type PulseUser = {
   appointmentsAsAuthor?: Maybe<Array<ConsulationList>>;
   appointmentsAsPatient?: Maybe<Array<ConsulationList>>;
   authoredFiles?: Maybe<Array<FileEntity>>;
+  avatar?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   doctor?: Maybe<Doctor>;
   email: Scalars['String'];
@@ -785,6 +1075,8 @@ export type PulseUser = {
   id: Scalars['ID'];
   password: Scalars['String'];
   phoneNumber: Scalars['String'];
+  researchDocumentsAsAuthour?: Maybe<Array<ResearchDocument>>;
+  researchDocumentsAsPatient?: Maybe<Array<ResearchDocument>>;
   role: Role;
   uniqueName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -795,6 +1087,8 @@ export type PulseUserCount = {
   appointmentsAsAuthor: Scalars['Int'];
   appointmentsAsPatient: Scalars['Int'];
   authoredFiles: Scalars['Int'];
+  researchDocumentsAsAuthour: Scalars['Int'];
+  researchDocumentsAsPatient: Scalars['Int'];
 };
 
 export type PulseUserCreateNestedOneWithoutAppointmentsAsAuthorInput = {
@@ -815,6 +1109,18 @@ export type PulseUserCreateNestedOneWithoutDoctorInput = {
   create?: InputMaybe<PulseUserCreateWithoutDoctorInput>;
 };
 
+export type PulseUserCreateNestedOneWithoutResearchDocumentsAsAuthourInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutResearchDocumentsAsAuthourInput>;
+  create?: InputMaybe<PulseUserCreateWithoutResearchDocumentsAsAuthourInput>;
+};
+
+export type PulseUserCreateNestedOneWithoutResearchDocumentsAsPatientInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutResearchDocumentsAsPatientInput>;
+  create?: InputMaybe<PulseUserCreateWithoutResearchDocumentsAsPatientInput>;
+};
+
 export type PulseUserCreateOrConnectWithoutAppointmentsAsAuthorInput = {
   create: PulseUserCreateWithoutAppointmentsAsAuthorInput;
   where: PulseUserWhereUniqueInput;
@@ -830,10 +1136,21 @@ export type PulseUserCreateOrConnectWithoutDoctorInput = {
   where: PulseUserWhereUniqueInput;
 };
 
+export type PulseUserCreateOrConnectWithoutResearchDocumentsAsAuthourInput = {
+  create: PulseUserCreateWithoutResearchDocumentsAsAuthourInput;
+  where: PulseUserWhereUniqueInput;
+};
+
+export type PulseUserCreateOrConnectWithoutResearchDocumentsAsPatientInput = {
+  create: PulseUserCreateWithoutResearchDocumentsAsPatientInput;
+  where: PulseUserWhereUniqueInput;
+};
+
 export type PulseUserCreateWithoutAppointmentsAsAuthorInput = {
   address: Scalars['String'];
   appointmentsAsPatient?: InputMaybe<ConsulationListCreateNestedManyWithoutPatientInput>;
   authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  avatar?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
   email: Scalars['String'];
@@ -841,6 +1158,8 @@ export type PulseUserCreateWithoutAppointmentsAsAuthorInput = {
   id?: InputMaybe<Scalars['String']>;
   password: Scalars['String'];
   phoneNumber: Scalars['String'];
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentCreateNestedManyWithoutAuthorInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentCreateNestedManyWithoutPatientInput>;
   role?: InputMaybe<Role>;
   uniqueName: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -850,6 +1169,7 @@ export type PulseUserCreateWithoutAppointmentsAsPatientInput = {
   address: Scalars['String'];
   appointmentsAsAuthor?: InputMaybe<ConsulationListCreateNestedManyWithoutAuthorInput>;
   authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  avatar?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
   email: Scalars['String'];
@@ -857,6 +1177,8 @@ export type PulseUserCreateWithoutAppointmentsAsPatientInput = {
   id?: InputMaybe<Scalars['String']>;
   password: Scalars['String'];
   phoneNumber: Scalars['String'];
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentCreateNestedManyWithoutAuthorInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentCreateNestedManyWithoutPatientInput>;
   role?: InputMaybe<Role>;
   uniqueName: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -867,15 +1189,211 @@ export type PulseUserCreateWithoutDoctorInput = {
   appointmentsAsAuthor?: InputMaybe<ConsulationListCreateNestedManyWithoutAuthorInput>;
   appointmentsAsPatient?: InputMaybe<ConsulationListCreateNestedManyWithoutPatientInput>;
   authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  avatar?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   fullName: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   password: Scalars['String'];
   phoneNumber: Scalars['String'];
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentCreateNestedManyWithoutAuthorInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentCreateNestedManyWithoutPatientInput>;
   role?: InputMaybe<Role>;
   uniqueName: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PulseUserCreateWithoutResearchDocumentsAsAuthourInput = {
+  address: Scalars['String'];
+  appointmentsAsAuthor?: InputMaybe<ConsulationListCreateNestedManyWithoutAuthorInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListCreateNestedManyWithoutPatientInput>;
+  authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  avatar?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentCreateNestedManyWithoutPatientInput>;
+  role?: InputMaybe<Role>;
+  uniqueName: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PulseUserCreateWithoutResearchDocumentsAsPatientInput = {
+  address: Scalars['String'];
+  appointmentsAsAuthor?: InputMaybe<ConsulationListCreateNestedManyWithoutAuthorInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListCreateNestedManyWithoutPatientInput>;
+  authoredFiles?: InputMaybe<FileEntityCreateNestedManyWithoutAuthorInput>;
+  avatar?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  doctor?: InputMaybe<DoctorCreateNestedOneWithoutUserInput>;
+  email: Scalars['String'];
+  fullName: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentCreateNestedManyWithoutAuthorInput>;
+  role?: InputMaybe<Role>;
+  uniqueName: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PulseUserUpdateOneRequiredWithoutAppointmentsAsAuthorNestedInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutAppointmentsAsAuthorInput>;
+  create?: InputMaybe<PulseUserCreateWithoutAppointmentsAsAuthorInput>;
+  update?: InputMaybe<PulseUserUpdateWithoutAppointmentsAsAuthorInput>;
+  upsert?: InputMaybe<PulseUserUpsertWithoutAppointmentsAsAuthorInput>;
+};
+
+export type PulseUserUpdateOneRequiredWithoutAppointmentsAsPatientNestedInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutAppointmentsAsPatientInput>;
+  create?: InputMaybe<PulseUserCreateWithoutAppointmentsAsPatientInput>;
+  update?: InputMaybe<PulseUserUpdateWithoutAppointmentsAsPatientInput>;
+  upsert?: InputMaybe<PulseUserUpsertWithoutAppointmentsAsPatientInput>;
+};
+
+export type PulseUserUpdateOneRequiredWithoutDoctorNestedInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutDoctorInput>;
+  create?: InputMaybe<PulseUserCreateWithoutDoctorInput>;
+  update?: InputMaybe<PulseUserUpdateWithoutDoctorInput>;
+  upsert?: InputMaybe<PulseUserUpsertWithoutDoctorInput>;
+};
+
+export type PulseUserUpdateOneRequiredWithoutResearchDocumentsAsAuthourNestedInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutResearchDocumentsAsAuthourInput>;
+  create?: InputMaybe<PulseUserCreateWithoutResearchDocumentsAsAuthourInput>;
+  update?: InputMaybe<PulseUserUpdateWithoutResearchDocumentsAsAuthourInput>;
+  upsert?: InputMaybe<PulseUserUpsertWithoutResearchDocumentsAsAuthourInput>;
+};
+
+export type PulseUserUpdateOneRequiredWithoutResearchDocumentsAsPatientNestedInput = {
+  connect?: InputMaybe<PulseUserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PulseUserCreateOrConnectWithoutResearchDocumentsAsPatientInput>;
+  create?: InputMaybe<PulseUserCreateWithoutResearchDocumentsAsPatientInput>;
+  update?: InputMaybe<PulseUserUpdateWithoutResearchDocumentsAsPatientInput>;
+  upsert?: InputMaybe<PulseUserUpsertWithoutResearchDocumentsAsPatientInput>;
+};
+
+export type PulseUserUpdateWithoutAppointmentsAsAuthorInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListUpdateManyWithoutPatientNestedInput>;
+  authoredFiles?: InputMaybe<FileEntityUpdateManyWithoutAuthorNestedInput>;
+  avatar?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  doctor?: InputMaybe<DoctorUpdateOneWithoutUserNestedInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<StringFieldUpdateOperationsInput>;
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentUpdateManyWithoutAuthorNestedInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentUpdateManyWithoutPatientNestedInput>;
+  role?: InputMaybe<EnumRoleFieldUpdateOperationsInput>;
+  uniqueName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PulseUserUpdateWithoutAppointmentsAsPatientInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  appointmentsAsAuthor?: InputMaybe<ConsulationListUpdateManyWithoutAuthorNestedInput>;
+  authoredFiles?: InputMaybe<FileEntityUpdateManyWithoutAuthorNestedInput>;
+  avatar?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  doctor?: InputMaybe<DoctorUpdateOneWithoutUserNestedInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<StringFieldUpdateOperationsInput>;
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentUpdateManyWithoutAuthorNestedInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentUpdateManyWithoutPatientNestedInput>;
+  role?: InputMaybe<EnumRoleFieldUpdateOperationsInput>;
+  uniqueName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PulseUserUpdateWithoutDoctorInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  appointmentsAsAuthor?: InputMaybe<ConsulationListUpdateManyWithoutAuthorNestedInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListUpdateManyWithoutPatientNestedInput>;
+  authoredFiles?: InputMaybe<FileEntityUpdateManyWithoutAuthorNestedInput>;
+  avatar?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<StringFieldUpdateOperationsInput>;
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentUpdateManyWithoutAuthorNestedInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentUpdateManyWithoutPatientNestedInput>;
+  role?: InputMaybe<EnumRoleFieldUpdateOperationsInput>;
+  uniqueName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PulseUserUpdateWithoutResearchDocumentsAsAuthourInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  appointmentsAsAuthor?: InputMaybe<ConsulationListUpdateManyWithoutAuthorNestedInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListUpdateManyWithoutPatientNestedInput>;
+  authoredFiles?: InputMaybe<FileEntityUpdateManyWithoutAuthorNestedInput>;
+  avatar?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  doctor?: InputMaybe<DoctorUpdateOneWithoutUserNestedInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<StringFieldUpdateOperationsInput>;
+  researchDocumentsAsPatient?: InputMaybe<ResearchDocumentUpdateManyWithoutPatientNestedInput>;
+  role?: InputMaybe<EnumRoleFieldUpdateOperationsInput>;
+  uniqueName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PulseUserUpdateWithoutResearchDocumentsAsPatientInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  appointmentsAsAuthor?: InputMaybe<ConsulationListUpdateManyWithoutAuthorNestedInput>;
+  appointmentsAsPatient?: InputMaybe<ConsulationListUpdateManyWithoutPatientNestedInput>;
+  authoredFiles?: InputMaybe<FileEntityUpdateManyWithoutAuthorNestedInput>;
+  avatar?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  doctor?: InputMaybe<DoctorUpdateOneWithoutUserNestedInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<StringFieldUpdateOperationsInput>;
+  researchDocumentsAsAuthour?: InputMaybe<ResearchDocumentUpdateManyWithoutAuthorNestedInput>;
+  role?: InputMaybe<EnumRoleFieldUpdateOperationsInput>;
+  uniqueName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PulseUserUpsertWithoutAppointmentsAsAuthorInput = {
+  create: PulseUserCreateWithoutAppointmentsAsAuthorInput;
+  update: PulseUserUpdateWithoutAppointmentsAsAuthorInput;
+};
+
+export type PulseUserUpsertWithoutAppointmentsAsPatientInput = {
+  create: PulseUserCreateWithoutAppointmentsAsPatientInput;
+  update: PulseUserUpdateWithoutAppointmentsAsPatientInput;
+};
+
+export type PulseUserUpsertWithoutDoctorInput = {
+  create: PulseUserCreateWithoutDoctorInput;
+  update: PulseUserUpdateWithoutDoctorInput;
+};
+
+export type PulseUserUpsertWithoutResearchDocumentsAsAuthourInput = {
+  create: PulseUserCreateWithoutResearchDocumentsAsAuthourInput;
+  update: PulseUserUpdateWithoutResearchDocumentsAsAuthourInput;
+};
+
+export type PulseUserUpsertWithoutResearchDocumentsAsPatientInput = {
+  create: PulseUserCreateWithoutResearchDocumentsAsPatientInput;
+  update: PulseUserUpdateWithoutResearchDocumentsAsPatientInput;
 };
 
 export type PulseUserWhereUniqueInput = {
@@ -888,12 +1406,15 @@ export type PulseUserWhereUniqueInput = {
 export type Query = {
   __typename?: 'Query';
   bookingsByUser: Array<Booking>;
+  getAllDoctors: Array<Doctor>;
   getAllUsers: Array<PulseUser>;
   getConsultationListById: ConsulationList;
+  getDoctorById: Doctor;
   getDoctors: Array<Doctor>;
   getEventTypeFull: Array<EventType>;
   getMyBookings: GetBookingType;
   getSchedule: Array<Schedule>;
+  getUser: PulseUser;
   getUserById: PulseUser;
   me: PulseUser;
 };
@@ -909,6 +1430,11 @@ export type QueryGetConsultationListByIdArgs = {
 };
 
 
+export type QueryGetDoctorByIdArgs = {
+  doctorId: Scalars['String'];
+};
+
+
 export type QueryGetEventTypeFullArgs = {
   calUserId: Scalars['Float'];
 };
@@ -921,6 +1447,183 @@ export type QueryGetScheduleArgs = {
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['String'];
+};
+
+export enum QueryMode {
+  Default = 'default',
+  Insensitive = 'insensitive'
+}
+
+export type ResearchDocument = {
+  __typename?: 'ResearchDocument';
+  author: PulseUser;
+  authorId: Scalars['String'];
+  content?: Maybe<Scalars['JSON']>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  patient: PulseUser;
+  patientId: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ResearchDocumentCreateManyAuthorInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  patientId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ResearchDocumentCreateManyAuthorInputEnvelope = {
+  data: Array<ResearchDocumentCreateManyAuthorInput>;
+};
+
+export type ResearchDocumentCreateManyPatientInput = {
+  authorId: Scalars['String'];
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ResearchDocumentCreateManyPatientInputEnvelope = {
+  data: Array<ResearchDocumentCreateManyPatientInput>;
+};
+
+export type ResearchDocumentCreateNestedManyWithoutAuthorInput = {
+  connect?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ResearchDocumentCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<ResearchDocumentCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<ResearchDocumentCreateManyAuthorInputEnvelope>;
+};
+
+export type ResearchDocumentCreateNestedManyWithoutPatientInput = {
+  connect?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ResearchDocumentCreateOrConnectWithoutPatientInput>>;
+  create?: InputMaybe<Array<ResearchDocumentCreateWithoutPatientInput>>;
+  createMany?: InputMaybe<ResearchDocumentCreateManyPatientInputEnvelope>;
+};
+
+export type ResearchDocumentCreateOrConnectWithoutAuthorInput = {
+  create: ResearchDocumentCreateWithoutAuthorInput;
+  where: ResearchDocumentWhereUniqueInput;
+};
+
+export type ResearchDocumentCreateOrConnectWithoutPatientInput = {
+  create: ResearchDocumentCreateWithoutPatientInput;
+  where: ResearchDocumentWhereUniqueInput;
+};
+
+export type ResearchDocumentCreateWithoutAuthorInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  patient: PulseUserCreateNestedOneWithoutResearchDocumentsAsPatientInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ResearchDocumentCreateWithoutPatientInput = {
+  author: PulseUserCreateNestedOneWithoutResearchDocumentsAsAuthourInput;
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type ResearchDocumentScalarWhereInput = {
+  AND?: InputMaybe<Array<ResearchDocumentScalarWhereInput>>;
+  NOT?: InputMaybe<Array<ResearchDocumentScalarWhereInput>>;
+  OR?: InputMaybe<Array<ResearchDocumentScalarWhereInput>>;
+  authorId?: InputMaybe<StringFilter>;
+  content?: InputMaybe<JsonNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  patientId?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type ResearchDocumentUpdateManyMutationInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ResearchDocumentUpdateManyWithWhereWithoutAuthorInput = {
+  data: ResearchDocumentUpdateManyMutationInput;
+  where: ResearchDocumentScalarWhereInput;
+};
+
+export type ResearchDocumentUpdateManyWithWhereWithoutPatientInput = {
+  data: ResearchDocumentUpdateManyMutationInput;
+  where: ResearchDocumentScalarWhereInput;
+};
+
+export type ResearchDocumentUpdateManyWithoutAuthorNestedInput = {
+  connect?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ResearchDocumentCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<ResearchDocumentCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<ResearchDocumentCreateManyAuthorInputEnvelope>;
+  delete?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<ResearchDocumentScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  set?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  update?: InputMaybe<Array<ResearchDocumentUpdateWithWhereUniqueWithoutAuthorInput>>;
+  updateMany?: InputMaybe<Array<ResearchDocumentUpdateManyWithWhereWithoutAuthorInput>>;
+  upsert?: InputMaybe<Array<ResearchDocumentUpsertWithWhereUniqueWithoutAuthorInput>>;
+};
+
+export type ResearchDocumentUpdateManyWithoutPatientNestedInput = {
+  connect?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ResearchDocumentCreateOrConnectWithoutPatientInput>>;
+  create?: InputMaybe<Array<ResearchDocumentCreateWithoutPatientInput>>;
+  createMany?: InputMaybe<ResearchDocumentCreateManyPatientInputEnvelope>;
+  delete?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<ResearchDocumentScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  set?: InputMaybe<Array<ResearchDocumentWhereUniqueInput>>;
+  update?: InputMaybe<Array<ResearchDocumentUpdateWithWhereUniqueWithoutPatientInput>>;
+  updateMany?: InputMaybe<Array<ResearchDocumentUpdateManyWithWhereWithoutPatientInput>>;
+  upsert?: InputMaybe<Array<ResearchDocumentUpsertWithWhereUniqueWithoutPatientInput>>;
+};
+
+export type ResearchDocumentUpdateWithWhereUniqueWithoutAuthorInput = {
+  data: ResearchDocumentUpdateWithoutAuthorInput;
+  where: ResearchDocumentWhereUniqueInput;
+};
+
+export type ResearchDocumentUpdateWithWhereUniqueWithoutPatientInput = {
+  data: ResearchDocumentUpdateWithoutPatientInput;
+  where: ResearchDocumentWhereUniqueInput;
+};
+
+export type ResearchDocumentUpdateWithoutAuthorInput = {
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  patient?: InputMaybe<PulseUserUpdateOneRequiredWithoutResearchDocumentsAsPatientNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ResearchDocumentUpdateWithoutPatientInput = {
+  author?: InputMaybe<PulseUserUpdateOneRequiredWithoutResearchDocumentsAsAuthourNestedInput>;
+  content?: InputMaybe<Scalars['JSON']>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ResearchDocumentUpsertWithWhereUniqueWithoutAuthorInput = {
+  create: ResearchDocumentCreateWithoutAuthorInput;
+  update: ResearchDocumentUpdateWithoutAuthorInput;
+  where: ResearchDocumentWhereUniqueInput;
+};
+
+export type ResearchDocumentUpsertWithWhereUniqueWithoutPatientInput = {
+  create: ResearchDocumentCreateWithoutPatientInput;
+  update: ResearchDocumentUpdateWithoutPatientInput;
+  where: ResearchDocumentWhereUniqueInput;
+};
+
+export type ResearchDocumentWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']>;
 };
 
 export enum Role {
@@ -1025,8 +1728,107 @@ export type SpecializationCreatedoctorIdsInput = {
   set: Array<Scalars['String']>;
 };
 
+export type SpecializationScalarWhereInput = {
+  AND?: InputMaybe<Array<SpecializationScalarWhereInput>>;
+  NOT?: InputMaybe<Array<SpecializationScalarWhereInput>>;
+  OR?: InputMaybe<Array<SpecializationScalarWhereInput>>;
+  description?: InputMaybe<StringFilter>;
+  doctorIds?: InputMaybe<StringNullableListFilter>;
+  id?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+export type SpecializationUpdateManyMutationInput = {
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  doctorIds?: InputMaybe<SpecializationUpdatedoctorIdsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type SpecializationUpdateManyWithWhereWithoutDoctorInput = {
+  data: SpecializationUpdateManyMutationInput;
+  where: SpecializationScalarWhereInput;
+};
+
+export type SpecializationUpdateManyWithoutDoctorNestedInput = {
+  connect?: InputMaybe<Array<SpecializationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SpecializationCreateOrConnectWithoutDoctorInput>>;
+  create?: InputMaybe<Array<SpecializationCreateWithoutDoctorInput>>;
+  delete?: InputMaybe<Array<SpecializationWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SpecializationScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SpecializationWhereUniqueInput>>;
+  set?: InputMaybe<Array<SpecializationWhereUniqueInput>>;
+  update?: InputMaybe<Array<SpecializationUpdateWithWhereUniqueWithoutDoctorInput>>;
+  updateMany?: InputMaybe<Array<SpecializationUpdateManyWithWhereWithoutDoctorInput>>;
+  upsert?: InputMaybe<Array<SpecializationUpsertWithWhereUniqueWithoutDoctorInput>>;
+};
+
+export type SpecializationUpdateWithWhereUniqueWithoutDoctorInput = {
+  data: SpecializationUpdateWithoutDoctorInput;
+  where: SpecializationWhereUniqueInput;
+};
+
+export type SpecializationUpdateWithoutDoctorInput = {
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  doctorIds?: InputMaybe<SpecializationUpdatedoctorIdsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type SpecializationUpdatedoctorIdsInput = {
+  push?: InputMaybe<Array<Scalars['String']>>;
+  set?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export type SpecializationUpsertWithWhereUniqueWithoutDoctorInput = {
+  create: SpecializationCreateWithoutDoctorInput;
+  update: SpecializationUpdateWithoutDoctorInput;
+  where: SpecializationWhereUniqueInput;
+};
+
 export type SpecializationWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
+};
+
+export type StringFieldUpdateOperationsInput = {
+  set?: InputMaybe<Scalars['String']>;
+};
+
+export type StringFilter = {
+  contains?: InputMaybe<Scalars['String']>;
+  endsWith?: InputMaybe<Scalars['String']>;
+  equals?: InputMaybe<Scalars['String']>;
+  gt?: InputMaybe<Scalars['String']>;
+  gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
+  lt?: InputMaybe<Scalars['String']>;
+  lte?: InputMaybe<Scalars['String']>;
+  mode?: InputMaybe<QueryMode>;
+  not?: InputMaybe<NestedStringFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']>>;
+  startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type StringNullableFilter = {
+  contains?: InputMaybe<Scalars['String']>;
+  endsWith?: InputMaybe<Scalars['String']>;
+  equals?: InputMaybe<Scalars['String']>;
+  gt?: InputMaybe<Scalars['String']>;
+  gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
+  isSet?: InputMaybe<Scalars['Boolean']>;
+  lt?: InputMaybe<Scalars['String']>;
+  lte?: InputMaybe<Scalars['String']>;
+  mode?: InputMaybe<QueryMode>;
+  not?: InputMaybe<NestedStringNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']>>;
+  startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type StringNullableListFilter = {
+  equals?: InputMaybe<Array<Scalars['String']>>;
+  has?: InputMaybe<Scalars['String']>;
+  hasEvery?: InputMaybe<Array<Scalars['String']>>;
+  hasSome?: InputMaybe<Array<Scalars['String']>>;
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Team = {
@@ -1322,6 +2124,33 @@ export type GetPatientsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPatientsQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'PulseUser', id: string, fullName: string, email: string, createdAt: any, phoneNumber: string, updatedAt: any }> };
 
+export type GetAllDoctorsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllDoctorsQuery = { __typename?: 'Query', getDoctors: Array<{ __typename?: 'Doctor', id: string, calLink: string, calUserId: number, user: { __typename?: 'PulseUser', id: string, fullName: string, email: string, address: string, createdAt: any, phoneNumber: string, updatedAt: any }, specializations?: Array<{ __typename?: 'Specialization', name: string, id: string, description: string }> | null }> };
+
+export type GetDoctorByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetDoctorByIdQuery = { __typename?: 'Query', getDoctorById: { __typename?: 'Doctor', id: string, calLink: string, calUserId: number, user: { __typename?: 'PulseUser', id: string, fullName: string, email: string, address: string, uniqueName: string, createdAt: any, phoneNumber: string, updatedAt: any, avatar?: string | null }, specializations?: Array<{ __typename?: 'Specialization', name: string, id: string, description: string }> | null } };
+
+export type CreateDoctorMutationVariables = Exact<{
+  doctor: DoctorCreateInput;
+}>;
+
+
+export type CreateDoctorMutation = { __typename?: 'Mutation', createDoctor: { __typename?: 'Doctor', calLink: string, calUserId: number, id: string } };
+
+export type UpdateDoctorMutationVariables = Exact<{
+  doctorId: Scalars['String'];
+  doctor: DoctorUpdateInput;
+}>;
+
+
+export type UpdateDoctorMutation = { __typename?: 'Mutation', updateDoctor: { __typename?: 'Doctor', id: string } };
+
 
 export const GetConsultationListByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetConsultationListById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"consultationListId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getConsultationListById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"consultationListId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"consultationListId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetConsultationListByIdQuery, GetConsultationListByIdQueryVariables>;
 export const Get_Bookings_By_User_IdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_BOOKINGS_BY_USER_ID"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bookingsByUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"startTime"}},{"kind":"Field","name":{"kind":"Name","value":"endTime"}}]}}]}}]} as unknown as DocumentNode<Get_Bookings_By_User_IdQuery, Get_Bookings_By_User_IdQueryVariables>;
@@ -1329,3 +2158,7 @@ export const CreataeConsultationListDocument = {"kind":"Document","definitions":
 export const EditConsultationListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EditConsultationList"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"consultationListId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"edit"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ConsulationListCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"editConsultationList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"consultationListId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"consultationListId"}}},{"kind":"Argument","name":{"kind":"Name","value":"edit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"edit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authorId"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"patientId"}}]}}]}}]} as unknown as DocumentNode<EditConsultationListMutation, EditConsultationListMutationVariables>;
 export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getUserById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"appointmentsAsPatient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bookingsByUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"startTime"}},{"kind":"Field","name":{"kind":"Name","value":"endTime"}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const GetPatientsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPatients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetPatientsQuery, GetPatientsQueryVariables>;
+export const GetAllDoctorsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllDoctors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getDoctors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"specializations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllDoctorsQuery, GetAllDoctorsQueryVariables>;
+export const GetDoctorByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetDoctorById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getDoctorById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"doctorId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}},{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"specializations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]} as unknown as DocumentNode<GetDoctorByIdQuery, GetDoctorByIdQueryVariables>;
+export const CreateDoctorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateDoctor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DoctorCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createDoctor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"doctor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateDoctorMutation, CreateDoctorMutationVariables>;
+export const UpdateDoctorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateDoctor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"doctorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DoctorUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateDoctor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"newDoctor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}}},{"kind":"Argument","name":{"kind":"Name","value":"doctorId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"doctorId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateDoctorMutation, UpdateDoctorMutationVariables>;

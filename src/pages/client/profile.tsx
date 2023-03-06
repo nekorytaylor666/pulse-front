@@ -58,6 +58,7 @@ import ProfileBanner from 'components/profile/Banner';
 import Booking from 'components/profile/BookingCard';
 import { useQuery } from '@apollo/client';
 import { GET_BOOKINGS_BY_USER_ID } from 'graphql/operations/query/getBookingsByUserId';
+import ClientLayout from 'layouts/client/ClientLayout';
 export default function Collection() {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const buttonBg = useColorModeValue('transparent', 'navy.800');
@@ -96,7 +97,7 @@ export default function Collection() {
   // Chakra Color Mode
   console.log(data);
   return (
-    <AdminLayout>
+    <ClientLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
         {/* Main Fields */}
         <Box mb="20px" display={{ base: 'block', lg: 'grid' }}>
@@ -207,6 +208,6 @@ export default function Collection() {
 
         {/* Delete Product */}
       </Box>
-    </AdminLayout>
+    </ClientLayout>
   );
 }

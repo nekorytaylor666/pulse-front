@@ -1,5 +1,5 @@
 // Chakra imports
-import { Flex, Select, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Input, Select, Text, useColorModeValue } from '@chakra-ui/react';
 import Card from 'components/card/Card';
 import { NextAvatar } from 'components/image/Avatar';
 import { Image } from 'components/image/Image';
@@ -8,49 +8,37 @@ export default function Settings(props: {
   name: string;
   avatar: string;
   banner: string;
+  onChange: (file: File) => void;
 }) {
-  const { name, avatar, banner } = props;
+  const { name, avatar, banner, onChange } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
   return (
     <Card mb="20px" alignItems="center">
       <Image src={banner} borderRadius="16px" alt="" />
-      <NextAvatar
-        mx="auto"
-        src={avatar}
-        h="87px"
-        w="87px"
-        mt="-43px"
-        mb="15px"
-      />
+      <label>
+        <NextAvatar
+          objectFit={'contain'}
+          mx="auto"
+          src={avatar}
+          h="87px"
+          w="87px"
+          mt="-43px"
+          mb="15px"
+        />
+        <Input
+          display={'none'}
+          type="file"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            onChange(file);
+          }}
+        />
+      </label>
       <Text fontSize="2xl" textColor={textColorPrimary} fontWeight="700">
         {name}
       </Text>
-      <Flex align="center" mx="auto" px="15px">
-        <Text
-          me="4px"
-          color={textColorSecondary}
-          fontSize="sm"
-          fontWeight="400"
-          lineHeight="100%"
-        >
-          Account type:
-        </Text>
-        <Select
-          id="user_type"
-          w="unset"
-          variant="transparent"
-          display="flex"
-          textColor={textColorPrimary}
-          color={textColorPrimary}
-          alignItems="center"
-          defaultValue="Administrator"
-        >
-          <option value="Administrator">Administrator</option>
-          <option value="Member">Member</option>
-        </Select>
-      </Flex>
     </Card>
   );
 }

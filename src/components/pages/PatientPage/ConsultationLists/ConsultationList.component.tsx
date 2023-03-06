@@ -58,6 +58,7 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
   return (
     <>
       <NewConsultationListModal
+        fileMetadata={fileMetadata}
         isOpen={isOpen}
         onClose={onClose}
         onSave={(data) => {
@@ -101,10 +102,15 @@ const NewConsultationListModal = ({
   isOpen,
   onClose,
   onSave,
+  fileMetadata,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onSave: (data: OutputData) => void;
+  fileMetadata: {
+    patientId: string;
+    authorId: string;
+  };
 }) => {
   const [content, setContent] = useState(() => DEFAULT_INITIAL_DATA);
   return (

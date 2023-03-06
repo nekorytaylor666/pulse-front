@@ -47,13 +47,13 @@ const routes: IRoute[] = [
     items: [
       {
         name: 'Профиль',
-        layout: '/admin',
-        path: '/client/profile',
+        layout: '/client',
+        path: '/profile',
       },
       {
         name: 'Маркетплейс услуг',
-        layout: '/admin',
-        path: '/client/marketplace',
+        layout: '/client',
+        path: '/marketplace',
       },
     ],
   },

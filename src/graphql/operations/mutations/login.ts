@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const LOGIN_MUTATION = gql`
   mutation LoginMutation($login: LoginInput!) {
@@ -8,6 +8,7 @@ export const LOGIN_MUTATION = gql`
       user {
         fullName
         uniqueName
+        role
         email
         id
         uniqueName

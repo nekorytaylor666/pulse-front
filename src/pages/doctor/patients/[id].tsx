@@ -9,6 +9,7 @@ import {
 import { useGetUserById } from 'components/pages/PatientPage/graphql/getPatientById';
 import PatientProfilePageComponent from 'components/pages/PatientPage/PatientProfile.page';
 import AdminLayout from 'layouts/admin/AdminLayout';
+import DoctorLayout from 'layouts/doctor/DoctorLayout';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -19,7 +20,7 @@ const PatientProfilePage = () => {
   console.log('data: ', data, isLoading, isError, error);
   if (isLoading) {
     return (
-      <AdminLayout>
+      <DoctorLayout>
         <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
           <Skeleton borderRadius={'xl'}>
             <Box h="xl"></Box>
@@ -40,7 +41,7 @@ const PatientProfilePage = () => {
             </Skeleton>
           </SimpleGrid>
         </Box>
-      </AdminLayout>
+      </DoctorLayout>
     );
   }
   if (isError) {
