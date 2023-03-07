@@ -54,9 +54,9 @@ import AdminLayout from 'layouts/admin/AdminLayout';
 import tableDataTopCreators from 'variables/nfts/marketplace/tableDataTopCreators';
 import MarketplaceBanner from 'components/marketplace/Banner';
 import { useQuery } from '@apollo/client';
-import { GET_DOCTORS } from 'graphql/operations/query/getDoctors';
 import Doctor from 'components/marketplace/Doctor';
 import { useSession } from 'next-auth/react';
+import { GET_DOCTORS } from 'components/pages/admin/doctors/graphql/doctors';
 
 export default function Marketplace() {
   // Chakra Color Mode
@@ -65,7 +65,7 @@ export default function Marketplace() {
   const { data, loading } = useQuery(GET_DOCTORS);
   const doctors = data?.getDoctors;
   const { data: auth } = useSession();
-  const userId = auth?.user?.user.id;
+  const userId = auth?.user?.id;
   console.log('userid:', userId);
   return (
     <AdminLayout>

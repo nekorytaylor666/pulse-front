@@ -1425,6 +1425,7 @@ export type Query = {
   getDoctorById: Doctor;
   getDoctors: Array<Doctor>;
   getEventTypeFull: Array<EventType>;
+  getFilesByAuthorId: Array<FileEntity>;
   getMyBookings: GetBookingType;
   getResearchDocumentById: ResearchDocument;
   getSchedule: Array<Schedule>;
