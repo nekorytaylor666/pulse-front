@@ -12,8 +12,6 @@ import Card from 'components/card/Card';
 import InputField from 'components/fields/InputField';
 import TextField from 'components/fields/TextField';
 import { useForm } from 'react-hook-form';
-import { z } from 'Zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { PulseUser } from 'graphql/graphql';
 import { useMemo } from 'react';
 
@@ -39,20 +37,9 @@ import { useMemo } from 'react';
 //     message: "Password don't match",
 //   });
 
-const validationSchema = z.object({
-  email: z.string().email(),
-  address: z.string(),
-  fullName: z.string(),
-  phoneNumber: z.string(),
-  uniqueName: z.string(),
-  password: z.string(),
-});
-
-type ValidationSchema = z.infer<typeof validationSchema>;
-
 interface Props {
   user?: PulseUser;
-  onSubmit: (data: ValidationSchema) => void;
+  onSubmit: (data: any) => void;
 }
 
 export default function DoctorCreateForm(props: Props) {
@@ -66,9 +53,8 @@ export default function DoctorCreateForm(props: Props) {
     handleSubmit,
 
     formState: { errors },
-  } = useForm<ValidationSchema>({
+  } = useForm({
     defaultValues: useMemo(() => user, [user]),
-    resolver: zodResolver(validationSchema),
   });
 
   return (
