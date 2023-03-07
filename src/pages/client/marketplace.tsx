@@ -57,6 +57,7 @@ import { useQuery } from '@apollo/client';
 import Doctor from 'components/marketplace/Doctor';
 import { useSession } from 'next-auth/react';
 import { GET_DOCTORS } from 'components/pages/admin/doctors/graphql/doctors';
+import ClientLayout from 'layouts/client/ClientLayout';
 
 export default function Marketplace() {
   // Chakra Color Mode
@@ -66,9 +67,9 @@ export default function Marketplace() {
   const doctors = data?.getDoctors;
   const { data: auth } = useSession();
   const userId = auth?.user?.id;
-  console.log('userid:', userId);
+  console.log('userid:', doctors);
   return (
-    <AdminLayout>
+    <ClientLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
         {/* Main Fields */}
         <Grid
@@ -120,6 +121,6 @@ export default function Marketplace() {
         </Grid>
         {/* Delete Product */}
       </Box>
-    </AdminLayout>
+    </ClientLayout>
   );
 }

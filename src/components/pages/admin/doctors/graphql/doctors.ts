@@ -12,6 +12,7 @@ export const GET_DOCTORS = graphql(`
         createdAt
         phoneNumber
         updatedAt
+        uniqueName
         updatedAt
       }
       calLink

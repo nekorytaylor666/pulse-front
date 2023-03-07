@@ -23,6 +23,7 @@ const EditorComponent = ({
   const uploadApiUrl = `${apiUrl}/filemanager`;
   const session = useSession();
   const authorId = session?.data?.user?.user?.id;
+  console.log('header:', additionalFileUploadRequestHeaders);
   // This will run only once
   useEffect(() => {
     if (!ejInstance.current) {

@@ -43,7 +43,7 @@ function ClientLayout(props: {
       />
       <Navbar />
       <Card
-        w={{ base: '100%', md: 'max-content' }}
+        w={{ base: '100%', md: 'container.xl' }}
         h="max-content"
         minH={{ base: '100vh', md: '100vh' }}
         mx="auto"
