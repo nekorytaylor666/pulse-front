@@ -1,10 +1,10 @@
-import ConsultationListView from 'components/pages/ConsultationListView/consultationListView.page';
+import ResearchDocumentView from 'components/pages/ResearchDocumentView/researchDocumentView.page';
 import React from 'react';
 
 const ConsultationListViewPage = () => {
   return (
     <div>
-      <ConsultationListView></ConsultationListView>
+      <ResearchDocumentView></ResearchDocumentView>
     </div>
   );
 };
