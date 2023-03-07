@@ -111,7 +111,7 @@ export default function Marketplace() {
                       userId
                     }
                     email={doctor.user.email}
-                    image={Avatar4}
+                    image={doctor.user.avatar ?? Avatar4}
                     name={doctor.user.fullName}
                   ></Doctor>
                 ))}
