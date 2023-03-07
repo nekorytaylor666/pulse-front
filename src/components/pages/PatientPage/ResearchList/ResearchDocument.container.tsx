@@ -7,47 +7,47 @@ import {
   CreataeConsultationListMutationVariables,
   EditConsultationListMutation,
   EditConsultationListMutationVariables,
+  ResearchDocumentCreateInput,
 } from 'graphql/graphql';
 import { queryClient } from 'lib/queryclient';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { MutateFunction, useMutation } from 'react-query';
 import { useCurrentPatientStore } from 'stores/currentPatient/currentPatient.store';
 import { useGetUserById } from '../graphql/getPatientById';
-import ConsultationListComponent from './ConsultationList.component';
+import ResearchDocumentsComponent from './ResearchDocumentList.component';
 import {
-  CREATE_CONSULTATION_LIST,
-  EDIT_CONSULTATION_LIST,
-} from './graphql/ConsultationList';
+  CREATE_RESEARCH_DOCUMENT,
+  EDIT_RESEARCH_DOCUMENT,
+} from './graphql/researchDocument';
+import { useSession } from 'next-auth/react';
 
-export type ConsultationLists = ReturnType<
+export type ResearchDocuments = ReturnType<
   typeof useGetUserById
->['data']['getUserById']['appointmentsAsPatient'];
+>['data']['getUserById']['researchDocumentsAsPatient'];
 
 interface Props {
-  consultationLists: ConsultationLists;
+  researchDocuments: ResearchDocuments;
 }
 
-const ConsultationListContainer: React.FC<Props> = (props) => {
-  const { consultationLists } = props;
+const ResearchDocumentContainer: React.FC<Props> = (props) => {
+  const { researchDocuments } = props;
   const patientId = useRouter().query.id as string;
   const toast = useToast();
-
   const session = useSession();
   const doctor = session.data?.user;
   const doctorId = doctor?.id;
-  const { mutate: createConsultationList } = useMutation(
-    ['createConsultationList'],
-    (data: ConsulationListCreateInput) => {
-      return graphQLClient.request(CREATE_CONSULTATION_LIST, {
-        createConsultationListCreate: { ...data },
+  const { mutate: createResearchDocument } = useMutation(
+    ['createResearchDocument'],
+    (data: ResearchDocumentCreateInput) => {
+      return graphQLClient.request(CREATE_RESEARCH_DOCUMENT, {
+        create: { ...data },
       });
     },
     {
-      onSuccess(data: CreataeConsultationListMutation) {
+      onSuccess(data) {
         queryClient.invalidateQueries('getUserById');
-        if (data.createConsultationList) {
+        if (data.createResearchDocument) {
           toast({
             title: 'Список консультаций создан',
             status: 'success',
@@ -69,8 +69,8 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
   const { mutate: editConsultationList } = useMutation(
     ['editConsultationList'],
     (data: EditConsultationListMutationVariables) =>
-      graphQLClient.request(EDIT_CONSULTATION_LIST, {
-        consultationListId: data.consultationListId,
+      graphQLClient.request(EDIT_RESEARCH_DOCUMENT, {
+        researchDocumentId: data.consultationListId,
         edit: data.edit,
       }),
     {
@@ -95,10 +95,10 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
   );
 
   const onCreateConsultationList = (content: OutputData) => {
-    createConsultationList({
+    createResearchDocument({
       author: {
         connect: {
-          id: '63ef2ba5a8ee6bfeba0616b2',
+          id: doctorId,
         },
       },
       patient: {
@@ -128,18 +128,18 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
       },
     });
   };
-  console.log('authorid', doctorId);
+  console.log(doctorId);
   return (
-    <ConsultationListComponent
+    <ResearchDocumentsComponent
       onCreateConsultationList={onCreateConsultationList}
       onEditConsultationList={onEditConsultationList}
-      consultationArray={consultationLists}
+      consultationArray={researchDocuments ?? []}
       fileMetadata={{
         patientId,
         authorId: doctorId,
       }}
-    ></ConsultationListComponent>
+    ></ResearchDocumentsComponent>
   );
 };
 
-export default ConsultationListContainer;
+export default ResearchDocumentContainer;

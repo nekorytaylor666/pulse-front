@@ -63,57 +63,43 @@ import { SearchBar } from 'components/admin/nfts/profile/Search';
 import { HSeparator } from 'components/separator/Separator';
 
 // Assets
-import Nft2 from '/public/img/nfts/Nft2.png';
-import Nft4 from '/public/img/nfts/Nft4.png';
-import Nft5 from '/public/img/nfts/Nft5.png';
-import Nft6 from '/public/img/nfts/Nft6.png';
 import NftBanner2 from '/public/img/nfts/NftBanner2.png';
-import AvatarSimmmple from '/public/img/avatars/avatarSimmmple.png';
-import Avatar1 from '/public/img/avatars/avatar1.png';
-import Avatar2 from '/public/img/avatars/avatar2.png';
-import Avatar3 from '/public/img/avatars/avatar3.png';
-import Avatar4 from '/public/img/avatars/avatar4.png';
 import NftProfile from '/public/img/nfts/NftProfile.png';
 
 import {
   MdDashboard,
   MdApps,
-  MdOutlineCollections,
-  MdFormatPaint,
-  MdAccessTime,
   MdOutlineLocalOffer,
+  MdFilePresent,
+  MdMale,
+  MdPersonalInjury,
+  MdTimeToLeave,
+  MdTimelapse,
 } from 'react-icons/md';
-import { IoMdHeartEmpty } from 'react-icons/io';
-import AdminLayout from 'layouts/admin/AdminLayout';
-import Editor from 'components/editor';
-import BookingListContainter from './BookingsList/BookingsList.container';
 import ConsultationListContainer from './ConsultationLists/ConsultationList.container';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import ProfileBanner from 'components/profile/Banner';
 import { useGetUserById } from './graphql/getPatientById';
 import BookingListComponent from './BookingsList/BookingList.component';
+import DoctorLayout from 'layouts/doctor/DoctorLayout';
+import ResearchDocumentContainer from './ResearchList/ResearchDocument.container';
 
 const tabs = [
   {
     name: 'Бронирования',
-    icon: MdOutlineCollections,
+    icon: MdTimelapse,
   },
   {
     name: 'Консультации',
-    icon: MdFormatPaint,
+    icon: MdPersonalInjury,
   },
   {
-    name: 'Календарь',
-    icon: MdAccessTime,
-  },
-  {
-    name: 'Направления',
-    icon: MdOutlineLocalOffer,
+    name: 'Исследования',
+    icon: MdMale,
   },
   {
     name: 'Документы',
-    icon: MdOutlineLocalOffer,
+    icon: MdFilePresent,
   },
 ];
 
@@ -181,7 +167,7 @@ export default function PatientProfilePageComponent(props: Props) {
 
   return (
     <>
-      <AdminLayout>
+      <DoctorLayout>
         <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
           {/* Main Fields */}
           <Box mb="20px" display={{ base: 'block', lg: 'grid' }}>
@@ -372,7 +358,11 @@ export default function PatientProfilePageComponent(props: Props) {
                   consultationLists={user.appointmentsAsPatient}
                 ></ConsultationListContainer>
               </TabPanel>
-              <TabPanel px="0px">test</TabPanel>
+              <TabPanel px="0px">
+                <ResearchDocumentContainer
+                  researchDocuments={user.researchDocumentsAsPatient}
+                ></ResearchDocumentContainer>
+              </TabPanel>
               <TabPanel px="0px">test</TabPanel>
               <TabPanel px="0px">test</TabPanel>
               <TabPanel px="0px">test</TabPanel>
@@ -389,7 +379,7 @@ export default function PatientProfilePageComponent(props: Props) {
             </TabPanels>
           </Tabs>
         </Box>
-      </AdminLayout>
+      </DoctorLayout>
     </>
   );
 }

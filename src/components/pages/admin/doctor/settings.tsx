@@ -155,6 +155,7 @@ export default function DoctorSettings() {
                   },
                   {
                     onSuccess: (data) => {
+                      queryClient.invalidateQueries(['doctors']);
                       console.log(data);
                       const { file } = data;
                       file?.url as string;

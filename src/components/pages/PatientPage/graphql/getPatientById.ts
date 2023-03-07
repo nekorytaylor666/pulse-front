@@ -23,6 +23,19 @@ export const GET_PATIENT_BY_ID = graphql(`
         id
         updatedAt
       }
+      researchDocumentsAsPatient {
+        author {
+          email
+          fullName
+          id
+          phoneNumber
+          uniqueName
+        }
+        content
+        createdAt
+        id
+        updatedAt
+      }
       uniqueName
       address
     }
