@@ -5,6 +5,7 @@ import { OutputData } from '@editorjs/editorjs';
 // Custom components
 import Card from 'components/card/Card';
 import Editor from 'components/editor';
+import { useTranslation } from 'react-i18next';
 
 // Assets
 import { MdVerified } from 'react-icons/md';
@@ -14,17 +15,18 @@ export default function EditorDescription(props: {
   desc: OutputData;
 }) {
   const { creator, desc } = props;
+  const { t } = useTranslation('common');
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorLink = useColorModeValue('blue.500', 'white');
   // Chakra Color Mode
   return (
     <Card p="30px" mb={{ base: '20px', '2xl': '20px' }}>
       <Text color={textColor} fontSize="2xl" fontWeight="700" mb="20px">
-        Описание
+        {t('description')}
       </Text>
       <Flex align="center" mb="20px">
         <Text color="secondaryGray.600" fontSize="lg" fontWeight="400">
-          Доктор
+          {t('doctor')}
         </Text>
         <Text color={textColorLink} fontSize="lg" fontWeight="500" mx="4px">
           {creator}

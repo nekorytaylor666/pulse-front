@@ -1,12 +1,14 @@
 // Chakra imports
 import { Button, Flex, Text } from '@chakra-ui/react';
 import Link from 'components/link/Link';
+import { useTranslation } from 'react-i18next';
 
 // Assets
 import banner from '/public/img/nfts/NftBanner1.png';
 
 export default function MarketplaceBanner() {
   // Chakra Color Mode
+  const { t } = useTranslation('common');
   return (
     <Flex
       direction="column"
@@ -31,7 +33,7 @@ export default function MarketplaceBanner() {
         fontWeight="700"
         lineHeight={{ base: '32px', md: '42px' }}
       >
-        Найди подходящего доктора для себя
+        {t('banner_title')}
       </Text>
       <Text
         fontSize="md"
@@ -48,7 +50,7 @@ export default function MarketplaceBanner() {
         mb="40px"
         lineHeight="28px"
       >
-        Все доктора прошли проверку и имеют большой опыт работы
+        {t('banner_subtitle')}
       </Text>
       <Flex align="center">
         <Button
@@ -63,11 +65,11 @@ export default function MarketplaceBanner() {
           px="27"
           me="38px"
         >
-          Подробнее
+          {t('details')}
         </Button>
         <Link href="#">
           <Text color="white" fontSize="sm" fontWeight="500">
-            Посмотреть все доктора
+            {t('banner_button')}
           </Text>
         </Link>
       </Flex>

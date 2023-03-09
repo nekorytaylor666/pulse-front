@@ -83,60 +83,7 @@ import { useGetUserById } from './graphql/getPatientById';
 import BookingListComponent from './BookingsList/BookingList.component';
 import DoctorLayout from 'layouts/doctor/DoctorLayout';
 import ResearchDocumentContainer from './ResearchList/ResearchDocument.container';
-
-const tabs = [
-  {
-    name: 'Бронирования',
-    icon: MdTimelapse,
-  },
-  {
-    name: 'Консультации',
-    icon: MdPersonalInjury,
-  },
-  {
-    name: 'Исследования',
-    icon: MdMale,
-  },
-  {
-    name: 'Документы',
-    icon: MdFilePresent,
-  },
-];
-
-const otherTabs = [
-  {
-    name: 'О Семье',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'История вызововов СМП',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'Рекомендации врача',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'Рецепты',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'Календарь беременности',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'Диспансерный учет',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'Напвравления на исследования',
-    icon: MdOutlineLocalOffer,
-  },
-  {
-    name: 'Стационар',
-    icon: MdOutlineLocalOffer,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export type User = ReturnType<typeof useGetUserById>['data']['getUserById'];
 export type Bookings = ReturnType<
@@ -151,6 +98,65 @@ interface Props {
 export default function PatientProfilePageComponent(props: Props) {
   const { user, bookings, isReadonly } = props;
   let [tabState, setTabState] = useState('collected');
+
+  const { t } = useTranslation('common');
+  const tabs = [
+    {
+      name: t('tab_1'),
+      icon: MdTimelapse,
+    },
+    {
+      name: t('tab_2'),
+      icon: MdPersonalInjury,
+    },
+    {
+      name: t('tab_3'),
+      icon: MdMale,
+    },
+    {
+      name: t('tab_4'),
+      icon: MdFilePresent,
+    },
+  ];
+
+  const otherTabs = [
+    {
+      name: t('tab_4'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_5'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_6'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_7'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_8'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_9'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_10'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_11'),
+      icon: MdOutlineLocalOffer,
+    },
+    {
+      name: t('tab_12'),
+      icon: MdOutlineLocalOffer,
+    },
+  ];
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const buttonBg = useColorModeValue('transparent', 'navy.800');
@@ -236,12 +242,12 @@ export default function PatientProfilePageComponent(props: Props) {
               <Popover>
                 {/*@ts-ignore  */}
                 <PopoverTrigger>
-                  <Button>Другое</Button>
+                  <Button>{t('other')}</Button>
                 </PopoverTrigger>
                 <Portal>
                   <PopoverContent>
                     <PopoverArrow />
-                    <PopoverHeader>Другое</PopoverHeader>
+                    <PopoverHeader>{t('other')}</PopoverHeader>
                     <PopoverCloseButton />
                     <PopoverBody>
                       <Flex direction={'column'}>
@@ -289,65 +295,6 @@ export default function PatientProfilePageComponent(props: Props) {
             </Flex>
           </TabList>
           <HSeparator mb="30px" bg={paleGray} mt="0px" />
-          <Flex w="100%">
-            <SearchBar />
-            <Select
-              fontSize="sm"
-              id="edit_product"
-              variant="main"
-              h="44px"
-              maxH="44px"
-              me="20px"
-              defaultValue="single"
-            >
-              <option value="single">Single Items</option>
-              <option value="multiple">Multiple Items</option>
-            </Select>
-            <Select
-              fontSize="sm"
-              variant="main"
-              h="44px"
-              maxH="44px"
-              me="20px"
-              defaultValue="low_to_high"
-            >
-              <option value="low_to_high">Low to high</option>
-              <option value="high_to_low">High to low</option>
-            </Select>
-            <Button
-              me="20px"
-              bg={buttonBg}
-              border="1px solid"
-              color="secondaryGray.600"
-              borderColor={useColorModeValue(
-                'secondaryGray.100',
-                'whiteAlpha.100'
-              )}
-              borderRadius="16px"
-              _placeholder={{ color: 'secondaryGray.600' }}
-              _hover={hoverButton}
-              _active={activeButton}
-              _focus={activeButton}
-            >
-              <Icon color={textColor} as={MdDashboard} />
-            </Button>
-            <Button
-              bg={buttonBg}
-              border="1px solid"
-              color="secondaryGray.600"
-              borderColor={useColorModeValue(
-                'secondaryGray.100',
-                'whiteAlpha.100'
-              )}
-              borderRadius="16px"
-              _placeholder={{ color: 'secondaryGray.600' }}
-              _hover={hoverButton}
-              _active={activeButton}
-              _focus={activeButton}
-            >
-              <Icon color={textColor} as={MdApps} />
-            </Button>
-          </Flex>
 
           <TabPanels>
             <TabPanel px="0px">

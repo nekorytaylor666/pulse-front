@@ -54,7 +54,10 @@ import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
 import { useMutation } from 'react-query';
-import { SIGN_UP, VERIFY_CODE } from '../../../graphql/operations/graphql/auth';
+import {
+  SIGN_UP,
+  VERIFY_CODE,
+} from '../../../components/pages/admin/doctors/graphql/auth';
 import { graphQLClient } from 'graphql/client';
 import { SignupInput } from 'graphql/graphql';
 import { useForm } from 'react-hook-form';

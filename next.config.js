@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const { i18n } = require('./next-i18next.config');
 
 const withTM = require('next-transpile-modules')([
   '@fullcalendar/common',
@@ -30,6 +31,7 @@ const nextConfig = {
     // Make ENV
     unoptimized: true,
   },
+  i18n,
 };
 
 module.exports = withTM(nextConfig);

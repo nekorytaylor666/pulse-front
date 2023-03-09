@@ -15,6 +15,7 @@ import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import '@algolia/autocomplete-theme-classic';
+import { appWithTranslation } from 'next-i18next';
 
 import Fonts from 'Fonts';
 import { queryClient } from 'lib/queryclient';
@@ -41,4 +42,4 @@ function MyApp({
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

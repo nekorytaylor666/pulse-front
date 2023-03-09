@@ -35,10 +35,7 @@ import Socials from 'components/admin/main/profile/settings/Socials';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from 'react-query';
 import { graphQLClient } from 'graphql/client';
-import {
-  GET_DOCTOR_BY_ID,
-  UPDATE_DOCTOR,
-} from '../../../../graphql/operations/graphql/doctors';
+import { GET_DOCTOR_BY_ID, UPDATE_DOCTOR } from '../doctors/graphql/doctors';
 import {
   DoctorCreateInput,
   DoctorUpdateInput,

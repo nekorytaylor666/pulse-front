@@ -56,22 +56,25 @@ import tableDataTopCreators from 'variables/nfts/marketplace/tableDataTopCreator
 import MarketplaceBanner from 'components/marketplace/Banner';
 import Doctor from 'components/marketplace/Doctor';
 import { useSession } from 'next-auth/react';
-import { GET_DOCTORS } from 'graphql/operations/graphql/doctors';
+import { GET_DOCTORS } from 'components/pages/admin/doctors/graphql/doctors';
 import ClientLayout from 'layouts/client/ClientLayout';
 import { useQuery } from 'react-query';
 import { graphQLClient } from 'graphql/client';
+import { useTranslation } from 'react-i18next';
 
 export default function Marketplace() {
   // Chakra Color Mode
+
+  const { t } = useTranslation('common');
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.500', 'white');
-  const { data, isLoading } = useQuery(['doctors'], () =>
-    graphQLClient.request(GET_DOCTORS)
-  );
+  const { data, isLoading, error } = useQuery(['doctors'], () => {
+    return graphQLClient.request(GET_DOCTORS);
+  });
   const doctors = data?.getDoctors;
   const { data: auth } = useSession();
   const userId = auth?.user?.id;
-  console.log('userid:', doctors);
+  console.log('userid:', doctors, isLoading, error);
   return (
     <ClientLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
@@ -101,7 +104,7 @@ export default function Marketplace() {
                   ms="24px"
                   fontWeight="700"
                 >
-                  Доктора
+                  {t('doctors')}
                 </Text>
               </Flex>
 

@@ -10,6 +10,7 @@ import {
 import { OutputData } from '@editorjs/editorjs';
 import { NextAvatar } from 'components/image/Avatar';
 import LinkButton from 'components/link/LinkButton';
+import { useTranslation } from 'react-i18next';
 
 // Assets
 import { IoMdTrendingUp } from 'react-icons/io';
@@ -23,6 +24,7 @@ export default function DoctorDetails(props: {
   bookingLink: string;
 }) {
   // Chakra Color Mode
+  const { t } = useTranslation('common');
   const { name, uniqueName, description, bookingLink } = props;
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const shadow = useColorModeValue(
@@ -58,7 +60,7 @@ export default function DoctorDetails(props: {
         fontWeight="500"
         h="46px"
       >
-        Записаться
+        {t('book_doctor')}
       </LinkButton>
     </Flex>
   );

@@ -24,6 +24,10 @@ const documents = {
     "\n  query GetResearchDocumentById($researchDocumentId: String!) {\n    getResearchDocumentById(researchDocumentId: $researchDocumentId) {\n      id\n      content\n      patient {\n        id\n        fullName\n        email\n        phoneNumber\n        address\n      }\n      author {\n        fullName\n        phoneNumber\n        email\n        address\n        id\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.GetResearchDocumentByIdDocument,
     "\n  mutation Signup($data: SignupInput!) {\n    signup(data: $data)\n  }\n": types.SignupDocument,
     "\n  mutation VerifyCode($code: String!, $verifyCodeData: SignupInput!) {\n    verifyCode(code: $code, data: $verifyCodeData) {\n      accessToken\n      refreshToken\n    }\n  }\n": types.VerifyCodeDocument,
+    "\n  query GetAllDoctors {\n    getDoctors {\n      id\n      user {\n        id\n        fullName\n        email\n        address\n        createdAt\n        phoneNumber\n        updatedAt\n        avatar\n        uniqueName\n        updatedAt\n      }\n      calLink\n      calUserId\n      specializations {\n        name\n        id\n        description\n      }\n    }\n  }\n": types.GetAllDoctorsDocument,
+    "\n  query GetDoctorById($id: String!) {\n    getDoctorById(doctorId: $id) {\n      id\n      user {\n        id\n        fullName\n        email\n        address\n        uniqueName\n        createdAt\n        phoneNumber\n        updatedAt\n        updatedAt\n        avatar\n      }\n      calLink\n      description\n      calUserId\n      specializations {\n        name\n        id\n        description\n      }\n    }\n  }\n": types.GetDoctorByIdDocument,
+    "\n  mutation CreateDoctor($doctor: DoctorCreateInput!) {\n    createDoctor(doctor: $doctor) {\n      calLink\n      calUserId\n      id\n    }\n  }\n": types.CreateDoctorDocument,
+    "\n  mutation UpdateDoctor($doctorId: String!, $doctor: DoctorUpdateInput!) {\n    updateDoctor(newDoctor: $doctor, doctorId: $doctorId) {\n      id\n    }\n  }\n": types.UpdateDoctorDocument,
 };
 
 /**
@@ -84,6 +88,22 @@ export function graphql(source: "\n  mutation Signup($data: SignupInput!) {\n   
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation VerifyCode($code: String!, $verifyCodeData: SignupInput!) {\n    verifyCode(code: $code, data: $verifyCodeData) {\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation VerifyCode($code: String!, $verifyCodeData: SignupInput!) {\n    verifyCode(code: $code, data: $verifyCodeData) {\n      accessToken\n      refreshToken\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetAllDoctors {\n    getDoctors {\n      id\n      user {\n        id\n        fullName\n        email\n        address\n        createdAt\n        phoneNumber\n        updatedAt\n        avatar\n        uniqueName\n        updatedAt\n      }\n      calLink\n      calUserId\n      specializations {\n        name\n        id\n        description\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetAllDoctors {\n    getDoctors {\n      id\n      user {\n        id\n        fullName\n        email\n        address\n        createdAt\n        phoneNumber\n        updatedAt\n        avatar\n        uniqueName\n        updatedAt\n      }\n      calLink\n      calUserId\n      specializations {\n        name\n        id\n        description\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetDoctorById($id: String!) {\n    getDoctorById(doctorId: $id) {\n      id\n      user {\n        id\n        fullName\n        email\n        address\n        uniqueName\n        createdAt\n        phoneNumber\n        updatedAt\n        updatedAt\n        avatar\n      }\n      calLink\n      description\n      calUserId\n      specializations {\n        name\n        id\n        description\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetDoctorById($id: String!) {\n    getDoctorById(doctorId: $id) {\n      id\n      user {\n        id\n        fullName\n        email\n        address\n        uniqueName\n        createdAt\n        phoneNumber\n        updatedAt\n        updatedAt\n        avatar\n      }\n      calLink\n      description\n      calUserId\n      specializations {\n        name\n        id\n        description\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateDoctor($doctor: DoctorCreateInput!) {\n    createDoctor(doctor: $doctor) {\n      calLink\n      calUserId\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateDoctor($doctor: DoctorCreateInput!) {\n    createDoctor(doctor: $doctor) {\n      calLink\n      calUserId\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateDoctor($doctorId: String!, $doctor: DoctorUpdateInput!) {\n    updateDoctor(newDoctor: $doctor, doctorId: $doctorId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateDoctor($doctorId: String!, $doctor: DoctorUpdateInput!) {\n    updateDoctor(newDoctor: $doctor, doctorId: $doctorId) {\n      id\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

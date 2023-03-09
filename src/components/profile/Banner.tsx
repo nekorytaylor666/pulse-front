@@ -45,25 +45,6 @@ export default function ProfileBanner(props: {
       direction="column"
       w="100%"
     >
-      <AspectRatio ratio={440 / 71} width={'100%'}>
-        <Image
-          src={image}
-          w={{ base: '100%', '3xl': '100%' }}
-          maxH={{ base: '100%', '3xl': '27.5vh' }}
-          h={{ base: '140px', md: '100%' }}
-          borderRadius="20px"
-          alt=""
-        />
-      </AspectRatio>
-      <NextAvatar
-        src={profile}
-        h={{ xl: '170px' }}
-        w={{ xl: '170px' }}
-        border="10px solid"
-        mt="-95px"
-        mb="20px"
-        borderColor={borderColor}
-      />
       <Text
         color={textColor}
         fontSize="54px"

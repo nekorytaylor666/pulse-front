@@ -61,6 +61,7 @@ import { GET_BOOKINGS_BY_USER_ID } from 'graphql/operations/query/getBookingsByU
 import ClientLayout from 'layouts/client/ClientLayout';
 import PatientProfilePageComponent from 'components/pages/PatientPage/PatientProfile.page';
 import { useGetUserById } from 'components/pages/PatientPage/graphql/getPatientById';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 export default function Collection() {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const buttonBg = useColorModeValue('transparent', 'navy.800');
@@ -105,4 +106,12 @@ export default function Collection() {
       ></PatientProfilePageComponent>
     </ClientLayout>
   );
+}
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
 }

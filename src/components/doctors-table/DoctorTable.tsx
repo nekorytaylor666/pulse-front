@@ -28,7 +28,7 @@ import {
 // Custom components
 import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
-import { Doctors } from 'graphql/operations/graphql/doctors';
+import { Doctors } from 'components/pages/admin/doctors/graphql/doctors';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 // Assets
@@ -159,7 +159,7 @@ export default function DoctorsTable(props: { tableData: any }) {
           aria-label="Edit"
           onClick={() => {
             const doctor = info.row.original;
-            router.push('/admin/dashboard/doctors/' + doctor.id);
+            router.push('/admin/dashboard/doctors/' + doctor.id, undefined);
           }}
           color="secondaryGray.500"
           as={MdEdit}

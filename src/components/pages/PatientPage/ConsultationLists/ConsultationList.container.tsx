@@ -12,6 +12,7 @@ import { queryClient } from 'lib/queryclient';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MutateFunction, useMutation } from 'react-query';
 import { useCurrentPatientStore } from 'stores/currentPatient/currentPatient.store';
 import { useGetUserById } from '../graphql/getPatientById';
@@ -34,7 +35,6 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
   const { consultationLists, isReadOnly } = props;
   const patientId = useRouter().query.id as string;
   const toast = useToast();
-
   const session = useSession();
   const doctor = session.data?.user;
   const doctorId = doctor?.id;
@@ -99,7 +99,7 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
     createConsultationList({
       author: {
         connect: {
-          id: '63ef2ba5a8ee6bfeba0616b2',
+          id: doctorId,
         },
       },
       patient: {

@@ -58,19 +58,22 @@ import { useRouter } from 'next/router';
 import {
   GET_DOCTORS,
   GET_DOCTOR_BY_ID,
-} from 'graphql/operations/graphql/doctors';
+} from 'components/pages/admin/doctors/graphql/doctors';
 import { graphQLClient } from 'graphql/client';
 import { useQuery } from 'react-query';
 import EditorDescription from 'components/admin/nfts/page/EditorDescription';
 import DoctorDetails from 'components/admin/nfts/page/Auction';
 import Doctor from 'components/marketplace/Doctor';
 import { useSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'react-i18next';
 
 export default function DoctorClientPage() {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const router = useRouter();
   const { id } = router.query;
 
+  const { t } = useTranslation('common');
   const { data: extraDoctors, isLoading: isExtraDoctorsLoading } = useQuery(
     ['doctors'],
     () => graphQLClient.request(GET_DOCTORS)
@@ -166,7 +169,7 @@ export default function DoctorClientPage() {
           ms="24px"
           fontWeight="700"
         >
-          Другие доктора
+          {t('other_doctors')}
         </Text>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} gap="20px">
           {doctors
@@ -190,4 +193,13 @@ export default function DoctorClientPage() {
       </Box>
     </ClientLayout>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
 }

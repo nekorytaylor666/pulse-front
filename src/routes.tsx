@@ -8,25 +8,12 @@ import {
 
 // Auth Imports
 import { IRoute } from 'types/navigation';
-
+import { i18n } from 'next-i18next'; // Import
 const routes: IRoute[] = [
   {
-    name: 'Клиент',
-    path: '/client',
+    name: 'Главная',
+    path: '/',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    collapse: true,
-    items: [
-      {
-        name: 'Профиль',
-        layout: '/client',
-        path: '/profile',
-      },
-      {
-        name: 'Маркетплейс услуг',
-        layout: '/client',
-        path: '/marketplace',
-      },
-    ],
   },
   {
     name: 'Доктор',

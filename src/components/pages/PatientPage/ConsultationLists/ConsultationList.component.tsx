@@ -18,6 +18,7 @@ import { OutputData } from '@editorjs/editorjs';
 import Editor from 'components/editor';
 import { EthereumLogoOutline } from 'components/icons/Icons';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IoLogoInstagram } from 'react-icons/io5';
 import { MdOutlineUpgrade } from 'react-icons/md';
 import { RiEmotionHappyLine } from 'react-icons/ri';
@@ -57,6 +58,7 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
     isReadOnly,
   } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation('common');
 
   return (
     <>
@@ -69,17 +71,17 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
         }}
       ></NewConsultationListModal>
       <Flex my={'8'} align="center" justify={'space-between'}>
-        <Heading size={'lg'}>Консультационный Листы</Heading>
+        <Heading size={'lg'}>{t('consultation_list')}</Heading>
         {!isReadOnly && (
           <Button colorScheme={'blue'} onClick={onOpen}>
-            Добавить Консультационный Лист
+            {t('add_consultation')}
           </Button>
         )}
       </Flex>
       {consultationArray.length === 0 && (
         <Flex align="center" justify={'center'} direction={'column'} h={'100%'}>
           <Icon as={RiEmotionHappyLine} w={'100px'} h={'100px'} />
-          <Text mt={'4'}>Консультационных листов нет</Text>
+          <Text mt={'4'}>{t('no_results')}</Text>
         </Flex>
       )}
       <SimpleGrid columns={3} gap="20px">

@@ -31,6 +31,7 @@ import { useRouter } from 'next/router';
 import LabsSearchModal from 'components/marketplace/labsSearch';
 export default function HeaderLinks(props: { secondary: boolean }) {
   const { secondary } = props;
+
   const { colorMode, toggleColorMode } = useColorMode();
   // Chakra Color Mode
   const navbarIcon = useColorModeValue('gray.400', 'white');
@@ -59,6 +60,10 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 
   const handleProfile = () => {
     router.push('/client/profile');
+  };
+  const onToggleLanguageClick = (newLocale) => {
+    const { pathname, asPath, query } = router;
+    router.push({ pathname, query }, router.asPath, { locale: newLocale });
   };
   return (
     <Flex
@@ -308,12 +313,15 @@ export default function HeaderLinks(props: { secondary: boolean }) {
               <Text fontSize="sm">Профиль</Text>
             </MenuItem>
             <MenuItem
+              onClick={() =>
+                onToggleLanguageClick(router.locale === 'ru' ? 'ky' : 'ru')
+              }
               _hover={{ bg: 'none' }}
               _focus={{ bg: 'none' }}
               borderRadius="8px"
               px="14px"
             >
-              <Text fontSize="sm">Настройки</Text>
+              <Text fontSize="sm">Язык</Text>
             </MenuItem>
 
             <MenuItem
