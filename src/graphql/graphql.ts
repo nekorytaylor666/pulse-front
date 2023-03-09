@@ -464,6 +464,7 @@ export type Doctor = {
   calLink: Scalars['String'];
   calUserId: Scalars['Int'];
   createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['JSON']>;
   id: Scalars['ID'];
   specializations?: Maybe<Array<Specialization>>;
   specializationsIds?: Maybe<Array<Scalars['String']>>;
@@ -481,6 +482,7 @@ export type DoctorCreateInput = {
   calLink?: InputMaybe<Scalars['String']>;
   calUserId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['JSON']>;
   id?: InputMaybe<Scalars['String']>;
   specializations?: InputMaybe<SpecializationCreateNestedManyWithoutDoctorInput>;
   specializationsIds?: InputMaybe<DoctorCreatespecializationsIdsInput>;
@@ -514,6 +516,7 @@ export type DoctorCreateWithoutSpecializationsInput = {
   calLink?: InputMaybe<Scalars['String']>;
   calUserId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['JSON']>;
   id?: InputMaybe<Scalars['String']>;
   specializationsIds?: InputMaybe<DoctorCreatespecializationsIdsInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -524,6 +527,7 @@ export type DoctorCreateWithoutUserInput = {
   calLink?: InputMaybe<Scalars['String']>;
   calUserId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['JSON']>;
   id?: InputMaybe<Scalars['String']>;
   specializations?: InputMaybe<SpecializationCreateNestedManyWithoutDoctorInput>;
   specializationsIds?: InputMaybe<DoctorCreatespecializationsIdsInput>;
@@ -538,6 +542,7 @@ export type DoctorUpdateInput = {
   calLink?: InputMaybe<StringFieldUpdateOperationsInput>;
   calUserId?: InputMaybe<IntFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<Scalars['JSON']>;
   specializations?: InputMaybe<SpecializationUpdateManyWithoutDoctorNestedInput>;
   specializationsIds?: InputMaybe<DoctorUpdatespecializationsIdsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -558,6 +563,7 @@ export type DoctorUpdateWithoutUserInput = {
   calLink?: InputMaybe<StringFieldUpdateOperationsInput>;
   calUserId?: InputMaybe<IntFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<Scalars['JSON']>;
   specializations?: InputMaybe<SpecializationUpdateManyWithoutDoctorNestedInput>;
   specializationsIds?: InputMaybe<DoctorUpdatespecializationsIdsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -684,7 +690,7 @@ export type FileEntity = {
   fileUrl: Scalars['String'];
   id: Scalars['ID'];
   key: Scalars['String'];
-  metadata?: Maybe<Scalars['JSON']>;
+  metadata: Scalars['JSON'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -734,7 +740,7 @@ export type FileEntityScalarWhereInput = {
   fileUrl?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   key?: InputMaybe<StringFilter>;
-  metadata?: InputMaybe<JsonNullableFilter>;
+  metadata?: InputMaybe<JsonFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
@@ -839,6 +845,11 @@ export type IntFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['Int']>;
 };
 
+export type JsonFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
 export type JsonNullableFilter = {
   equals?: InputMaybe<Scalars['JSON']>;
   isSet?: InputMaybe<Scalars['Boolean']>;
@@ -869,6 +880,7 @@ export enum MembershipRole {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addPharmacy: Pharmacy;
   changePassword: PulseUser;
   creaeteSpec: Specialization;
   createBooking: Booking;
@@ -887,6 +899,11 @@ export type Mutation = {
   updateDoctor: Doctor;
   updateUser: PulseUser;
   verifyCode: Auth;
+};
+
+
+export type MutationAddPharmacyArgs = {
+  data: PharmacyCreateInput;
 };
 
 
@@ -1058,6 +1075,33 @@ export enum PeriodType {
   Rolling = 'ROLLING',
   Unlimited = 'UNLIMITED'
 }
+
+export type Pharmacy = {
+  __typename?: 'Pharmacy';
+  company?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  label?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  photoUrls?: Maybe<Array<Scalars['String']>>;
+  price?: Maybe<Array<Scalars['Float']>>;
+};
+
+export type PharmacyCreateInput = {
+  company?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  photoUrls?: InputMaybe<PharmacyCreatephotoUrlsInput>;
+  price?: InputMaybe<PharmacyCreatepriceInput>;
+};
+
+export type PharmacyCreatephotoUrlsInput = {
+  set: Array<Scalars['String']>;
+};
+
+export type PharmacyCreatepriceInput = {
+  set: Array<Scalars['Float']>;
+};
 
 export type PhoneCodeInput = {
   code: Scalars['String'];
@@ -1421,7 +1465,10 @@ export type Query = {
   getDoctors: Array<Doctor>;
   getEventTypeFull: Array<EventType>;
   getFilesByPatientId: Array<FileEntity>;
+  getMyAppointment: Array<ConsulationList>;
   getMyBookings: GetBookingType;
+  getMyResearchDocument: Array<ResearchDocument>;
+  getPharmacy: Array<Pharmacy>;
   getResearchDocumentById: ResearchDocument;
   getSchedule: Array<Schedule>;
   getUser: PulseUser;
@@ -2185,7 +2232,7 @@ export type GetDoctorByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetDoctorByIdQuery = { __typename?: 'Query', getDoctorById: { __typename?: 'Doctor', id: string, calLink: string, calUserId: number, user: { __typename?: 'PulseUser', id: string, fullName: string, email: string, address: string, uniqueName: string, createdAt: any, phoneNumber: string, updatedAt: any, avatar?: string | null }, specializations?: Array<{ __typename?: 'Specialization', name: string, id: string, description: string }> | null } };
+export type GetDoctorByIdQuery = { __typename?: 'Query', getDoctorById: { __typename?: 'Doctor', id: string, calLink: string, description?: any | null, calUserId: number, user: { __typename?: 'PulseUser', id: string, fullName: string, email: string, address: string, uniqueName: string, createdAt: any, phoneNumber: string, updatedAt: any, avatar?: string | null }, specializations?: Array<{ __typename?: 'Specialization', name: string, id: string, description: string }> | null } };
 
 export type CreateDoctorMutationVariables = Exact<{
   doctor: DoctorCreateInput;
@@ -2228,7 +2275,7 @@ export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"Op
 export const GetPatientsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPatients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetPatientsQuery, GetPatientsQueryVariables>;
 export const GetResearchDocumentByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetResearchDocumentById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"researchDocumentId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getResearchDocumentById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"researchDocumentId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"researchDocumentId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<GetResearchDocumentByIdQuery, GetResearchDocumentByIdQueryVariables>;
 export const GetAllDoctorsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllDoctors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getDoctors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"specializations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllDoctorsQuery, GetAllDoctorsQueryVariables>;
-export const GetDoctorByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetDoctorById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getDoctorById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"doctorId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}},{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"specializations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]} as unknown as DocumentNode<GetDoctorByIdQuery, GetDoctorByIdQueryVariables>;
+export const GetDoctorByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetDoctorById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getDoctorById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"doctorId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}},{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"specializations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]} as unknown as DocumentNode<GetDoctorByIdQuery, GetDoctorByIdQueryVariables>;
 export const CreateDoctorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateDoctor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DoctorCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createDoctor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"doctor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"calLink"}},{"kind":"Field","name":{"kind":"Name","value":"calUserId"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateDoctorMutation, CreateDoctorMutationVariables>;
 export const UpdateDoctorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateDoctor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"doctorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DoctorUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateDoctor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"newDoctor"},"value":{"kind":"Variable","name":{"kind":"Name","value":"doctor"}}},{"kind":"Argument","name":{"kind":"Name","value":"doctorId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"doctorId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateDoctorMutation, UpdateDoctorMutationVariables>;
 export const SignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Signup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignupInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<SignupMutation, SignupMutationVariables>;

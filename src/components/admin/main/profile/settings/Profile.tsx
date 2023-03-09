@@ -19,11 +19,12 @@ export default function Settings(props: {
       <Image src={banner} borderRadius="16px" alt="" />
       <label>
         <NextAvatar
-          objectFit={'contain'}
+          objectFit={'cover'}
           mx="auto"
           src={avatar}
-          h="87px"
-          w="87px"
+          h="300px"
+          bg={'gray.400'}
+          w="300px"
           mt="-43px"
           mb="15px"
         />

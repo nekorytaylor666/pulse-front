@@ -133,7 +133,7 @@ export default function DoctorSettings() {
 
   return (
     <AdminLayout>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+      <Box pt={{ base: '130px', md: '80px', xl: '150px' }}>
         <SimpleGrid
           mb="20px"
           columns={{ sm: 1, lg: 1 }}
@@ -173,8 +173,10 @@ export default function DoctorSettings() {
             />
             <Info
               user={doctor.user as PulseUser}
+              description={doctor.description}
               onSubmit={(data) => {
                 mutate({
+                  description: data.description,
                   user: {
                     update: {
                       address: { set: data.address },

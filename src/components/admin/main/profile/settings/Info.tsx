@@ -1,5 +1,6 @@
 // Chakra imports
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -14,6 +15,7 @@ import TextField from 'components/fields/TextField';
 import { useForm } from 'react-hook-form';
 import { PulseUser } from 'graphql/graphql';
 import { useMemo } from 'react';
+import Editor from 'components/editor';
 
 // const validationSchema = z
 //   .object({
@@ -40,10 +42,11 @@ import { useMemo } from 'react';
 interface Props {
   user?: PulseUser;
   onSubmit: (data: any) => void;
+  description?: any;
 }
 
 export default function Settings(props: Props) {
-  const { user, onSubmit } = props;
+  const { user, onSubmit, description } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
@@ -51,11 +54,14 @@ export default function Settings(props: Props) {
   const {
     register,
     handleSubmit,
-
+    setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: useMemo(() => user, [user]),
+    defaultValues: useMemo(() => {
+      return { description, ...user };
+    }, [user, description]),
   });
+  console.log('desc', description);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -130,7 +136,19 @@ export default function Settings(props: Props) {
               />
             </FormControl>{' '}
           </SimpleGrid>
-
+          <FormControl my={8}>
+            <Text fontSize="md" color={textColorSecondary} mb={4}>
+              Описание
+            </Text>
+            <Card w="lg" borderRadius={'lg'} border="black" borderWidth={'2px'}>
+              <Editor
+                onChange={(value: JSON) => {
+                  setValue('description', value);
+                }}
+                initialData={description}
+              />
+            </Card>
+          </FormControl>
           <Button type="submit">Изменить</Button>
         </Card>
       </FormControl>

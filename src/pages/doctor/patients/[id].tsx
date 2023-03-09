@@ -48,10 +48,12 @@ const PatientProfilePage = () => {
     return <div>Error: {error}</div>;
   }
   return (
-    <PatientProfilePageComponent
-      user={data.getUserById}
-      bookings={data.bookingsByUser}
-    ></PatientProfilePageComponent>
+    <DoctorLayout>
+      <PatientProfilePageComponent
+        user={data.getUserById}
+        bookings={data.bookingsByUser}
+      ></PatientProfilePageComponent>
+    </DoctorLayout>
   );
 };
 

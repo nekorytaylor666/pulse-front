@@ -16,6 +16,7 @@ const EditorComponent = ({
   onChange,
   initialData,
   additionalFileUploadRequestHeaders,
+  isReadOnly,
 }) => {
   const ejInstance = useRef();
   const [editorData, setEditorData] = React.useState(() => initialData);
@@ -40,6 +41,7 @@ const EditorComponent = ({
       holder: EDITTOR_HOLDER_ID,
       logLevel: 'ERROR',
       data: editorData,
+      readOnly: isReadOnly,
       inlineToolbar: ['bold', 'italic', 'link'],
       onReady: () => {
         ejInstance.current = editor;

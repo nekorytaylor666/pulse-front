@@ -44,6 +44,7 @@ export const GET_DOCTOR_BY_ID = graphql(`
         avatar
       }
       calLink
+      description
       calUserId
       specializations {
         name

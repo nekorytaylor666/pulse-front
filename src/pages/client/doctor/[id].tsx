@@ -29,6 +29,7 @@ import {
   useColorModeValue,
   SimpleGrid,
   AspectRatio,
+  Skeleton,
 } from '@chakra-ui/react';
 
 // Custom components
@@ -52,12 +53,77 @@ import Avatar4 from '/public/img/avatars/avatar4.png';
 import AvatarSimmmple from '/public/img/avatars/avatarSimmmple.png';
 import AdminLayout from 'layouts/admin/AdminLayout';
 import tableDataLastOffer from 'variables/nfts/page/tableDataLastOffer';
+import ClientLayout from 'layouts/client/ClientLayout';
+import { useRouter } from 'next/router';
+import {
+  GET_DOCTORS,
+  GET_DOCTOR_BY_ID,
+} from 'components/pages/admin/doctors/graphql/doctors';
+import { graphQLClient } from 'graphql/client';
+import { useQuery } from 'react-query';
+import EditorDescription from 'components/admin/nfts/page/EditorDescription';
+import DoctorDetails from 'components/admin/nfts/page/Auction';
+import Doctor from 'components/marketplace/Doctor';
+import { useSession } from 'next-auth/react';
 
-export default function Page() {
+export default function DoctorClientPage() {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data: extraDoctors, isLoading: isExtraDoctorsLoading } = useQuery(
+    ['doctors'],
+    () => graphQLClient.request(GET_DOCTORS)
+  );
+  console.log(extraDoctors);
+  const doctors = extraDoctors?.getDoctors;
+  const { data: auth } = useSession();
+  const userId = auth?.user?.id;
+  const { data, isLoading } = useQuery(
+    ['doctor', id],
+    () => {
+      return graphQLClient.request(GET_DOCTOR_BY_ID, {
+        id: id as string,
+      });
+    },
+    {
+      enabled: !!id,
+    }
+  );
+  if (isLoading || isExtraDoctorsLoading) {
+    return (
+      <ClientLayout>
+        <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
+          {/* Main Fields */}
+          <Grid
+            mb="20px"
+            maxW="100%"
+            gridTemplateColumns={{
+              base: '1fr',
+              lg: '1fr 1fr',
+              '2xl': '1fr 0.95fr',
+            }}
+            gap={{ base: '20px', xl: '20px' }}
+            display={{ base: 'block', lg: 'grid' }}
+          >
+            <Flex flexDirection="column" gridArea="1 / 1 / 2 / 2">
+              <AspectRatio ratio={1}>
+                <Skeleton w={'lg'} h={'2xl'} borderRadius={'md'}></Skeleton>
+              </AspectRatio>
+            </Flex>
+            <Flex flexDirection="column" gridArea="1 / 2 / 2 / 3" pt="60px">
+              <Skeleton borderRadius={'md'}></Skeleton>
+            </Flex>
+          </Grid>
+        </Box>
+      </ClientLayout>
+    );
+  }
+
+  const doctor = data?.getDoctorById;
   // Chakra Color Mode
   return (
-    <AdminLayout>
+    <ClientLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
         {/* Main Fields */}
         <Grid
@@ -72,27 +138,26 @@ export default function Page() {
           display={{ base: 'block', lg: 'grid' }}
         >
           <Flex flexDirection="column" gridArea="1 / 1 / 2 / 2">
-            <AspectRatio maxW={'200px'} ratio={1}>
-              <Banner image={NftLarge1} />
+            <AspectRatio ratio={1}>
+              <Banner image={doctor.user.avatar ?? NftLarge1} />
             </AspectRatio>
-            <Description
-              desc="The Abstractus® project is an online art show and the First Art NFTs on Ethereum, launched on May 9, 2017. Abstractus® features 28 unique series of cards from 7 different artists. Abstractus® are referenced with CryptoAbstractus® and Crypto in the original ERC-721 Non-Fungible Token Standard, and pre-dates them both. Join the Abstractus® Discord and check out theAbstractus® Docs to find out more."
-              creator="simmmple.web"
-            />
           </Flex>
           <Flex flexDirection="column" gridArea="1 / 2 / 2 / 3" pt="60px">
-            <Auction
-              name="Color Abstractus®"
-              creator="Simmmple"
-              creatorAvatar={AvatarSimmmple}
-              price="3.87 ETH"
-              bid={2.82}
+            <DoctorDetails
+              bookingLink={
+                process.env.NEXT_PUBLIC_CAL_URL +
+                '/' +
+                doctor.user.uniqueName +
+                '?metadata[pulseUserId]=' +
+                userId
+              }
+              uniqueName={doctor.user.uniqueName}
+              name={doctor.user.fullName}
+              description={doctor.description}
             />
-            <Card px="0px" mb="20px" mt="66px">
-              <TableLastOffer tableData={tableDataLastOffer} />
-            </Card>
           </Flex>
         </Grid>
+
         <Text
           mt="25px"
           mb="36px"
@@ -101,81 +166,28 @@ export default function Page() {
           ms="24px"
           fontWeight="700"
         >
-          More from this Collection
+          Другие доктора
         </Text>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} gap="20px">
-          <NFT
-            name="Swipe Circles"
-            author="By Peter Will"
-            bidders={[
-              Avatar1,
-              Avatar2,
-              Avatar3,
-              Avatar4,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-            ]}
-            image={Nft4}
-            currentbid="0.91 ETH"
-            download="#"
-          />
-          <NFT
-            name="Colorful Heaven"
-            author="By Mark Benjamin"
-            bidders={[
-              Avatar1,
-              Avatar2,
-              Avatar3,
-              Avatar4,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-            ]}
-            image={Nft5}
-            currentbid="0.91 ETH"
-            download="#"
-          />
-          <NFT
-            name="3D Cubes Art"
-            author="By Manny Gates"
-            bidders={[
-              Avatar1,
-              Avatar2,
-              Avatar3,
-              Avatar4,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-            ]}
-            image={Nft6}
-            currentbid="0.91 ETH"
-            download="#"
-          />
-          <NFT
-            name="ETH AI Brain"
-            author="By Nick Wilson"
-            bidders={[
-              Avatar1,
-              Avatar2,
-              Avatar3,
-              Avatar4,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-              Avatar1,
-            ]}
-            image={Nft2}
-            currentbid="0.91 ETH"
-            download="#"
-          />
+          {doctors
+            ?.filter((cur) => cur.id !== doctor.id)
+            .map((doctor: any) => (
+              <Doctor
+                key={doctor.id}
+                bookingLink={
+                  process.env.NEXT_PUBLIC_CAL_URL +
+                  '/' +
+                  doctor.user.uniqueName +
+                  '?metadata[pulseUserId]=' +
+                  userId
+                }
+                email={doctor.user.email}
+                image={doctor.user.avatar ?? Avatar4}
+                name={doctor.user.fullName}
+              ></Doctor>
+            ))}
         </SimpleGrid>
-
-        {/* Delete Product */}
       </Box>
-    </AdminLayout>
+    </ClientLayout>
   );
 }

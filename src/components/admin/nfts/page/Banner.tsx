@@ -13,7 +13,14 @@ export default function Banner(props: { image: string }) {
   // Chakra Color Mode
   return (
     <Box maxW="100%" mb="20px" position="relative" w="100%" h="100%" flex={1}>
-      <Image src={image} w="100%" h="100%" borderRadius="20px" alt="" />
+      <Image
+        objectFit={'cover'}
+        src={image}
+        w="100%"
+        h="100%"
+        borderRadius="20px"
+        alt=""
+      />
       <Button
         position="absolute"
         bg="linear-gradient(138.87deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 94.09%)"

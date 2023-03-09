@@ -18,19 +18,22 @@ import { useState } from 'react';
 import { IoHeart, IoHeartOutline } from 'react-icons/io5';
 import { Image } from 'components/image/Image';
 import LinkButton from 'components/link/LinkButton';
+import { useRouter } from 'next/router';
 
 export default function Doctor(props: {
   image: string;
+  id: string;
   name: string;
   email: string;
   bookingLink: string;
 }) {
-  const { image, name, email, bookingLink } = props;
+  const { image, name, email, bookingLink, id } = props;
   const [like, setLike] = useState(false);
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorBid = useColorModeValue('brand.500', 'white');
+  const router = useRouter();
   return (
-    <Card p="20px">
+    <Card onClick={() => router.push('/client/doctor/' + id)} p="20px">
       <Flex direction={{ base: 'column' }} justify="center">
         <Box mb={{ base: '20px', '2xl': '20px' }} position="relative">
           <AspectRatio ratio={1 / 1}>

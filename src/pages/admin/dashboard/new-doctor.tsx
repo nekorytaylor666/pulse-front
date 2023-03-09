@@ -44,7 +44,7 @@ import TextField from 'components/fields/TextField';
 import DoctorCreateForm from 'components/pages/admin/doctor/doctorCreateForm';
 import { CREATE_DOCTOR } from 'components/pages/admin/doctors/graphql/doctors';
 import { graphQLClient } from 'graphql/client';
-import { DoctorCreateInput } from 'graphql/graphql';
+import { DoctorCreateInput, Role } from 'graphql/graphql';
 import AdminLayout from 'layouts/admin/AdminLayout';
 import { queryClient } from 'lib/queryclient';
 import { useRouter } from 'next/router';
@@ -90,6 +90,7 @@ export default function NewDoctor() {
               onSubmit={(data) => {
                 mutate(
                   {
+                    description: data.description,
                     user: {
                       create: {
                         email: data.email,

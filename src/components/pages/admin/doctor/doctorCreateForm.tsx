@@ -14,6 +14,7 @@ import TextField from 'components/fields/TextField';
 import { useForm } from 'react-hook-form';
 import { PulseUser } from 'graphql/graphql';
 import { useMemo } from 'react';
+import Editor from 'components/editor';
 
 // const validationSchema = z
 //   .object({
@@ -39,11 +40,12 @@ import { useMemo } from 'react';
 
 interface Props {
   user?: PulseUser;
+  description?: any;
   onSubmit: (data: any) => void;
 }
 
 export default function DoctorCreateForm(props: Props) {
-  const { user, onSubmit } = props;
+  const { user, onSubmit, description } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'secondaryGray.600';
@@ -51,10 +53,12 @@ export default function DoctorCreateForm(props: Props) {
   const {
     register,
     handleSubmit,
-
+    setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: useMemo(() => user, [user]),
+    defaultValues: useMemo(() => {
+      return { description, ...user };
+    }, [user, description]),
   });
 
   return (
@@ -63,10 +67,10 @@ export default function DoctorCreateForm(props: Props) {
         <Card>
           <Flex direction="column" mb="40px" ms="10px">
             <Text fontSize="xl" color={textColorPrimary} fontWeight="bold">
-              Account Settings
+              Новый доктор
             </Text>
             <Text fontSize="md" color={textColorSecondary}>
-              Here you can change user account information
+              Заполните все поля, чтобы создать нового доктора
             </Text>
           </Flex>
           <SimpleGrid
@@ -141,7 +145,17 @@ export default function DoctorCreateForm(props: Props) {
               />
             </FormControl>{' '}
           </SimpleGrid>
-
+          <FormControl>
+            <Text fontSize="md" color={textColorSecondary} mb={4}>
+              Описание
+            </Text>
+            <Editor
+              onChange={(value: JSON) => {
+                setValue('description', value);
+              }}
+              initialData={description}
+            />
+          </FormControl>
           <Button type="submit">Создать</Button>
         </Card>
       </FormControl>

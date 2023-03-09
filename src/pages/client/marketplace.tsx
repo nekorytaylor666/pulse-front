@@ -105,6 +105,7 @@ export default function Marketplace() {
               <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
                 {doctors?.map((doctor: any) => (
                   <Doctor
+                    id={doctor.id}
                     key={doctor.id}
                     bookingLink={
                       'http://localhost:3000/' +
