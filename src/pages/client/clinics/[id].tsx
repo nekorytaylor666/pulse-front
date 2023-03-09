@@ -64,6 +64,7 @@ import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { GET_CLINIC_BY_ID } from 'components/marketplace/graphql/clinics';
 import ClinicBanner from 'components/marketplace/ClinicsBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function ClinicsDoctors() {
   // Chakra Color Mode
@@ -144,4 +145,12 @@ export default function ClinicsDoctors() {
       </Box>
     </ClientLayout>
   );
+}
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
 }

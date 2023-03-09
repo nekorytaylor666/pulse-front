@@ -29,6 +29,7 @@ import routes from 'routes';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import LabsSearchModal from 'components/marketplace/labsSearch';
+import DoctorSearchModal from 'components/marketplace/doctorSearch';
 export default function HeaderLinks(props: { secondary: boolean }) {
   const { secondary } = props;
 
@@ -76,7 +77,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
       borderRadius="30px"
       boxShadow={shadow}
     >
-      <LabsSearchModal isOpen={isOpen} onClose={onClose}></LabsSearchModal>
+      <DoctorSearchModal isOpen={isOpen} onClose={onClose}></DoctorSearchModal>
       <Box cursor={'pointer'} onClick={onOpen}>
         <SearchBar
           mb={() => {

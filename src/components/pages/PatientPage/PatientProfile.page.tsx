@@ -298,7 +298,10 @@ export default function PatientProfilePageComponent(props: Props) {
 
           <TabPanels>
             <TabPanel px="0px">
-              <BookingListComponent bookings={bookings} />
+              <BookingListComponent
+                isReadOnly={isReadonly}
+                bookings={bookings}
+              />
             </TabPanel>
             <TabPanel px="0px">
               <ConsultationListContainer

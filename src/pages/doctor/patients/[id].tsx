@@ -10,6 +10,7 @@ import { useGetUserById } from 'components/pages/PatientPage/graphql/getPatientB
 import PatientProfilePageComponent from 'components/pages/PatientPage/PatientProfile.page';
 import AdminLayout from 'layouts/admin/AdminLayout';
 import DoctorLayout from 'layouts/doctor/DoctorLayout';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -56,5 +57,14 @@ const PatientProfilePage = () => {
     </DoctorLayout>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
+}
 
 export default PatientProfilePage;
