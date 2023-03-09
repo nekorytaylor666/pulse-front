@@ -13,8 +13,12 @@ import { MdVerified } from 'react-icons/md';
 export default function EditorDescription(props: {
   creator: string;
   desc: OutputData;
+  clinic: {
+    name: string;
+    address: string;
+  };
 }) {
-  const { creator, desc } = props;
+  const { creator, desc, clinic } = props;
   const { t } = useTranslation('common');
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorLink = useColorModeValue('blue.500', 'white');
@@ -26,10 +30,10 @@ export default function EditorDescription(props: {
       </Text>
       <Flex align="center" mb="20px">
         <Text color="secondaryGray.600" fontSize="lg" fontWeight="400">
-          {t('doctor')}
+          Клиника:
         </Text>
         <Text color={textColorLink} fontSize="lg" fontWeight="500" mx="4px">
-          {creator}
+          {clinic.name}
         </Text>
         <Icon as={MdVerified} h="16px" w="16px" color="blue.500" mt="3px" />
       </Flex>

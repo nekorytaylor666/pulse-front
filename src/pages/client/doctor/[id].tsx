@@ -63,7 +63,7 @@ import { graphQLClient } from 'graphql/client';
 import { useQuery } from 'react-query';
 import EditorDescription from 'components/admin/nfts/page/EditorDescription';
 import DoctorDetails from 'components/admin/nfts/page/Auction';
-import Doctor from 'components/marketplace/Doctor';
+import Doctor from 'components/marketplace/DoctorCard';
 import { useSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'react-i18next';
@@ -124,6 +124,7 @@ export default function DoctorClientPage() {
   }
 
   const doctor = data?.getDoctorById;
+  console.log(doctor.clinic);
   // Chakra Color Mode
   return (
     <ClientLayout>
@@ -147,6 +148,7 @@ export default function DoctorClientPage() {
           </Flex>
           <Flex flexDirection="column" gridArea="1 / 2 / 2 / 3" pt="60px">
             <DoctorDetails
+              clinic={doctor.clinic}
               bookingLink={
                 process.env.NEXT_PUBLIC_CAL_URL +
                 '/' +
@@ -184,6 +186,7 @@ export default function DoctorClientPage() {
                   '?metadata[pulseUserId]=' +
                   userId
                 }
+                clinic={doctor.clinic}
                 email={doctor.user.email}
                 image={doctor.user.avatar ?? Avatar4}
                 name={doctor.user.fullName}

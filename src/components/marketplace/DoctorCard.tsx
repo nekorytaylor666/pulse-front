@@ -26,6 +26,10 @@ export default function Doctor(props: {
   name: string;
   email: string;
   bookingLink: string;
+  clinic: {
+    name: string;
+    address: string;
+  };
 }) {
   const { image, name, email, bookingLink, id } = props;
   const [like, setLike] = useState(false);
@@ -124,7 +128,7 @@ export default function Doctor(props: {
             mt="25px"
           >
             <Text fontWeight="700" fontSize="sm" color={textColorBid}>
-              Запишитесь на прием
+              {props.clinic.name} - {props.clinic.address}
             </Text>
             <LinkButton
               href={bookingLink}

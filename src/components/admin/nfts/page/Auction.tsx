@@ -22,10 +22,15 @@ export default function DoctorDetails(props: {
   uniqueName: string;
   description: OutputData;
   bookingLink: string;
+  clinic: {
+    name: string;
+    address: string;
+  };
 }) {
   // Chakra Color Mode
   const { t } = useTranslation('common');
-  const { name, uniqueName, description, bookingLink } = props;
+  const { name, uniqueName, description, bookingLink, clinic } = props;
+  console.log('clinic:', clinic);
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const shadow = useColorModeValue(
     ' 0px 50px 40px -34px rgba(112, 144, 176, 0.16)',
@@ -51,7 +56,7 @@ export default function DoctorDetails(props: {
         {name}
       </Text>
       <Box mt={16}>
-        <EditorDescription desc={description} creator={name} />
+        <EditorDescription clinic={clinic} desc={description} creator={name} />
       </Box>
       <LinkButton
         href={bookingLink}

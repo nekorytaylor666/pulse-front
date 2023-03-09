@@ -61,20 +61,23 @@ import ClientLayout from 'layouts/client/ClientLayout';
 import { useQuery } from 'react-query';
 import { graphQLClient } from 'graphql/client';
 import { useTranslation } from 'react-i18next';
+import { GET_CLINICS } from 'components/marketplace/graphql/clinics';
+import ClinicCard from 'components/marketplace/ClinicCard';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export default function Marketplace() {
+export default function Clinics() {
   // Chakra Color Mode
 
   const { t } = useTranslation('common');
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.500', 'white');
-  const { data, isLoading, error } = useQuery(['doctors'], () => {
-    return graphQLClient.request(GET_DOCTORS);
+  const { data, isLoading, error } = useQuery(['clinics'], () => {
+    return graphQLClient.request(GET_CLINICS);
   });
-  const doctors = data?.getDoctors;
+  const clinics = data?.getClinics;
   const { data: auth } = useSession();
   const userId = auth?.user?.id;
-  console.log('userid:', doctors, isLoading, error);
+  if (isLoading) return <div>Loading...</div>;
   return (
     <ClientLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
@@ -108,22 +111,16 @@ export default function Marketplace() {
                 </Text>
               </Flex>
 
-              <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
-                {doctors?.map((doctor: any) => (
-                  <Doctor
-                    id={doctor.id}
-                    key={doctor.id}
-                    bookingLink={
-                      'http://localhost:3000/' +
-                      doctor.user.uniqueName +
-                      '?metadata[pulseUserId]=' +
-                      userId
-                    }
-                    email={doctor.user.email}
-                    clinic={doctor.clinic}
-                    image={doctor.user.avatar ?? Avatar4}
-                    name={doctor.user.fullName}
-                  ></Doctor>
+              <SimpleGrid columns={{ base: 1, md: 5 }} gap="20px">
+                {clinics?.map((clinic: any) => (
+                  <ClinicCard
+                    id={clinic.id}
+                    key={clinic.id}
+                    address={clinic.address}
+                    image={clinic.coverPhoto ?? Avatar4}
+                    name={clinic.name}
+                    description={clinic.description}
+                  ></ClinicCard>
                 ))}
               </SimpleGrid>
             </Flex>
@@ -133,4 +130,12 @@ export default function Marketplace() {
       </Box>
     </ClientLayout>
   );
+}
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
 }

@@ -61,24 +61,32 @@ import ClientLayout from 'layouts/client/ClientLayout';
 import { useQuery } from 'react-query';
 import { graphQLClient } from 'graphql/client';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
+import { GET_CLINIC_BY_ID } from 'components/marketplace/graphql/clinics';
+import ClinicBanner from 'components/marketplace/ClinicsBanner';
 
-export default function Marketplace() {
+export default function ClinicsDoctors() {
   // Chakra Color Mode
 
   const { t } = useTranslation('common');
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.500', 'white');
-  const { data, isLoading, error } = useQuery(['doctors'], () => {
-    return graphQLClient.request(GET_DOCTORS);
-  });
-  const doctors = data?.getDoctors;
+  const router = useRouter();
+  const { id } = router.query;
   const { data: auth } = useSession();
+
+  const { data, isLoading, error } = useQuery(['clinic', id], () => {
+    return graphQLClient.request(GET_CLINIC_BY_ID, { id: id as string });
+  });
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const doctors = data?.getClinicById.doctors;
   const userId = auth?.user?.id;
   console.log('userid:', doctors, isLoading, error);
   return (
     <ClientLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
-        {/* Main Fields */}
         <Grid
           mb="20px"
           gridTemplateColumns={{ xl: 'repeat(3, 1fr)', '2xl': '1fr ' }}
@@ -89,7 +97,10 @@ export default function Marketplace() {
             flexDirection="column"
             gridArea={{ xl: '1 / 1 / 2 / 3', '2xl': '1 / 1 / 2 / 2' }}
           >
-            <MarketplaceBanner />
+            <ClinicBanner
+              title={data.getClinicById.name}
+              subtitle={data.getClinicById.description}
+            />
             <Flex direction="column">
               <Flex
                 mt="45px"

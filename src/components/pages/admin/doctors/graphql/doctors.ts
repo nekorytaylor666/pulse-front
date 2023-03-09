@@ -23,6 +23,11 @@ export const GET_DOCTORS = graphql(`
         id
         description
       }
+      clinic {
+        address
+        name
+        id
+      }
     }
   }
 `);
@@ -50,6 +55,11 @@ export const GET_DOCTOR_BY_ID = graphql(`
         name
         id
         description
+      }
+      clinic {
+        address
+        name
+        id
       }
     }
   }
