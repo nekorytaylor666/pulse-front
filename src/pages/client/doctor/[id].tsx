@@ -58,7 +58,7 @@ import { useRouter } from 'next/router';
 import {
   GET_DOCTORS,
   GET_DOCTOR_BY_ID,
-} from 'components/pages/admin/doctors/graphql/doctors';
+} from 'graphql/operations/graphql/doctors';
 import { graphQLClient } from 'graphql/client';
 import { useQuery } from 'react-query';
 import EditorDescription from 'components/admin/nfts/page/EditorDescription';

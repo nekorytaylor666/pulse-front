@@ -57,7 +57,7 @@ import MarketplaceBanner from 'components/marketplace/Banner';
 import { useQuery } from '@apollo/client';
 import Doctor from 'components/marketplace/Doctor';
 import { useSession } from 'next-auth/react';
-import { GET_DOCTORS } from 'components/pages/admin/doctors/graphql/doctors';
+import { GET_DOCTORS } from 'graphql/operations/graphql/doctors';
 import ClientLayout from 'layouts/client/ClientLayout';
 
 export default function Marketplace() {

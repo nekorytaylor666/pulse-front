@@ -17,7 +17,7 @@ import {
   CREATE_DOCTOR,
   GET_DOCTOR_BY_ID,
   UPDATE_DOCTOR,
-} from '../doctors/graphql/doctors';
+} from '../../../../graphql/operations/graphql/doctors';
 import {
   DoctorCreateInput,
   DoctorUpdateInput,

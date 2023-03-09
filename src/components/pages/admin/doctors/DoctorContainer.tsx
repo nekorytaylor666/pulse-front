@@ -5,7 +5,7 @@ import AdminLayout from 'layouts/admin/AdminLayout';
 import React from 'react';
 import { useQuery } from 'react-query';
 import tableDataManagement from 'variables/account/application/tableDataManagement';
-import { GET_DOCTORS } from './graphql/doctors';
+import { GET_DOCTORS } from '../../../../graphql/operations/graphql/doctors';
 
 const DoctorContainer = () => {
   const { data, isLoading, isError, error } = useQuery(
