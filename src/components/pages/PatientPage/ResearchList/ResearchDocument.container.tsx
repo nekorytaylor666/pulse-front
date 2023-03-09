@@ -28,10 +28,11 @@ export type ResearchDocuments = ReturnType<
 
 interface Props {
   researchDocuments: ResearchDocuments;
+  isReadOnly?: boolean;
 }
 
 const ResearchDocumentContainer: React.FC<Props> = (props) => {
-  const { researchDocuments } = props;
+  const { researchDocuments, isReadOnly } = props;
   const patientId = useRouter().query.id as string;
   const toast = useToast();
   const session = useSession();
@@ -131,6 +132,7 @@ const ResearchDocumentContainer: React.FC<Props> = (props) => {
   console.log(doctorId);
   return (
     <ResearchDocumentsComponent
+      isReadOnly={isReadOnly}
       onCreateConsultationList={onCreateConsultationList}
       onEditConsultationList={onEditConsultationList}
       consultationArray={researchDocuments ?? []}

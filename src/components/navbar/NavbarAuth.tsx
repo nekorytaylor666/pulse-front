@@ -80,7 +80,7 @@ export default function AuthNavbar(props: {
     return foundLinks;
   }
   let authObject = getLinksCollapse('Authentication');
-  let mainObject = getLinksCollapse('Main Pages');
+  let mainObject = getLinksCollapse('Клиент');
   let dashboardsObject = getLinks('Dashboards');
   let nftsObject = getLinks('NFTs');
   let logoColor = useColorModeValue('white', 'white');
@@ -88,17 +88,16 @@ export default function AuthNavbar(props: {
 
   const textColor = useColorModeValue('navy.700', 'white');
   let menuBg = useColorModeValue('white', 'navy.900');
-  let mainText = '#fff';
+  let mainText = '#000';
   let navbarBg = 'none';
   let navbarShadow = 'initial';
-  let bgButton = 'white';
+  let bgButton = 'brand.500';
   let colorButton = 'brand.500';
   let navbarPosition = 'absolute' as 'absolute';
 
   let brand = (
     <Link
-      href={`${process.env.PUBLIC_URL}/#/`}
-      target="_blank"
+      href={`/`}
       display="flex"
       lineHeight="100%"
       fontWeight="bold"
@@ -106,22 +105,14 @@ export default function AuthNavbar(props: {
       alignItems="center"
       color={mainText}
     >
-      <Stack
-        direction="row"
-        spacing="12px"
-        alignItems="center"
-        justify="center"
-      ></Stack>
-      <Text fontSize="sm" mt="3px">
-        {logoText}
-      </Text>
+      <Image src="/img/logo.png" h={'48px'} w={'140px'}></Image>
     </Link>
   );
   if (props.secondary === true) {
     brand = (
       <Link
         minW="175px"
-        href={`${process.env.PUBLIC_URL}/#/`}
+        href={`${process.env.PUBLIC_URL}/`}
         target="_blank"
         display="flex"
         lineHeight="100%"
@@ -240,7 +231,7 @@ export default function AuthNavbar(props: {
   };
   const linksAuth = (
     <HStack display={{ sm: 'none', lg: 'flex' }} spacing="20px">
-      <Stack
+      {/* <Stack
         direction="row"
         spacing="4px"
         alignItems="center"
@@ -288,8 +279,8 @@ export default function AuthNavbar(props: {
             />
           </MenuList>
         </Menu>
-      </Stack>
-      <Stack
+      </Stack> */}
+      {/* <Stack
         direction="row"
         spacing="4px"
         alignItems="center"
@@ -337,7 +328,7 @@ export default function AuthNavbar(props: {
             />
           </MenuList>
         </Menu>
-      </Stack>
+      </Stack> */}
       <Stack
         direction="row"
         spacing="4px"
@@ -350,7 +341,7 @@ export default function AuthNavbar(props: {
         position="relative"
       >
         <Text fontSize="sm" color={mainText}>
-          Main Pages
+          Главная
         </Text>
         <Box>
           <Icon
@@ -388,7 +379,7 @@ export default function AuthNavbar(props: {
           </MenuList>
         </Menu>
       </Stack>
-      <Stack
+      {/* <Stack
         direction="row"
         spacing="4px"
         alignItems="center"
@@ -400,7 +391,7 @@ export default function AuthNavbar(props: {
         position="relative"
       >
         <Text fontSize="sm" color={mainText}>
-          Authentications
+          Профиль
         </Text>
         <Box>
           <Icon
@@ -436,7 +427,7 @@ export default function AuthNavbar(props: {
             <Image borderRadius="16px" src={dropdown} alt="" />
           </MenuList>
         </Menu>
-      </Stack>
+      </Stack> */}
     </HStack>
   );
 
@@ -458,8 +449,8 @@ export default function AuthNavbar(props: {
         alignItems="center"
         zIndex="3"
       >
-        <Flex w="100%" justifyContent={{ sm: 'start', lg: 'space-between' }}>
-          {brand}
+        <Flex w="100%" justifyContent={{ sm: 'start', lg: 'start' }}>
+          <Box mr={4}>{brand}</Box>
           <Box
             ms={{ base: 'auto', lg: '0px' }}
             display={{ base: 'flex', lg: 'none' }}

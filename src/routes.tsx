@@ -326,12 +326,7 @@ const routes: IRoute[] = [
         collapse: true,
         items: [
           {
-            name: 'Default',
-            layout: '/auth',
-            path: '/sign-in/default',
-          },
-          {
-            name: 'Centered',
+            name: 'Вход',
             layout: '/auth',
             path: '/sign-in/centered',
           },

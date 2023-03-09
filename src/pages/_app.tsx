@@ -14,6 +14,7 @@ import { gql_client } from 'graphql/client';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import '@algolia/autocomplete-theme-classic';
 
 import Fonts from 'Fonts';
 import { queryClient } from 'lib/queryclient';
@@ -24,9 +25,9 @@ function MyApp({
   return (
     <ChakraProvider theme={theme}>
       <Head>
-        <title>Horizon UI PRO NextJS</title>
+        <title>Pulse</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#7421FC" />
       </Head>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>

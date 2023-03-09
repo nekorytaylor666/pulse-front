@@ -92,7 +92,7 @@ function ForgotPassword() {
         >
           <FormControl>
             <Flex justify="center">
-              <PinInput mx="auto" otp>
+              <PinInput mx="auto" otp onChange={(value) => console.log(value)}>
                 <PinInputField
                   fontSize="36px"
                   color={textColor}

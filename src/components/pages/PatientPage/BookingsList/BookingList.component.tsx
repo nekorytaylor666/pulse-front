@@ -5,6 +5,7 @@ import BookingCard from 'components/profile/BookingCard';
 import { Booking, Maybe } from 'graphql/graphql';
 import React from 'react';
 import { MdDashboard, MdApps } from 'react-icons/md';
+import { RiEmotionHappyLine } from 'react-icons/ri';
 import Avatar4 from '/public/img/avatars/avatar4.png';
 const BookingListComponent = ({ bookings }: { bookings: any[] }) => {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -29,6 +30,12 @@ const BookingListComponent = ({ bookings }: { bookings: any[] }) => {
       >
         Записи
       </Text>
+      {bookings.length === 0 && (
+        <Flex align="center" justify={'center'} direction={'column'} h={'100%'}>
+          <Icon as={RiEmotionHappyLine} w={'100px'} h={'100px'} />
+          <Text mt={'4'}>Записей нет</Text>
+        </Flex>
+      )}
       <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} gap="20px">
         {/* <Booking
       bookingLink="/"

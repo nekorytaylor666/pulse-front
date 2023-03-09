@@ -29,6 +29,7 @@ import {
   Text,
   useColorModeValue,
   SimpleGrid,
+  Icon,
 } from '@chakra-ui/react';
 import Link from 'components/link/Link';
 
@@ -100,6 +101,7 @@ export default function Marketplace() {
                   Доктора
                 </Text>
               </Flex>
+
               <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
                 {doctors?.map((doctor: any) => (
                   <Doctor

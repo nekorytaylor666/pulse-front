@@ -12,6 +12,7 @@ import {
   Text,
   useColorMode,
   useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react';
 import Link from 'components/link/Link';
 // Custom Components
@@ -27,6 +28,7 @@ import { MdInfoOutline, MdNotificationsNone } from 'react-icons/md';
 import routes from 'routes';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import LabsSearchModal from 'components/marketplace/labsSearch';
 export default function HeaderLinks(props: { secondary: boolean }) {
   const { secondary } = props;
   const { colorMode, toggleColorMode } = useColorMode();
@@ -48,6 +50,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
   const router = useRouter();
   const session = useSession();
   const user = session?.data?.user;
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogout = () => {
     signOut({ redirect: false, callbackUrl: '/auth/sign-in' });
@@ -55,7 +58,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
   };
 
   const handleProfile = () => {
-    router.push('/admin/client/profile');
+    router.push('/client/profile');
   };
   return (
     <Flex
@@ -68,16 +71,19 @@ export default function HeaderLinks(props: { secondary: boolean }) {
       borderRadius="30px"
       boxShadow={shadow}
     >
-      <SearchBar
-        mb={() => {
-          if (secondary) {
-            return { base: '10px', md: 'unset' };
-          }
-          return 'unset';
-        }}
-        me="10px"
-        borderRadius="30px"
-      />
+      <LabsSearchModal isOpen={isOpen} onClose={onClose}></LabsSearchModal>
+      <Box cursor={'pointer'} onClick={onOpen}>
+        <SearchBar
+          mb={() => {
+            if (secondary) {
+              return { base: '10px', md: 'unset' };
+            }
+            return 'unset';
+          }}
+          me="10px"
+          borderRadius="30px"
+        />
+      </Box>
       <Flex
         bg={ethBg}
         display={secondary ? 'flex' : 'none'}

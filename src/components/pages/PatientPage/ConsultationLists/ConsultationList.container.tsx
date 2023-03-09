@@ -27,10 +27,11 @@ export type ConsultationLists = ReturnType<
 
 interface Props {
   consultationLists: ConsultationLists;
+  isReadOnly?: boolean;
 }
 
 const ConsultationListContainer: React.FC<Props> = (props) => {
-  const { consultationLists } = props;
+  const { consultationLists, isReadOnly } = props;
   const patientId = useRouter().query.id as string;
   const toast = useToast();
 
@@ -131,6 +132,7 @@ const ConsultationListContainer: React.FC<Props> = (props) => {
   console.log('authorid', doctorId);
   return (
     <ConsultationListComponent
+      isReadOnly={isReadOnly}
       onCreateConsultationList={onCreateConsultationList}
       onEditConsultationList={onEditConsultationList}
       consultationArray={consultationLists}

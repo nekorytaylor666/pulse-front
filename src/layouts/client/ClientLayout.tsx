@@ -6,7 +6,7 @@ import FixedPlugin from 'components/fixedPlugin/FixedPlugin';
 import Footer from 'components/footer/FooterAuthCentered';
 import Navbar from 'components/navbar/NavbarAuth';
 import PropTypes from 'prop-types';
-
+import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
 function ClientLayout(props: {
   children: JSX.Element;
   title?: string;
@@ -23,6 +23,8 @@ function ClientLayout(props: {
       alignSelf="center"
       justifySelf="center"
       overflow="hidden"
+      pt={4}
+      px={{ base: '0px', lg: '24px' }}
       mx={{ base: '10px', lg: '0px' }}
       minH="100vh"
     >
@@ -41,8 +43,15 @@ function ClientLayout(props: {
         bgImage={image}
         mx={{ md: 'auto' }}
       />
-      <Navbar />
+      <Flex>
+        <Box ms="auto" w={{ sm: '100%', md: 'unset' }}>
+          <AdminNavbarLinks secondary={props.secondary} />
+        </Box>
+      </Flex>
+
+      {/* <Navbar /> */}
       <Card
+        shadow={{ base: 'none' }}
         w={{ base: '100%', md: 'container.xl' }}
         h="max-content"
         minH={{ base: '100vh', md: '100vh' }}

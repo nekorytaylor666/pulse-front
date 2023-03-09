@@ -18,8 +18,10 @@ import { OutputData } from '@editorjs/editorjs';
 import Editor from 'components/editor';
 import { EthereumLogoOutline } from 'components/icons/Icons';
 import React, { useState } from 'react';
+import { FcEmptyFilter } from 'react-icons/fc';
 import { IoLogoInstagram } from 'react-icons/io5';
-import { MdOutlineUpgrade } from 'react-icons/md';
+import { MdNoCell, MdOutlineUpgrade } from 'react-icons/md';
+import { RiEmotionHappyLine } from 'react-icons/ri';
 import { ConsultationLists } from './ResearchDocument.container';
 import ConsultationListCard from './ResearchDocumentItem';
 
@@ -44,6 +46,7 @@ interface Props {
     patientId: string;
     authorId: string;
   };
+  isReadOnly?: boolean;
 }
 
 const ConsultationListComponent: React.FC<Props> = (props) => {
@@ -52,6 +55,7 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
     onEditConsultationList,
     onCreateConsultationList,
     fileMetadata,
+    isReadOnly,
   } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -66,11 +70,20 @@ const ConsultationListComponent: React.FC<Props> = (props) => {
         }}
       ></NewConsultationListModal>
       <Flex my={'8'} align="center" justify={'space-between'}>
-        <Heading size={'lg'}>Консультационный Листы</Heading>
-        <Button colorScheme={'blue'} onClick={onOpen}>
-          Добавить Консультационный Лист
-        </Button>
+        <Heading size={'lg'}>Исследования</Heading>
+        {!isReadOnly && (
+          <Button colorScheme={'blue'} onClick={onOpen}>
+            Добавить Консультационный Лист
+          </Button>
+        )}
       </Flex>
+      {consultationArray.length === 0 && (
+        <Flex align="center" justify={'center'} direction={'column'} h={'100%'}>
+          <Icon as={RiEmotionHappyLine} w={'100px'} h={'100px'} />
+          <Text mt={'4'}>Исследований нет</Text>
+        </Flex>
+      )}
+
       <SimpleGrid columns={3} gap="20px">
         {consultationArray.map((data, index) => (
           <>

@@ -73,7 +73,7 @@ function SignIn() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setLoginning(true);
-    signIn('credentials', { ...data, callbackUrl: '/doctor/patients' });
+    signIn('credentials', { ...data, callbackUrl: '/' });
   };
   return (
     <CenteredAuth

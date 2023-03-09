@@ -59,6 +59,8 @@ import Booking from 'components/profile/BookingCard';
 import { useQuery } from '@apollo/client';
 import { GET_BOOKINGS_BY_USER_ID } from 'graphql/operations/query/getBookingsByUserId';
 import ClientLayout from 'layouts/client/ClientLayout';
+import PatientProfilePageComponent from 'components/pages/PatientPage/PatientProfile.page';
+import { useGetUserById } from 'components/pages/PatientPage/graphql/getPatientById';
 export default function Collection() {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const buttonBg = useColorModeValue('transparent', 'navy.800');
@@ -72,25 +74,23 @@ export default function Collection() {
   );
 
   const session = useSession();
-  const { data } = useQuery(GET_BOOKINGS_BY_USER_ID, {
-    variables: {
-      userId: session?.data?.user?.user?.id,
-    },
-    skip: !session?.data?.user?.user?.id,
-  });
+  const { data, isLoading, isError, error } = useGetUserById(
+    session?.data?.user?.id ?? ('' as string)
+  );
 
   // if not logged in, redirect to login page
   if (session.status !== 'loading' && !session.data)
     return (
-      <AdminLayout>
+      <ClientLayout>
         <Box>
           <Text>Ошибка входа</Text>
           <Link href={'/auth/sign-in'}>Вход</Link>
         </Box>
-      </AdminLayout>
+      </ClientLayout>
     );
 
-  if (session.status === 'loading') return 'Loading...';
+  if (isLoading) return <div>Loading...</div>;
+  if (session.status === 'loading') return <div>Loading...</div>;
   console.log(session);
   const user = session?.data?.user;
   const bookings = data?.bookingsByUser;
@@ -98,116 +98,11 @@ export default function Collection() {
   console.log(data);
   return (
     <ClientLayout>
-      <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
-        {/* Main Fields */}
-        <Box mb="20px" display={{ base: 'block', lg: 'grid' }}>
-          <Flex flexDirection="column">
-            <ProfileBanner
-              image={NftBanner2}
-              profile={NftProfile}
-              phoneNumber={user.phoneNumber}
-              name={user.fullName}
-              floor={0.56}
-              volume={33.8}
-              owners={4.6}
-              items={28}
-            />
-          </Flex>
-        </Box>
-        <Flex w="100%">
-          <SearchBar />
-          {/* <Select
-            fontSize="sm"
-            id="edit_product"
-            variant="main"
-            h="44px"
-            maxH="44px"
-            me={{ base: '10px', md: '20px' }}
-          >
-            <option value="single">Single Items</option>
-            <option value="multiple">Multiple Items</option>
-          </Select> */}
-          <Select
-            fontSize="sm"
-            variant="main"
-            h="44px"
-            maxH="44px"
-            me={{ base: '10px', md: '20px' }}
-          >
-            <option value="low_to_high">По возрастанию</option>
-            <option value="high_to_low">По убыванию</option>
-          </Select>
-          <Button
-            me={{ base: '10px', md: '20px' }}
-            bg={buttonBg}
-            border="1px solid"
-            color="secondaryGray.600"
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            borderColor={useColorModeValue(
-              'secondaryGray.100',
-              'whiteAlpha.100'
-            )}
-            borderRadius="16px"
-            _placeholder={{ color: 'secondaryGray.600' }}
-            _hover={hoverButton}
-            _active={activeButton}
-            _focus={activeButton}
-          >
-            <Icon color={textColor} as={MdDashboard} />
-          </Button>
-          <Button
-            bg={buttonBg}
-            border="1px solid"
-            color="secondaryGray.600"
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            borderColor={useColorModeValue(
-              'secondaryGray.100',
-              'whiteAlpha.100'
-            )}
-            borderRadius="16px"
-            _placeholder={{ color: 'secondaryGray.600' }}
-            _hover={hoverButton}
-            _active={activeButton}
-            _focus={activeButton}
-          >
-            <Icon color={textColor} as={MdApps} />
-          </Button>
-        </Flex>
-        <Text
-          mt="25px"
-          mb="36px"
-          color={textColor}
-          fontSize="2xl"
-          ms="24px"
-          fontWeight="700"
-        >
-          Записи
-        </Text>
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} gap="20px">
-          {/* <Booking
-            bookingLink="/"
-            doctorAvatar={Avatar4}
-            doctorName="Леопольд"
-            image="/img/nfts/Nft2.png"
-            price={100}
-            serviceName="Консультация"
-          /> */}
-          {bookings?.map((booking: any) => (
-            <Booking
-              key={booking.id}
-              startTime={booking.startTime}
-              endTime={booking.endTime}
-              bookingLink={'http://localhost:3000/booking/' + booking.uid}
-              doctorAvatar={Avatar4}
-              doctorName={booking.user.fullName}
-              price={100}
-              serviceName={booking.title}
-            />
-          ))}
-        </SimpleGrid>
-
-        {/* Delete Product */}
-      </Box>
+      <PatientProfilePageComponent
+        isReadonly={true}
+        user={data.getUserById}
+        bookings={data.bookingsByUser}
+      ></PatientProfilePageComponent>
     </ClientLayout>
   );
 }

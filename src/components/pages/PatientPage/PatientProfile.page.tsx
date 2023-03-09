@@ -145,10 +145,11 @@ export type Bookings = ReturnType<
 interface Props {
   user: User;
   bookings: Bookings;
+  isReadonly?: boolean;
 }
 
 export default function PatientProfilePageComponent(props: Props) {
-  const { user, bookings } = props;
+  const { user, bookings, isReadonly } = props;
   let [tabState, setTabState] = useState('collected');
 
   const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -167,219 +168,219 @@ export default function PatientProfilePageComponent(props: Props) {
 
   return (
     <>
-      <DoctorLayout>
-        <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
-          {/* Main Fields */}
-          <Box mb="20px" display={{ base: 'block', lg: 'grid' }}>
-            <Flex flexDirection="column">
-              <ProfileBanner
-                image={NftBanner2}
-                profile={NftProfile}
-                phoneNumber={user.phoneNumber}
-                name={user.fullName}
-                floor={0.56}
-                volume={33.8}
-                owners={4.6}
-                items={28}
-              />
-            </Flex>
-          </Box>
-          <Tabs variant="soft-rounded" colorScheme="brandTabs">
-            <TabList
-              mx={{ base: '10px', lg: '20px' }}
-              overflowX={{ sm: 'scroll', lg: 'unset' }}
-            >
-              <Flex justify={{ base: 'start', md: 'center' }} w="100%">
-                {tabs.map((tab, index) => (
-                  <Tab
-                    key={index}
-                    pb="0px"
-                    flexDirection="column"
-                    onClick={function () {
-                      setTabState(tab.name);
-                    }}
-                    me="24px"
-                    bg="unset"
-                    _selected={{
-                      bg: 'none',
-                    }}
-                    _focus={{ border: 'none' }}
-                    minW="max-content"
-                  >
-                    <Flex align="center">
-                      <Icon
-                        color={textColor}
-                        as={tab.icon}
-                        w="20px"
-                        h="20px"
-                        me="8px"
-                      />
-                      <Text
-                        color={textColor}
-                        fontSize="md"
-                        fontWeight="500"
-                        me="12px"
-                      >
-                        {tab.name}
-                      </Text>
-                    </Flex>
-                    <Box
-                      height="4px"
-                      w="100%"
-                      transition="0.1s linear"
-                      bg={tabState === tab.name ? 'brand.500' : 'transparent'}
-                      mt="15px"
-                      borderRadius="30px"
-                    />
-                  </Tab>
-                ))}
-                <Popover>
-                  {/*@ts-ignore  */}
-                  <PopoverTrigger>
-                    <Button>Другое</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverHeader>Другое</PopoverHeader>
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <Flex direction={'column'}>
-                          {otherTabs.map((tab, index) => (
-                            <Tab
-                              key={index}
-                              pb="16px"
-                              borderBottom={`1px solid ${paleGray}`}
-                              flexDirection="column"
-                              onClick={function () {
-                                setTabState(tab.name);
-                              }}
-                              me="24px"
-                              bg="unset"
-                              _selected={{
-                                bg: 'none',
-                              }}
-                              _focus={{ border: 'none' }}
-                              minW="max-content"
-                            >
-                              <Flex width={'full'} align="flex-start">
-                                <Icon
-                                  color={textColor}
-                                  as={tab.icon}
-                                  w="20px"
-                                  h="20px"
-                                  me="8px"
-                                />
-                                <Text
-                                  color={textColor}
-                                  fontSize="md"
-                                  fontWeight="500"
-                                  me="12px"
-                                >
-                                  {tab.name}
-                                </Text>
-                              </Flex>
-                            </Tab>
-                          ))}
-                        </Flex>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-              </Flex>
-            </TabList>
-            <HSeparator mb="30px" bg={paleGray} mt="0px" />
-            <Flex w="100%">
-              <SearchBar />
-              <Select
-                fontSize="sm"
-                id="edit_product"
-                variant="main"
-                h="44px"
-                maxH="44px"
-                me="20px"
-                defaultValue="single"
-              >
-                <option value="single">Single Items</option>
-                <option value="multiple">Multiple Items</option>
-              </Select>
-              <Select
-                fontSize="sm"
-                variant="main"
-                h="44px"
-                maxH="44px"
-                me="20px"
-                defaultValue="low_to_high"
-              >
-                <option value="low_to_high">Low to high</option>
-                <option value="high_to_low">High to low</option>
-              </Select>
-              <Button
-                me="20px"
-                bg={buttonBg}
-                border="1px solid"
-                color="secondaryGray.600"
-                borderColor={useColorModeValue(
-                  'secondaryGray.100',
-                  'whiteAlpha.100'
-                )}
-                borderRadius="16px"
-                _placeholder={{ color: 'secondaryGray.600' }}
-                _hover={hoverButton}
-                _active={activeButton}
-                _focus={activeButton}
-              >
-                <Icon color={textColor} as={MdDashboard} />
-              </Button>
-              <Button
-                bg={buttonBg}
-                border="1px solid"
-                color="secondaryGray.600"
-                borderColor={useColorModeValue(
-                  'secondaryGray.100',
-                  'whiteAlpha.100'
-                )}
-                borderRadius="16px"
-                _placeholder={{ color: 'secondaryGray.600' }}
-                _hover={hoverButton}
-                _active={activeButton}
-                _focus={activeButton}
-              >
-                <Icon color={textColor} as={MdApps} />
-              </Button>
-            </Flex>
-
-            <TabPanels>
-              <TabPanel px="0px">
-                <BookingListComponent bookings={bookings} />
-              </TabPanel>
-              <TabPanel px="0px">
-                <ConsultationListContainer
-                  consultationLists={user.appointmentsAsPatient}
-                ></ConsultationListContainer>
-              </TabPanel>
-              <TabPanel px="0px">
-                <ResearchDocumentContainer
-                  researchDocuments={user.researchDocumentsAsPatient}
-                ></ResearchDocumentContainer>
-              </TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-              <TabPanel px="0px">test</TabPanel>
-            </TabPanels>
-          </Tabs>
+      <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
+        {/* Main Fields */}
+        <Box mb="20px" display={{ base: 'block', lg: 'grid' }}>
+          <Flex flexDirection="column">
+            <ProfileBanner
+              image={NftBanner2}
+              profile={NftProfile}
+              phoneNumber={user.phoneNumber}
+              name={user.fullName}
+              floor={0.56}
+              volume={33.8}
+              owners={4.6}
+              items={28}
+            />
+          </Flex>
         </Box>
-      </DoctorLayout>
+        <Tabs variant="soft-rounded" colorScheme="brandTabs">
+          <TabList
+            mx={{ base: '10px', lg: '20px' }}
+            overflowX={{ sm: 'scroll', lg: 'unset' }}
+          >
+            <Flex justify={{ base: 'start', md: 'center' }} w="100%">
+              {tabs.map((tab, index) => (
+                <Tab
+                  key={index}
+                  pb="0px"
+                  flexDirection="column"
+                  onClick={function () {
+                    setTabState(tab.name);
+                  }}
+                  me="24px"
+                  bg="unset"
+                  _selected={{
+                    bg: 'none',
+                  }}
+                  _focus={{ border: 'none' }}
+                  minW="max-content"
+                >
+                  <Flex align="center">
+                    <Icon
+                      color={textColor}
+                      as={tab.icon}
+                      w="20px"
+                      h="20px"
+                      me="8px"
+                    />
+                    <Text
+                      color={textColor}
+                      fontSize="md"
+                      fontWeight="500"
+                      me="12px"
+                    >
+                      {tab.name}
+                    </Text>
+                  </Flex>
+                  <Box
+                    height="4px"
+                    w="100%"
+                    transition="0.1s linear"
+                    bg={tabState === tab.name ? 'brand.500' : 'transparent'}
+                    mt="15px"
+                    borderRadius="30px"
+                  />
+                </Tab>
+              ))}
+              <Popover>
+                {/*@ts-ignore  */}
+                <PopoverTrigger>
+                  <Button>Другое</Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverHeader>Другое</PopoverHeader>
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <Flex direction={'column'}>
+                        {otherTabs.map((tab, index) => (
+                          <Tab
+                            key={index}
+                            pb="16px"
+                            borderBottom={`1px solid ${paleGray}`}
+                            flexDirection="column"
+                            onClick={function () {
+                              setTabState(tab.name);
+                            }}
+                            me="24px"
+                            bg="unset"
+                            _selected={{
+                              bg: 'none',
+                            }}
+                            _focus={{ border: 'none' }}
+                            minW="max-content"
+                          >
+                            <Flex width={'full'} align="flex-start">
+                              <Icon
+                                color={textColor}
+                                as={tab.icon}
+                                w="20px"
+                                h="20px"
+                                me="8px"
+                              />
+                              <Text
+                                color={textColor}
+                                fontSize="md"
+                                fontWeight="500"
+                                me="12px"
+                              >
+                                {tab.name}
+                              </Text>
+                            </Flex>
+                          </Tab>
+                        ))}
+                      </Flex>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
+            </Flex>
+          </TabList>
+          <HSeparator mb="30px" bg={paleGray} mt="0px" />
+          <Flex w="100%">
+            <SearchBar />
+            <Select
+              fontSize="sm"
+              id="edit_product"
+              variant="main"
+              h="44px"
+              maxH="44px"
+              me="20px"
+              defaultValue="single"
+            >
+              <option value="single">Single Items</option>
+              <option value="multiple">Multiple Items</option>
+            </Select>
+            <Select
+              fontSize="sm"
+              variant="main"
+              h="44px"
+              maxH="44px"
+              me="20px"
+              defaultValue="low_to_high"
+            >
+              <option value="low_to_high">Low to high</option>
+              <option value="high_to_low">High to low</option>
+            </Select>
+            <Button
+              me="20px"
+              bg={buttonBg}
+              border="1px solid"
+              color="secondaryGray.600"
+              borderColor={useColorModeValue(
+                'secondaryGray.100',
+                'whiteAlpha.100'
+              )}
+              borderRadius="16px"
+              _placeholder={{ color: 'secondaryGray.600' }}
+              _hover={hoverButton}
+              _active={activeButton}
+              _focus={activeButton}
+            >
+              <Icon color={textColor} as={MdDashboard} />
+            </Button>
+            <Button
+              bg={buttonBg}
+              border="1px solid"
+              color="secondaryGray.600"
+              borderColor={useColorModeValue(
+                'secondaryGray.100',
+                'whiteAlpha.100'
+              )}
+              borderRadius="16px"
+              _placeholder={{ color: 'secondaryGray.600' }}
+              _hover={hoverButton}
+              _active={activeButton}
+              _focus={activeButton}
+            >
+              <Icon color={textColor} as={MdApps} />
+            </Button>
+          </Flex>
+
+          <TabPanels>
+            <TabPanel px="0px">
+              <BookingListComponent bookings={bookings} />
+            </TabPanel>
+            <TabPanel px="0px">
+              <ConsultationListContainer
+                isReadOnly={isReadonly}
+                consultationLists={user.appointmentsAsPatient}
+              ></ConsultationListContainer>
+            </TabPanel>
+            <TabPanel px="0px">
+              <ResearchDocumentContainer
+                isReadOnly={isReadonly}
+                researchDocuments={user.researchDocumentsAsPatient}
+              ></ResearchDocumentContainer>
+            </TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+            <TabPanel px="0px">test</TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
     </>
   );
 }
