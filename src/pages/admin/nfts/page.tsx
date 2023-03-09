@@ -81,13 +81,6 @@ export default function Page() {
             />
           </Flex>
           <Flex flexDirection="column" gridArea="1 / 2 / 2 / 3" pt="60px">
-            <Auction
-              name="Color Abstractus®"
-              creator="Simmmple"
-              creatorAvatar={AvatarSimmmple}
-              price="3.87 ETH"
-              bid={2.82}
-            />
             <Card px="0px" mb="20px" mt="66px">
               <TableLastOffer tableData={tableDataLastOffer} />
             </Card>

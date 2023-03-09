@@ -54,17 +54,20 @@ import Avatar4 from '/public/img/avatars/avatar4.png';
 import AdminLayout from 'layouts/admin/AdminLayout';
 import tableDataTopCreators from 'variables/nfts/marketplace/tableDataTopCreators';
 import MarketplaceBanner from 'components/marketplace/Banner';
-import { useQuery } from '@apollo/client';
 import Doctor from 'components/marketplace/Doctor';
 import { useSession } from 'next-auth/react';
 import { GET_DOCTORS } from 'graphql/operations/graphql/doctors';
 import ClientLayout from 'layouts/client/ClientLayout';
+import { useQuery } from 'react-query';
+import { graphQLClient } from 'graphql/client';
 
 export default function Marketplace() {
   // Chakra Color Mode
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.500', 'white');
-  const { data, loading } = useQuery(GET_DOCTORS);
+  const { data, isLoading } = useQuery(['doctors'], () =>
+    graphQLClient.request(GET_DOCTORS)
+  );
   const doctors = data?.getDoctors;
   const { data: auth } = useSession();
   const userId = auth?.user?.id;

@@ -31,12 +31,10 @@ function MyApp({
       </Head>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <ApolloProvider client={gql_client}>
-            <React.StrictMode>
-              <Fonts></Fonts>
-              <Component {...pageProps} />
-            </React.StrictMode>
-          </ApolloProvider>
+          <React.StrictMode>
+            <Fonts></Fonts>
+            <Component {...pageProps} />
+          </React.StrictMode>
         </QueryClientProvider>
       </SessionProvider>
     </ChakraProvider>
