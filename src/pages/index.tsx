@@ -111,7 +111,7 @@ export default function Clinics() {
                 </Text>
               </Flex>
 
-              <SimpleGrid columns={{ base: 1, md: 5 }} gap="20px">
+              <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
                 {clinics?.map((clinic: any) => (
                   <ClinicCard
                     id={clinic.id}
