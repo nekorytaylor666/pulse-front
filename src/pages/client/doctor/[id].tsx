@@ -178,6 +178,7 @@ export default function DoctorClientPage() {
             ?.filter((cur) => cur.id !== doctor.id)
             .map((doctor: any) => (
               <Doctor
+                id={doctor.id}
                 key={doctor.id}
                 bookingLink={
                   process.env.NEXT_PUBLIC_CAL_URL +

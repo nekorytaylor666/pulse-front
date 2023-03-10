@@ -88,7 +88,9 @@ const BookingListComponent = ({
             key={booking.id}
             startTime={booking.startTime}
             endTime={booking.endTime}
-            bookingLink={'http://localhost:3000/booking/' + booking.uid}
+            bookingLink={
+              process.env.NEXT_PUBLIC_CAL_URL + '/booking/' + booking.uid
+            }
             doctorAvatar={Avatar4}
             doctorName={booking.user.username}
             price={100}
