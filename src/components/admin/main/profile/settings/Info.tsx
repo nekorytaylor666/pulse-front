@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { PulseUser } from 'graphql/graphql';
 import { useMemo } from 'react';
 import Editor from 'components/editor';
+import LinkButton from 'components/link/LinkButton';
 
 // const validationSchema = z
 //   .object({
@@ -148,6 +149,19 @@ export default function Settings(props: Props) {
                 initialData={description}
               />
             </Card>
+          </FormControl>
+          <FormControl my={8}>
+            <Text fontSize="md" color={textColorSecondary} mb={4}>
+              Отчеты
+            </Text>
+            <LinkButton
+              href={
+                'https://docs.google.com/spreadsheets/d/11FnWcNx8SQsG2BlWS64Xo1PUKAZY-uffX2kVovFEEQU/edit#gid=00'
+              }
+              colorScheme={'blue'}
+            >
+              Ссылка на отчет
+            </LinkButton>
           </FormControl>
           <Button type="submit">Изменить</Button>
         </Card>
