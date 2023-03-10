@@ -126,7 +126,8 @@ export default function ClinicsDoctors() {
                     id={doctor.id}
                     key={doctor.id}
                     bookingLink={
-                      'http://localhost:3000/' +
+                      process.env.NEXT_PUBLIC_CAL_URL +
+                      '/' +
                       doctor.user.uniqueName +
                       '?metadata[pulseUserId]=' +
                       userId
